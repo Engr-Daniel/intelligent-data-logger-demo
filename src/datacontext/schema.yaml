@@ -1,0 +1,13 @@
+fields:
+  timestamp: {unit: ISO8601, description: Interval timestamp}
+  irradiance_wm2: {unit: W/m2, normal_range: [0, 1200]}
+  ambient_temp_c: {unit: degC, normal_range: [15, 45]}
+  pv_ac_power_w: {unit: W, normal_range: [0, 5000]}
+  load_power_w: {unit: W, normal_range: [0, 7000]}
+  battery_soc_pct: {unit: percent, normal_range: [10, 100]}
+  battery_charge_w: {unit: W, normal_range: [0, 4000]}
+  battery_discharge_w: {unit: W, normal_range: [0, 4000]}
+  grid_import_w: {unit: W, normal_range: [0, 10000]}
+  grid_export_w: {unit: W, normal_range: [0, 10000]}
+  inverter_alarm_code: {unit: categorical}
+  inverter_operating_state: {unit: categorical}

@@ -1,0 +1,5 @@
+-r requirements.txt
+pytest>=8,<9
+ruff>=0.7,<1
+black>=24,<26
+jupyter>=1,<2

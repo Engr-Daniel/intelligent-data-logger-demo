@@ -1,0 +1,28 @@
+installation:
+  name: Demo Residential Solar System
+  timezone: Africa/Lagos
+  latitude: 6.5244
+  pv_kwp: 6.6
+  inverter_rating_w: 5000
+  battery_nominal_kwh: 10.0
+  battery_usable_fraction: 0.90
+  battery_soc_min_pct: 10
+  battery_soc_max_pct: 100
+  battery_charge_efficiency: 0.95
+  battery_discharge_efficiency: 0.95
+  battery_max_charge_w: 4000
+  battery_max_discharge_w: 4000
+  initial_soc_pct: 70
+financial:
+  currency: NGN
+  capex: 6500000
+  import_tariff_per_kwh: 225
+  export_tariff_per_kwh: 0
+  maintenance_cost_to_date: 0
+sustainability:
+  grid_emissions_factor_kg_per_kwh: 0.45
+  baseline: grid_displacement
+simulation:
+  interval_minutes: 5
+  days: 14
+  seed: 42

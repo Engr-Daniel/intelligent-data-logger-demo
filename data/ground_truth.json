@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "event_type": "customer_overload",
+      "start": "2026-08-08T19:30:00+01:00",
+      "end": "2026-08-08T20:05:00+01:00",
+      "alarm_time": "2026-08-08T19:55:00+01:00",
+      "affected_device": "inverter",
+      "true_cause": "sustained load above inverter rating preceded overload alarm and derating",
+      "alarm_code": "OVERLOAD_02"
+    }
+  ]
+}
