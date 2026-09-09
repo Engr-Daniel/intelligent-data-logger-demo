@@ -69,7 +69,11 @@ def _apply_overload_event(
     return pv_ac, load, state, alarm, overload_start, overload_end, alarm_time
 
 
-def simulate(config: dict, overload_start: pd.Timestamp | None = None) -> tuple[pd.DataFrame, dict]:
+def simulate(
+    config: dict,
+    overload_start: pd.Timestamp | None = None,
+    cloudy_day: str | pd.Timestamp | None = None,
+) -> tuple[pd.DataFrame, dict]:
     inst = config["installation"]
     sim = config["simulation"]
     rng = np.random.default_rng(sim["seed"])
@@ -78,6 +82,22 @@ def simulate(config: dict, overload_start: pd.Timestamp | None = None) -> tuple[
     idx = pd.date_range("2026-08-01", periods=periods, freq=freq, tz=inst["timezone"])
 
     irradiance = _irradiance_profile(idx, rng)
+
+    # M1 scenario: a weather-driven production drop. The irradiance reduction is
+    # applied before PV conversion, so PV output follows the same physical chain
+    # as ordinary weather variability.
+    if cloudy_day is None:
+        cloudy_day_ts = pd.Timestamp("2026-08-05", tz=inst["timezone"])
+    else:
+        cloudy_day_ts = pd.Timestamp(cloudy_day)
+        if cloudy_day_ts.tzinfo is None:
+            cloudy_day_ts = cloudy_day_ts.tz_localize(inst["timezone"])
+        else:
+            cloudy_day_ts = cloudy_day_ts.tz_convert(inst["timezone"])
+    cloudy_mask = (idx.date == cloudy_day_ts.date()) & (idx.hour >= 9) & (idx.hour < 16)
+    # Smooth, substantial cloud attenuation during the analysis window.
+    irradiance[cloudy_mask] *= 0.38
+
     hours = idx.hour.to_numpy() + idx.minute.to_numpy() / 60
     temp = 27 + 6 * np.clip(np.sin(np.pi * (hours - 7) / 12), 0, None)
     pv_dc = inst["pv_kwp"] * 1000 * (irradiance / 1000) * (1 - 0.004 * np.maximum(temp - 25, 0))
@@ -146,6 +166,13 @@ def simulate(config: dict, overload_start: pd.Timestamp | None = None) -> tuple[
 
     gt = {
         "events": [
+            {
+                "event_type": "cloudy_day_generation_drop",
+                "start": pd.Timestamp(cloudy_day_ts.date(), tz=inst["timezone"]).replace(hour=9).isoformat(),
+                "end": pd.Timestamp(cloudy_day_ts.date(), tz=inst["timezone"]).replace(hour=15, minute=55).isoformat(),
+                "affected_device": "pv_inverter",
+                "true_cause": "weather-driven irradiance reduction caused lower PV production without an inverter fault",
+            },
             {
                 "event_type": "customer_overload",
                 "start": overload_start.isoformat(),

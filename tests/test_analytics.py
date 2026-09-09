@@ -3,14 +3,16 @@ import pandas as pd
 from src.analytics.battery import battery_runway
 from src.analytics.energy_balance import instantaneous_balance_residual_w
 from src.analytics.financial import financial_metrics
+from src.analytics.generation_drop import analyze_generation_drop
 from src.analytics.root_cause import diagnose_overload
 from src.generator.simulate import load_config, simulate
+from src.reasoning.tools import TOOL_DEFINITIONS, execute_tool
 
 
 def test_generator_contains_overload_alarm():
     df, gt = simulate(load_config())
     assert (df["inverter_alarm_code"] == "OVERLOAD_02").any()
-    assert gt["events"][0]["event_type"] == "customer_overload"
+    assert any(event["event_type"] == "customer_overload" for event in gt["events"])
 
 
 def test_overload_is_diagnosed():
@@ -66,3 +68,84 @@ def test_financial_metrics_distinguish_roi_and_payback():
     result = financial_metrics(1000, 200, 1_000_000, period_days=365)
     assert result["simple_roi_pct"] == 20.0
     assert result["simple_payback_years"] == 5.0
+
+
+def test_generator_contains_cloudy_day_ground_truth():
+    _, gt = simulate(load_config())
+    event_types = {event["event_type"] for event in gt["events"]}
+    assert "cloudy_day_generation_drop" in event_types
+
+
+def test_cloudy_day_drop_is_diagnosed_as_weather_related():
+    cfg = load_config()
+    df, _ = simulate(cfg)
+    result = analyze_generation_drop(df, "2026-08-05")
+    assert result["candidate_cause"] == "weather_related_low_irradiance"
+    assert result["confidence"] == "high"
+    alternatives = {item["cause"]: item for item in result["alternatives_checked"]}
+    assert alternatives["weather_related_low_irradiance"]["supported"] is True
+    assert alternatives["inverter_fault_or_derating"]["supported"] is False
+
+
+def test_m1_exposes_two_distinct_claude_tools():
+    names = {tool["name"] for tool in TOOL_DEFINITIONS}
+    assert names == {"investigate_inverter_failure", "investigate_generation_drop"}
+
+
+def test_tool_executor_returns_grounded_evidence_for_both_query_families():
+    fault = execute_tool("investigate_inverter_failure", {"question": "Why did the inverter fail?"})
+    drop = execute_tool(
+        "investigate_generation_drop",
+        {"question": "Why did generation drop?", "target_date": "2026-08-05"},
+    )
+    assert fault["candidate_cause"] == "overload"
+    assert fault["supporting_tools"] == ["diagnose_overload"]
+    assert drop["candidate_cause"] == "weather_related_low_irradiance"
+    assert drop["supporting_tools"] == ["analyze_generation_drop"]
+
+
+
+def test_brief_daytime_inverter_event_is_reported_even_without_material_daily_drop():
+    cfg = load_config()
+    daytime_overload = pd.Timestamp("2026-08-08 13:00", tz=cfg["installation"]["timezone"])
+    df, _ = simulate(cfg, overload_start=daytime_overload)
+    result = analyze_generation_drop(df, "2026-08-08")
+    alternatives = {item["cause"]: item for item in result["alternatives_checked"]}
+
+    assert result["candidate_cause"] == "inverter_event_limited_energy_impact"
+    assert result["confidence"] == "high"
+    assert alternatives["weather_related_low_irradiance"]["supported"] is False
+    assert alternatives["inverter_fault_or_derating"]["supported"] is False
+    assert alternatives["inverter_event_limited_energy_impact"]["supported"] is True
+    assert alternatives["inverter_event_limited_energy_impact"]["evidence"]["inverter_alarm_present"] is True
+
+
+def test_material_fault_related_drop_is_not_misdiagnosed_as_weather():
+    cfg = load_config()
+    daytime_overload = pd.Timestamp("2026-08-08 13:00", tz=cfg["installation"]["timezone"])
+    df, _ = simulate(cfg, overload_start=daytime_overload)
+
+    # Isolate the production-drop classifier: create a material target-day PV loss
+    # while leaving irradiance unchanged and retaining the independently generated
+    # inverter alarm/derated state.
+    target = pd.to_datetime(df["timestamp"]).dt.date == pd.Timestamp("2026-08-08").date()
+    daytime = pd.to_datetime(df["timestamp"]).dt.hour.between(9, 15)
+    df.loc[target & daytime, "pv_ac_power_w"] *= 0.55
+
+    result = analyze_generation_drop(df, "2026-08-08")
+    alternatives = {item["cause"]: item for item in result["alternatives_checked"]}
+
+    assert result["candidate_cause"] == "inverter_fault_or_derating"
+    assert result["confidence"] == "high"
+    assert alternatives["weather_related_low_irradiance"]["supported"] is False
+    assert alternatives["inverter_fault_or_derating"]["supported"] is True
+
+
+def test_normal_day_reports_no_material_generation_anomaly():
+    cfg = load_config()
+    df, _ = simulate(cfg)
+    result = analyze_generation_drop(df, "2026-08-06")
+
+    assert result["candidate_cause"] == "no_material_generation_anomaly"
+    assert result["confidence"] == "medium"
+    assert not any(item["supported"] for item in result["alternatives_checked"])
