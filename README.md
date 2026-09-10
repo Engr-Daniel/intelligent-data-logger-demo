@@ -86,6 +86,14 @@ intelligent-data-logger-demo/
 └── requirements-dev.txt
 ```
 
+## M3 + M4 implemented slice
+
+M3 completes the deterministic analytics layer used by the demo: energy balance, normalized PV performance/trend detection, generic anomaly detection, inverter anomaly summary, simple generation persistence forecasting, battery runway, financial metrics, sustainability metrics, and observed-telemetry data-availability assessment. The gradual-decline detector uses observed PV/irradiance/temperature telemetry, excludes clipping samples, and does not read the simulator's latent performance factor.
+
+M4 expands the evidence/tool boundary to eleven approved tools. Claude receives structured evidence objects rather than raw telemetry and may call multiple tools in one reasoning round. The system prompt prohibits independent engineering/financial calculation and unsupported blame. Missing telemetry forces an evidence-level abstention. The offline deterministic router covers the ten canonical demo questions, and the status card now includes battery runway and alert context.
+
+The M3/M4 implementation remains a synthetic feasibility demonstration. The generation forecast is a transparent median-persistence baseline, not a weather-informed production model; battery runway uses configured nominal usable capacity rather than claiming a field-calibrated health estimate; and ROI/carbon outputs depend on the versioned assumptions in `config/installation.yaml`.
+
 ## Safety and interpretation
 
 This demo is read-only. It does not control an inverter, battery, or load. Synthetic temporal associations should not be treated as proof of customer responsibility, warranty liability, or real-world fault causality. M1 also separates the existence of an inverter event from its estimated full-day energy impact, so brief alarms are not silently discarded merely because daily production loss is small.

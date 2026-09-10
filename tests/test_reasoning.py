@@ -52,10 +52,7 @@ def test_claude_tool_loop_executes_selected_tool_and_returns_final_text(monkeypa
     messages = _FakeAnthropicClient.last_messages
     assert messages is not None
     assert messages.calls == 2
-    assert {
-        "investigate_inverter_failure",
-        "investigate_generation_drop",
-    } in messages.tool_names_seen
+    assert any({"investigate_inverter_failure", "investigate_generation_drop"}.issubset(names) for names in messages.tool_names_seen)
 
 
 def test_fallback_honors_explicit_valid_date(monkeypatch):

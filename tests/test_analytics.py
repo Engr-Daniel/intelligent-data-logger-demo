@@ -90,7 +90,7 @@ def test_cloudy_day_drop_is_diagnosed_as_weather_related():
 
 def test_m1_exposes_two_distinct_claude_tools():
     names = {tool["name"] for tool in TOOL_DEFINITIONS}
-    assert names == {"investigate_inverter_failure", "investigate_generation_drop"}
+    assert {"investigate_inverter_failure", "investigate_generation_drop"}.issubset(names)
 
 
 def test_tool_executor_returns_grounded_evidence_for_both_query_families():
@@ -203,3 +203,30 @@ def test_sensor_dropout_is_explicit_and_limited_to_ground_truth_window():
     assert mask.sum() == cfg["simulation"]["scenarios"]["sensor_dropout_minutes"] // cfg["simulation"]["interval_minutes"]
     assert df.loc[mask, "pv_ac_power_w"].isna().all()
     assert not df.loc[~mask, "pv_ac_power_w"].isna().any()
+
+
+def test_generator_scenarios_are_resolution_independent_under_microsecond_datetimeindex(monkeypatch):
+    import pandas as pd
+    import src.generator.simulate as simmod
+
+    original_date_range = pd.date_range
+
+    def microsecond_date_range(*args, **kwargs):
+        return original_date_range(*args, **kwargs).as_unit("us")
+
+    monkeypatch.setattr(simmod.pd, "date_range", microsecond_date_range)
+    cfg = simmod.load_config()
+    df, _ = simmod.simulate(cfg)
+
+    assert df["battery_usable_capacity_wh"].min() < df["battery_usable_capacity_wh"].max()
+
+    daylight = df["irradiance_wm2"] > 100
+    ideal_dc = (
+        cfg["installation"]["pv_kwp"]
+        * 1000
+        * (df.loc[daylight, "irradiance_wm2"] / 1000)
+        * (1 - 0.004 * (df.loc[daylight, "ambient_temp_c"] - 25).clip(lower=0))
+    )
+    implied_factor = df.loc[daylight, "pv_dc_power_w"] / ideal_dc
+    assert implied_factor.min() <= 1 - cfg["simulation"]["scenarios"]["efficiency_decline_fraction"] + 1e-9
+    assert implied_factor.max() <= 1.0 + 1e-9

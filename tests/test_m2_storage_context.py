@@ -33,7 +33,9 @@ def test_sqlite_round_trip_preserves_null_boolean_numeric_and_timestamp_fidelity
     db = tmp_path / "datalodger.sqlite"
     write_store(df, db)
     loaded = load_telemetry(db)
-    assert loaded["timestamp"].equals(pd.to_datetime(df["timestamp"]).reset_index(drop=True))
+    original_ts = pd.to_datetime(df["timestamp"]).reset_index(drop=True)
+    loaded_ts = pd.to_datetime(loaded["timestamp"]).reset_index(drop=True)
+    assert (loaded_ts == original_ts).all()
     assert loaded["grid_available"].dtype == bool
     assert loaded["grid_available"].tolist() == df["grid_available"].astype(bool).tolist()
     assert loaded["pv_ac_power_w"].isna().sum() == df["pv_ac_power_w"].isna().sum()

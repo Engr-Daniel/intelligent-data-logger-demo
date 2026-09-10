@@ -1,8 +1,6 @@
 from __future__ import annotations
-
 from dataclasses import asdict, dataclass, field
 from typing import Any
-
 
 @dataclass
 class EvidenceObject:
@@ -16,6 +14,7 @@ class EvidenceObject:
     data_quality: dict[str, Any] = field(default_factory=dict)
     assumptions: list[dict[str, Any]] = field(default_factory=list)
     supporting_tools: list[str] = field(default_factory=list)
+    evidence_type: str = "analytical_evidence"
+    synthetic_data: bool = True
 
-    def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+    def to_dict(self) -> dict[str, Any]: return asdict(self)

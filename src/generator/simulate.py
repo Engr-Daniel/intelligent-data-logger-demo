@@ -109,11 +109,11 @@ def simulate(
     decline_start = pd.Timestamp(scenarios.get("efficiency_decline_start", "2026-08-20"), tz=inst["timezone"])
     decline_end = pd.Timestamp(scenarios.get("efficiency_decline_end", "2026-11-15"), tz=inst["timezone"])
     decline_fraction = float(scenarios.get("efficiency_decline_fraction", 0.08))
-    progress = np.clip(
-        (idx.asi8 - decline_start.value) / max(decline_end.value - decline_start.value, 1),
-        0.0,
-        1.0,
-    )
+    decline_duration = decline_end - decline_start
+    if decline_duration <= pd.Timedelta(0):
+        raise ValueError("efficiency_decline_end must be after efficiency_decline_start")
+    progress = np.asarray((idx - decline_start) / decline_duration, dtype=float)
+    progress = np.clip(progress, 0.0, 1.0)
     performance_factor = 1.0 - decline_fraction * progress
     pv_dc = pv_dc_ideal * performance_factor
     nominal_eff = float(inst.get("inverter_nominal_efficiency", 0.965))
@@ -152,11 +152,11 @@ def simulate(
     degradation_start = pd.Timestamp(scenarios.get("battery_degradation_start", "2026-08-15"), tz=inst["timezone"])
     degradation_end = pd.Timestamp(scenarios.get("battery_degradation_end", "2026-11-28"), tz=inst["timezone"])
     capacity_loss = float(scenarios.get("battery_capacity_loss_fraction", 0.06))
-    degradation_progress = np.clip(
-        (idx.asi8 - degradation_start.value) / max(degradation_end.value - degradation_start.value, 1),
-        0.0,
-        1.0,
-    )
+    degradation_duration = degradation_end - degradation_start
+    if degradation_duration <= pd.Timedelta(0):
+        raise ValueError("battery_degradation_end must be after battery_degradation_start")
+    degradation_progress = np.asarray((idx - degradation_start) / degradation_duration, dtype=float)
+    degradation_progress = np.clip(degradation_progress, 0.0, 1.0)
     usable_capacity = initial_usable_wh * (1.0 - capacity_loss * degradation_progress)
 
     soc = np.empty(len(idx))
