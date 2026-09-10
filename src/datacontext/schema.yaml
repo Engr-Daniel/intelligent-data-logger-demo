@@ -1,13 +1,126 @@
+schema_version: 1
+frequency_minutes: 5
+timezone_source: installation.timezone
 fields:
-  timestamp: {unit: ISO8601, description: Interval timestamp}
-  irradiance_wm2: {unit: W/m2, normal_range: [0, 1200]}
-  ambient_temp_c: {unit: degC, normal_range: [15, 45]}
-  pv_ac_power_w: {unit: W, normal_range: [0, 5000]}
-  load_power_w: {unit: W, normal_range: [0, 7000]}
-  battery_soc_pct: {unit: percent, normal_range: [10, 100]}
-  battery_charge_w: {unit: W, normal_range: [0, 4000]}
-  battery_discharge_w: {unit: W, normal_range: [0, 4000]}
-  grid_import_w: {unit: W, normal_range: [0, 10000]}
-  grid_export_w: {unit: W, normal_range: [0, 10000]}
-  inverter_alarm_code: {unit: categorical}
-  inverter_operating_state: {unit: categorical}
+  timestamp:
+    unit: ISO8601
+    dtype: datetime
+    description: Interval timestamp.
+    required: true
+  irradiance_wm2:
+    unit: W/m2
+    dtype: float
+    normal_range: [0, 1200]
+    required: true
+  ambient_temp_c:
+    unit: degC
+    dtype: float
+    normal_range: [10, 50]
+    required: true
+  cloud_cover_pct:
+    unit: percent
+    dtype: float
+    normal_range: [0, 100]
+    required: true
+  inverter_temp_c:
+    unit: degC
+    dtype: float
+    normal_range: [10, 80]
+    required: true
+  inverter_dc_voltage_v:
+    unit: V
+    dtype: float
+    normal_range: [0, 600]
+    required: true
+  inverter_dc_current_a:
+    unit: A
+    dtype: float
+    normal_range: [0, 30]
+    required: true
+  pv_dc_power_w:
+    unit: W
+    dtype: float
+    normal_range: [0, 7000]
+    required: true
+  pv_ac_power_w:
+    unit: W
+    dtype: float
+    normal_range: [0, 5000]
+    required: true
+  inverter_efficiency:
+    unit: fraction
+    dtype: float
+    normal_range: [0, 1]
+    required: true
+  load_power_w:
+    unit: W
+    dtype: float
+    normal_range: [0, 10000]
+    required: true
+  battery_soc_pct:
+    unit: percent
+    dtype: float
+    normal_range: [10, 100]
+    required: true
+  battery_stored_energy_wh:
+    unit: Wh
+    dtype: float
+    normal_range: [0, 10000]
+    required: true
+  battery_usable_capacity_wh:
+    unit: Wh
+    dtype: float
+    observability: simulated_latent_state
+    description: Simulated latent usable-capacity state for the controlled degradation scenario; not assumed to be directly observable from ordinary inverter telemetry.
+    normal_range: [7000, 10000]
+    required: true
+  battery_charge_w:
+    unit: W
+    dtype: float
+    normal_range: [0, 4000]
+    required: true
+  battery_discharge_w:
+    unit: W
+    dtype: float
+    normal_range: [0, 4000]
+    required: true
+  battery_cycle_count:
+    unit: equivalent_full_cycles
+    dtype: float
+    normal_range: [0, 10000]
+    required: true
+  battery_temp_c:
+    unit: degC
+    dtype: float
+    normal_range: [10, 70]
+    required: true
+  grid_available:
+    unit: boolean
+    dtype: bool
+    required: true
+  grid_import_w:
+    unit: W
+    dtype: float
+    normal_range: [0, 15000]
+    required: true
+  grid_export_w:
+    unit: W
+    dtype: float
+    normal_range: [0, 15000]
+    required: true
+  inverter_operating_state:
+    unit: categorical
+    dtype: string
+    allowed_values: [normal, derated]
+    required: true
+  inverter_alarm_code:
+    unit: categorical
+    dtype: string
+    required: false
+validation:
+  minimum_physics_coverage_pct: 95.0
+  cadence_assumption: Strict 5-minute cadence is a synthetic-demo assumption; production telemetry may require jitter, retry, duplicate, and out-of-order handling.
+missing_data_policy:
+  operational_detection:
+    description: Detect missing telemetry from observed fields without consulting experiment ground truth.
+    expected_behavior: Report data-quality events and validation coverage; never impute silently for diagnosis.

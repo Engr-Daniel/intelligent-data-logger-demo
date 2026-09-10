@@ -1,4 +1,6 @@
 {
+  "schema_version": 1,
+  "synthetic": true,
   "events": [
     {
       "event_type": "cloudy_day_generation_drop",
@@ -15,6 +17,46 @@
       "affected_device": "inverter",
       "true_cause": "sustained load above inverter rating preceded overload alarm and derating",
       "alarm_code": "OVERLOAD_02"
+    },
+    {
+      "event_type": "gradual_efficiency_decline",
+      "start": "2026-08-20T00:00:00+01:00",
+      "end": "2026-11-15T00:00:00+01:00",
+      "affected_device": "pv_array",
+      "true_cause": "smooth PV performance-factor decline simulating soiling/degradation",
+      "injected_final_loss_fraction": 0.08
+    },
+    {
+      "event_type": "battery_degradation_signature",
+      "start": "2026-08-15T00:00:00+01:00",
+      "end": "2026-11-28T00:00:00+01:00",
+      "affected_device": "battery",
+      "true_cause": "usable battery capacity declines gradually over the simulation",
+      "injected_capacity_loss_fraction": 0.06
+    },
+    {
+      "event_type": "sensor_dropout",
+      "start": "2026-09-18T12:00:00+01:00",
+      "end": "2026-09-18T12:45:00+01:00",
+      "affected_device": "telemetry_pipeline",
+      "true_cause": "intentional missing sensor readings for data-quality/abstention testing",
+      "fields_affected": [
+        "irradiance_wm2",
+        "cloud_cover_pct",
+        "inverter_temp_c",
+        "inverter_dc_voltage_v",
+        "inverter_dc_current_a",
+        "pv_dc_power_w",
+        "pv_ac_power_w",
+        "inverter_efficiency",
+        "battery_soc_pct",
+        "battery_stored_energy_wh",
+        "battery_temp_c",
+        "battery_charge_w",
+        "battery_discharge_w",
+        "grid_import_w",
+        "grid_export_w"
+      ]
     }
   ]
 }

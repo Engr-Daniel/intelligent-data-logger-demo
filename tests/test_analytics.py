@@ -53,9 +53,10 @@ def test_soc_and_battery_power_bounds():
     cfg = load_config()
     df, _ = simulate(cfg)
     inst = cfg["installation"]
-    assert df["battery_soc_pct"].between(inst["battery_soc_min_pct"] - 1e-9, inst["battery_soc_max_pct"] + 1e-9).all()
-    assert (df["battery_charge_w"] <= inst["battery_max_charge_w"] + 1e-9).all()
-    assert (df["battery_discharge_w"] <= inst["battery_max_discharge_w"] + 1e-9).all()
+    battery = df.dropna(subset=["battery_soc_pct", "battery_charge_w", "battery_discharge_w"])
+    assert battery["battery_soc_pct"].between(inst["battery_soc_min_pct"] - 1e-9, inst["battery_soc_max_pct"] + 1e-9).all()
+    assert (battery["battery_charge_w"] <= inst["battery_max_charge_w"] + 1e-9).all()
+    assert (battery["battery_discharge_w"] <= inst["battery_max_discharge_w"] + 1e-9).all()
 
 
 def test_battery_runway_exposes_assumptions():
@@ -149,3 +150,56 @@ def test_normal_day_reports_no_material_generation_anomaly():
     assert result["candidate_cause"] == "no_material_generation_anomaly"
     assert result["confidence"] == "medium"
     assert not any(item["supported"] for item in result["alternatives_checked"])
+
+
+def test_m1_full_generator_contains_all_required_scenarios():
+    _, gt = simulate(load_config())
+    event_types = {event["event_type"] for event in gt["events"]}
+    assert {
+        "cloudy_day_generation_drop",
+        "customer_overload",
+        "gradual_efficiency_decline",
+        "battery_degradation_signature",
+        "sensor_dropout",
+    } <= event_types
+
+
+def test_gradual_efficiency_decline_reaches_configured_loss():
+    cfg = load_config()
+    df, _ = simulate(cfg)
+    inst = cfg["installation"]
+    scenario = cfg["simulation"]["scenarios"]
+    nominal_eff = inst["inverter_nominal_efficiency"]
+    # Reconstruct the temperature-corrected ideal DC output on non-clipped, daytime rows.
+    ideal = inst["pv_kwp"] * 1000 * (df["irradiance_wm2"] / 1000) * (
+        1 - 0.004 * (df["ambient_temp_c"] - 25).clip(lower=0)
+    )
+    factor = df["pv_dc_power_w"] / ideal
+    ts = pd.to_datetime(df["timestamp"])
+    early = factor[(ts < pd.Timestamp(scenario["efficiency_decline_start"], tz=inst["timezone"])) & (ideal > 500)].dropna()
+    late = factor[(ts >= pd.Timestamp(scenario["efficiency_decline_end"], tz=inst["timezone"])) & (ideal > 500)].dropna()
+    assert abs(early.median() - 1.0) < 1e-6
+    assert abs(late.median() - (1 - scenario["efficiency_decline_fraction"])) < 1e-6
+    assert nominal_eff > 0  # documents that array decline is distinct from inverter conversion efficiency
+
+
+def test_battery_degradation_reduces_usable_capacity_without_breaking_soc_bounds():
+    cfg = load_config()
+    df, _ = simulate(cfg)
+    clean = df.dropna(subset=["battery_usable_capacity_wh", "battery_soc_pct"])
+    expected_initial = cfg["installation"]["battery_nominal_kwh"] * cfg["installation"]["battery_usable_fraction"] * 1000
+    expected_final = expected_initial * (1 - cfg["simulation"]["scenarios"]["battery_capacity_loss_fraction"])
+    assert abs(clean["battery_usable_capacity_wh"].iloc[0] - expected_initial) < 1e-6
+    assert abs(clean["battery_usable_capacity_wh"].iloc[-1] - expected_final) < 1e-3
+    assert clean["battery_soc_pct"].between(cfg["installation"]["battery_soc_min_pct"] - 1e-9, cfg["installation"]["battery_soc_max_pct"] + 1e-9).all()
+
+
+def test_sensor_dropout_is_explicit_and_limited_to_ground_truth_window():
+    cfg = load_config()
+    df, gt = simulate(cfg)
+    event = next(e for e in gt["events"] if e["event_type"] == "sensor_dropout")
+    ts = pd.to_datetime(df["timestamp"])
+    mask = (ts >= pd.Timestamp(event["start"])) & (ts < pd.Timestamp(event["end"]))
+    assert mask.sum() == cfg["simulation"]["scenarios"]["sensor_dropout_minutes"] // cfg["simulation"]["interval_minutes"]
+    assert df.loc[mask, "pv_ac_power_w"].isna().all()
+    assert not df.loc[~mask, "pv_ac_power_w"].isna().any()

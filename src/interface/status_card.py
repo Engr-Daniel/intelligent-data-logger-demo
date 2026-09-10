@@ -1,14 +1,12 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[2]
+from src.storage.local_store import load_telemetry
 
 
 def current_status() -> dict:
-    df = pd.read_csv(ROOT / "data" / "processed" / "telemetry.csv", parse_dates=["timestamp"])
+    df = load_telemetry()
     row = df.iloc[-1]
     return {
         "timestamp": str(row["timestamp"]),

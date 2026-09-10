@@ -4,6 +4,7 @@ installation:
   latitude: 6.5244
   pv_kwp: 6.6
   inverter_rating_w: 5000
+  inverter_nominal_efficiency: 0.965
   battery_nominal_kwh: 10.0
   battery_usable_fraction: 0.90
   battery_soc_min_pct: 10
@@ -17,12 +18,30 @@ financial:
   currency: NGN
   capex: 6500000
   import_tariff_per_kwh: 225
+  tariff_effective_date: 2026-08-01
   export_tariff_per_kwh: 0
+  export_treatment: no_compensation
   maintenance_cost_to_date: 0
+  avoided_generator_cost_per_kwh: null
 sustainability:
   grid_emissions_factor_kg_per_kwh: 0.45
+  emissions_factor_source: synthetic_demo_assumption
+  emissions_factor_year: 2026
   baseline: grid_displacement
 simulation:
   interval_minutes: 5
-  days: 14
+  days: 120
   seed: 42
+  start: 2026-08-01
+  energy_balance_tolerance_w: 1.0e-6
+  scenarios:
+    cloudy_day: 2026-08-05
+    overload_start: 2026-08-08T19:30:00
+    efficiency_decline_start: 2026-08-20
+    efficiency_decline_end: 2026-11-15
+    efficiency_decline_fraction: 0.08
+    battery_degradation_start: 2026-08-15
+    battery_degradation_end: 2026-11-28
+    battery_capacity_loss_fraction: 0.06
+    sensor_dropout_start: 2026-09-18T12:00:00
+    sensor_dropout_minutes: 45

@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 CONFIG = ROOT / "config" / "installation.yaml"
 OUT = ROOT / "data" / "processed" / "telemetry.csv"
 GT = ROOT / "data" / "ground_truth.json"
+DB = ROOT / "data" / "processed" / "datalodger.sqlite"
 
 
 def load_config(path: Path = CONFIG) -> dict:
@@ -79,7 +80,7 @@ def simulate(
     rng = np.random.default_rng(sim["seed"])
     freq = f"{sim['interval_minutes']}min"
     periods = int(sim["days"] * 24 * 60 / sim["interval_minutes"])
-    idx = pd.date_range("2026-08-01", periods=periods, freq=freq, tz=inst["timezone"])
+    idx = pd.date_range(sim.get("start", "2026-08-01"), periods=periods, freq=freq, tz=inst["timezone"])
 
     irradiance = _irradiance_profile(idx, rng)
 
@@ -87,7 +88,7 @@ def simulate(
     # applied before PV conversion, so PV output follows the same physical chain
     # as ordinary weather variability.
     if cloudy_day is None:
-        cloudy_day_ts = pd.Timestamp("2026-08-05", tz=inst["timezone"])
+        cloudy_day_ts = pd.Timestamp(sim.get("scenarios", {}).get("cloudy_day", "2026-08-05"), tz=inst["timezone"])
     else:
         cloudy_day_ts = pd.Timestamp(cloudy_day)
         if cloudy_day_ts.tzinfo is None:
@@ -100,8 +101,23 @@ def simulate(
 
     hours = idx.hour.to_numpy() + idx.minute.to_numpy() / 60
     temp = 27 + 6 * np.clip(np.sin(np.pi * (hours - 7) / 12), 0, None)
-    pv_dc = inst["pv_kwp"] * 1000 * (irradiance / 1000) * (1 - 0.004 * np.maximum(temp - 25, 0))
-    pv_ac = np.minimum(pv_dc * 0.965, inst["inverter_rating_w"])
+    pv_dc_ideal = inst["pv_kwp"] * 1000 * (irradiance / 1000) * (1 - 0.004 * np.maximum(temp - 25, 0))
+
+    # M1 scenario: gradual multi-week PV performance decline (e.g. soiling).
+    # This is applied as a smooth derating factor rather than an abrupt fault.
+    scenarios = sim.get("scenarios", {})
+    decline_start = pd.Timestamp(scenarios.get("efficiency_decline_start", "2026-08-20"), tz=inst["timezone"])
+    decline_end = pd.Timestamp(scenarios.get("efficiency_decline_end", "2026-11-15"), tz=inst["timezone"])
+    decline_fraction = float(scenarios.get("efficiency_decline_fraction", 0.08))
+    progress = np.clip(
+        (idx.asi8 - decline_start.value) / max(decline_end.value - decline_start.value, 1),
+        0.0,
+        1.0,
+    )
+    performance_factor = 1.0 - decline_fraction * progress
+    pv_dc = pv_dc_ideal * performance_factor
+    nominal_eff = float(inst.get("inverter_nominal_efficiency", 0.965))
+    pv_ac = np.minimum(pv_dc * nominal_eff, inst["inverter_rating_w"])
     load = _load_profile(idx, rng)
 
     # Fault effects are applied before the battery/grid energy-balance loop.
@@ -115,20 +131,52 @@ def simulate(
     alarm_mask = alarm == "OVERLOAD_02"
     inverter_temp[alarm_mask] += 4
 
+    # Additional device-context channels from the experiment brief.
+    daylight = np.clip(np.sin(np.pi * (hours - 6) / 12), 0, None)
+    clear_sky_irradiance = 950 * daylight
+    irradiance_ratio = np.divide(
+        irradiance, clear_sky_irradiance, out=np.zeros_like(irradiance), where=clear_sky_irradiance > 1e-6
+    )
+    cloud_cover_pct = np.where(
+        clear_sky_irradiance > 1e-6,
+        100 * (1 - np.clip(irradiance_ratio, 0, 1)),
+        100.0,
+    )
+    inverter_dc_voltage_v = np.where(pv_dc > 1, 330 + 25 * daylight, 0.0)
+    inverter_dc_current_a = np.divide(
+        pv_dc, inverter_dc_voltage_v, out=np.zeros_like(pv_dc), where=inverter_dc_voltage_v > 1e-9
+    )
+
     dt_h = sim["interval_minutes"] / 60
-    usable_kwh = inst["battery_nominal_kwh"] * inst["battery_usable_fraction"]
-    usable_wh = usable_kwh * 1000
+    initial_usable_wh = inst["battery_nominal_kwh"] * inst["battery_usable_fraction"] * 1000
+    degradation_start = pd.Timestamp(scenarios.get("battery_degradation_start", "2026-08-15"), tz=inst["timezone"])
+    degradation_end = pd.Timestamp(scenarios.get("battery_degradation_end", "2026-11-28"), tz=inst["timezone"])
+    capacity_loss = float(scenarios.get("battery_capacity_loss_fraction", 0.06))
+    degradation_progress = np.clip(
+        (idx.asi8 - degradation_start.value) / max(degradation_end.value - degradation_start.value, 1),
+        0.0,
+        1.0,
+    )
+    usable_capacity = initial_usable_wh * (1.0 - capacity_loss * degradation_progress)
+
     soc = np.empty(len(idx))
+    stored_energy = np.empty(len(idx))
     charge = np.zeros(len(idx))
     discharge = np.zeros(len(idx))
     grid_import = np.zeros(len(idx))
     grid_export = np.zeros(len(idx))
+    cycle_count = np.zeros(len(idx))
 
-    stored = usable_wh * inst["initial_soc_pct"] / 100
-    min_wh = usable_wh * inst["battery_soc_min_pct"] / 100
-    max_wh = usable_wh * inst["battery_soc_max_pct"] / 100
+    stored = initial_usable_wh * inst["initial_soc_pct"] / 100
+    cumulative_throughput_wh = 0.0
 
     for i in range(len(idx)):
+        usable_wh = usable_capacity[i]
+        min_wh = usable_wh * inst["battery_soc_min_pct"] / 100
+        max_wh = usable_wh * inst["battery_soc_max_pct"] / 100
+        # Capacity fade can lower the physical ceiling between intervals.
+        stored = min(max(stored, min_wh), max_wh)
+
         net = pv_ac[i] - load[i]
         if net >= 0:
             max_possible = (max_wh - stored) / (dt_h * inst["battery_charge_efficiency"])
@@ -143,19 +191,34 @@ def simulate(
             discharge[i] = p
             stored -= p * dt_h / inst["battery_discharge_efficiency"]
             grid_import[i] = max(0, demand - p) if grid_available[i] else 0.0
+
+        cumulative_throughput_wh += (charge[i] + discharge[i]) * dt_h
+        cycle_count[i] = cumulative_throughput_wh / (2 * initial_usable_wh)
+        stored_energy[i] = stored
         soc[i] = 100 * stored / usable_wh
+
+    battery_temp = temp + 2.0 + 0.0012 * (charge + discharge)
 
     df = pd.DataFrame(
         {
             "timestamp": idx,
             "irradiance_wm2": irradiance,
             "ambient_temp_c": temp,
+            "cloud_cover_pct": cloud_cover_pct,
             "inverter_temp_c": inverter_temp,
+            "inverter_dc_voltage_v": inverter_dc_voltage_v,
+            "inverter_dc_current_a": inverter_dc_current_a,
+            "pv_dc_power_w": pv_dc,
             "pv_ac_power_w": pv_ac,
+            "inverter_efficiency": np.divide(pv_ac, pv_dc, out=np.zeros_like(pv_ac), where=pv_dc > 1e-9),
             "load_power_w": load,
             "battery_soc_pct": soc,
+            "battery_stored_energy_wh": stored_energy,
+            "battery_usable_capacity_wh": usable_capacity,
             "battery_charge_w": charge,
             "battery_discharge_w": discharge,
+            "battery_cycle_count": cycle_count,
+            "battery_temp_c": battery_temp,
             "grid_available": grid_available,
             "grid_import_w": grid_import,
             "grid_export_w": grid_export,
@@ -164,7 +227,26 @@ def simulate(
         }
     )
 
+    # M1 scenario: sensor dropout. Preserve the timeline but blank selected
+    # telemetry fields so downstream data-quality checks can detect insufficiency.
+    dropout_start = pd.Timestamp(scenarios.get("sensor_dropout_start", "2026-09-18T12:00:00"))
+    if dropout_start.tzinfo is None:
+        dropout_start = dropout_start.tz_localize(inst["timezone"])
+    else:
+        dropout_start = dropout_start.tz_convert(inst["timezone"])
+    dropout_end = dropout_start + pd.Timedelta(minutes=int(scenarios.get("sensor_dropout_minutes", 45)))
+    dropout_mask = (df["timestamp"] >= dropout_start) & (df["timestamp"] < dropout_end)
+    dropout_fields = [
+        "irradiance_wm2", "cloud_cover_pct", "inverter_temp_c", "inverter_dc_voltage_v",
+        "inverter_dc_current_a", "pv_dc_power_w", "pv_ac_power_w", "inverter_efficiency",
+        "battery_soc_pct", "battery_stored_energy_wh", "battery_temp_c",
+        "battery_charge_w", "battery_discharge_w", "grid_import_w", "grid_export_w",
+    ]
+    df.loc[dropout_mask, dropout_fields] = np.nan
+
     gt = {
+        "schema_version": 1,
+        "synthetic": True,
         "events": [
             {
                 "event_type": "cloudy_day_generation_drop",
@@ -181,6 +263,30 @@ def simulate(
                 "affected_device": "inverter",
                 "true_cause": "sustained load above inverter rating preceded overload alarm and derating",
                 "alarm_code": "OVERLOAD_02",
+            },
+            {
+                "event_type": "gradual_efficiency_decline",
+                "start": decline_start.isoformat(),
+                "end": decline_end.isoformat(),
+                "affected_device": "pv_array",
+                "true_cause": "smooth PV performance-factor decline simulating soiling/degradation",
+                "injected_final_loss_fraction": decline_fraction,
+            },
+            {
+                "event_type": "battery_degradation_signature",
+                "start": degradation_start.isoformat(),
+                "end": degradation_end.isoformat(),
+                "affected_device": "battery",
+                "true_cause": "usable battery capacity declines gradually over the simulation",
+                "injected_capacity_loss_fraction": capacity_loss,
+            },
+            {
+                "event_type": "sensor_dropout",
+                "start": dropout_start.isoformat(),
+                "end": dropout_end.isoformat(),
+                "affected_device": "telemetry_pipeline",
+                "true_cause": "intentional missing sensor readings for data-quality/abstention testing",
+                "fields_affected": dropout_fields,
             }
         ]
     }
@@ -193,7 +299,10 @@ def main() -> None:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(OUT, index=False)
     GT.write_text(json.dumps(gt, indent=2))
+    from src.storage.local_store import write_store
+    write_store(df, DB)
     print(f"Wrote {len(df):,} rows to {OUT}")
+    print(f"Wrote persistent SQLite store to {DB}")
     print(f"Wrote ground truth to {GT}")
 
 

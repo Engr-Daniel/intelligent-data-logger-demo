@@ -3,20 +3,20 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import pandas as pd
-import yaml
 
 from src.analytics.generation_drop import analyze_generation_drop
 from src.analytics.root_cause import diagnose_overload
 from src.evidence.models import EvidenceObject
+from src.datacontext.context import load_installation_config
+from src.storage.local_store import load_telemetry
 
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def load_demo_context() -> tuple[pd.DataFrame, dict]:
-    df = pd.read_csv(ROOT / "data" / "processed" / "telemetry.csv", parse_dates=["timestamp"])
-    cfg = yaml.safe_load((ROOT / "config" / "installation.yaml").read_text())
-    return df, cfg
+def load_demo_context():
+    # M2: reasoning/analytics read through the persistent local-store boundary.
+    # Ground-truth events remain scoring-only and are never loaded here.
+    return load_telemetry(), load_installation_config()
 
 
 def investigate_inverter_failure(question: str) -> dict:
