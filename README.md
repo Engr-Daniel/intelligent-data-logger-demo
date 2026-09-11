@@ -2,69 +2,161 @@
 
 A reproducible feasibility demo for a conversational intelligence layer over solar PV, inverter, battery, load, grid, and weather telemetry.
 
-> **Important:** all telemetry in this repository is synthetic. This repo demonstrates architecture and reasoning/orchestration, not real-world accuracy or field validation.
+> **Important:** all telemetry, faults, and ground truth in this repository are synthetic. This repository demonstrates architecture and controlled functional behaviour; it does **not** establish real-world accuracy, statistical validity, warranty causality, or customer responsibility.
 
-## What this repo proves
-
-**M0** demonstrates the flagship installer scenario: a customer reports that an inverter "failed on its own," while the telemetry contains a sustained overload immediately before an inverter overload alarm and derating event. The system computes the diagnosis with deterministic analytics, packages the result as structured evidence, and then presents it conversationally.
-
-**M1** completes the required 120-day synthetic generator with weather-driven generation drop, customer overload/inverter derating, gradual PV efficiency decline, battery usable-capacity degradation, and sensor dropout ground truth. The previously completed reasoning proof remains intact: when an API key is configured, Claude receives both inverter-failure and generation-drop tools and must select the appropriate routine before answering.
-
-The LLM is **not** the source of engineering truth. Calculations and diagnoses come from tested Python functions. Claude selects/orchestrates those functions and explains their structured evidence outputs.
+[![Open Reasoning Walkthrough in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Engr-Daniel/intelligent-data-logger-demo/blob/main/notebooks/04_reasoning_walkthrough.ipynb)
+[![Open Scenario Scoring in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Engr-Daniel/intelligent-data-logger-demo/blob/main/notebooks/05_scenario_scoring.ipynb)
 
 ## Architecture
 
 ```text
-Synthetic telemetry -> local SQLite store -> data context/config -> Claude tool selection -> deterministic analytics -> evidence object -> grounded answer
+Synthetic devices
+      ↓
+Operational SQLite store + versioned data context
+      ↓
+Deterministic validation
+      ↓
+Deterministic analytics
+      ↓
+Structured evidence objects
+      ↓
+Claude tool orchestration / deterministic offline router
+      ↓
+Evidence-grounded answer
+
+Separate experiment oracle: data/ground_truth.json → M5 scoring only
 ```
 
-## Quick start
+The LLM is **not** the source of engineering truth. Engineering, financial, sustainability, forecasting, and diagnostic quantities come from tested Python functions. The conversational layer selects/orchestrates those functions and explains their evidence outputs.
+
+## Fresh-clone quickstart
+
+Python 3.11+ is recommended.
 
 ```bash
 python -m venv .venv
-# Windows: .venv\\Scripts\\activate
+# Windows: .venv\Scripts\activate
 # macOS/Linux: source .venv/bin/activate
+
 pip install -r requirements-dev.txt
 python -m src.generator.simulate
 python -m src.datacontext.validate_demo
-python -m src.interface.status_card
-python -m src.reasoning.agent
+python scripts/run_m5_evaluation.py
 pytest -q
 ```
 
-Without an `ANTHROPIC_API_KEY`, `src.reasoning.agent` uses a deterministic fallback response so the demo remains runnable end-to-end. To use Claude, copy `.env.example` to `.env` and provide a key. `ANTHROPIC_MODEL` is optional so the live model identifier can be configured without changing source code.
+No API key is required for generation, validation, deterministic analytics, scenario scoring, or the offline reasoning walkthrough. To exercise the live Claude tool-use loop, copy `.env.example` to `.env`, set `ANTHROPIC_API_KEY`, and optionally set `ANTHROPIC_MODEL`.
 
-## Current implemented slice (M0 + M1 + M2)
+A reviewer can therefore reproduce the controlled M5 evaluation without external services. The notebook sequence is:
 
-- Weather-driven cloudy-day PV production-drop scenario with ground truth
-- Production-drop analytics comparing target-day PV/irradiance with surrounding-day baselines and checking inverter/thermal/data-quality alternatives
-- Separate diagnostic outcomes for weather-driven material loss, fault-related material loss, brief inverter events with limited daily energy impact, and normal/no-material-anomaly days
-- Real Claude tool-use loop with two registered tools: `investigate_inverter_failure` and `investigate_generation_drop`
-- Offline deterministic routing fallback when no Anthropic key is configured; explicit ISO-style dates are honored, while date-free queries retain anomaly auto-selection
-- Physically constrained PV/load/battery/grid simulation with derating applied before downstream energy balancing
-- Energy-conserving battery state update
-- Injected sustained overload scenario and ground truth
-- Overload root-cause analytics with evidence-backed alternative-cause checks (grid availability, irradiance, thermal conditions, data completeness)
-- Structured evidence object
-- Conversational response layer with conservative certainty language
-- Status-card view
-- Starter energy-balance, battery-runway, financial, and sustainability analytics
-- Physical-invariant and diagnostic regression tests, including forced daytime derating, fault-vs-weather discrimination, brief-fault/limited-impact reporting, normal-day behavior, SOC/power bounds, and power-balance closure
-- Financial metrics that distinguish simple ROI from annualized simple payback
+1. `01_generate_synthetic_data.ipynb`
+2. `02_explore_and_validate_data.ipynb`
+3. `03_analytics_library_demo.ipynb`
+4. `04_reasoning_walkthrough.ipynb`
+5. `05_scenario_scoring.ipynb`
 
-## M1 completion and M2 storage/context layer
+Each notebook contains a Colab/local bootstrap and labels its outputs as synthetic.
 
-The generator now covers the five required synthetic scenarios: cloudy-day generation drop, customer overload leading to inverter derating/alarm, gradual PV efficiency decline, battery usable-capacity degradation, and intentional sensor dropout. The optional grid-outage/islanding scenario remains a stretch goal. The simulation spans 120 days at 5-minute resolution and records scoring-only event ground truth separately.
+## Milestone status
 
-M2 adds a persistent SQLite Datalodger stand-in at `data/processed/datalodger.sqlite`, while retaining CSV as a convenient export. `src/datacontext/schema.yaml` is the versioned telemetry contract for fields, units, types, expected ranges, cadence, and missing-data policy. `config/installation.yaml` separately records technical, financial, sustainability, and simulation assumptions. Analytics/reasoning and the status card now read telemetry through the local-store boundary rather than directly from generator internals.
+### M1 — synthetic experiment
 
-`src/datacontext/validation.py` performs machine-testable sanity checks for required fields, timestamp uniqueness/cadence, observed missingness, schema ranges, interval power balance, SOC and battery power limits, stored energy vs usable capacity, and battery energy-state transitions. It does not consult experiment ground truth: missing telemetry is detected from observations and reported with physics-validation coverage. Validation can return `PASS`, `FAIL`, or `INSUFFICIENT_DATA`. Strict 5-minute cadence is a synthetic-demo assumption, not a claim about production telemetry behavior. For battery-transition validation, `input_coverage_pct` measures telemetry completeness and governs sufficiency, while `equation_applicability_pct` reports the fraction of possible transitions to which the current M2 flow-only equation applies. Capacity-boundary transitions are explicitly classified as `structural_non_evaluable_rows`, not as missing data. A battery-transition `PASS` means sufficient input telemetry was available and no violations were found among transitions to which that equation applies; it does not claim that every transition was evaluated.
+The generator produces 120 days of 5-minute telemetry for one fictitious 6.6 kWp PV / 5 kW inverter / 10 kWh LFP installation. Five required controlled scenarios are present:
 
-Experiment truth is deliberately separated from operational storage: `data/processed/datalodger.sqlite` contains telemetry only, while `data/ground_truth.json` is reserved for scoring/evaluation. `battery_usable_capacity_wh` is a simulated latent health state used to construct the degradation scenario; the demo does not imply that ordinary inverter telemetry directly measures usable battery capacity.
+- weather-driven cloudy-day generation drop;
+- sustained customer-load overload preceding inverter alarm/derating;
+- gradual PV performance decline;
+- gradual battery usable-capacity degradation;
+- intentional sensor/telemetry dropout.
 
-The next milestone from the experiment brief is M3: complete the analytics function library and its unit tests, including performance/trend analytics and full financial/sustainability assumption handling.
+The optional grid-outage/islanding stretch scenario is not implemented. Ground truth is written separately to `data/ground_truth.json` and is never part of operational telemetry.
 
-See [`DEMO_EXPERIMENT_BRIEF.md`](DEMO_EXPERIMENT_BRIEF.md) for the complete experimental design and limitations.
+### M2 — trustworthy operational data boundary
+
+`data/processed/datalodger.sqlite` contains operational telemetry only. `src/datacontext/schema.yaml` defines the telemetry contract, and `config/installation.yaml` versions technical, financial, sustainability, and simulation assumptions.
+
+Validation checks structural integrity, missingness, ranges, interval energy balance, SOC/power constraints, and battery energy-state transitions. Results can be `PASS`, `FAIL`, or `INSUFFICIENT_DATA`. Battery transition reporting distinguishes telemetry input coverage from equation applicability so structurally non-evaluable capacity-boundary transitions are not misrepresented as validated transitions.
+
+`battery_usable_capacity_wh` is a **simulated latent state** used to construct the controlled degradation scenario; the demo does not claim that ordinary inverter telemetry directly measures usable battery capacity.
+
+### M3 — deterministic intelligence
+
+The analytics library includes:
+
+- weather-vs-fault generation-drop analysis;
+- overload/root-cause analysis with alternatives;
+- irradiance/temperature-normalized gradual PV performance analysis;
+- generic/inverter anomaly analysis;
+- energy/self-sufficiency summaries;
+- battery-runway estimation;
+- simple generation persistence forecasting;
+- financial decision support;
+- sustainability metrics;
+- observed-telemetry data-availability assessment.
+
+Known model limitations remain explicit. The forecast is a transparent recent-generation persistence baseline. Battery runway uses configured nominal usable capacity and a constant-load assumption rather than claiming a field battery-health estimate.
+
+### M4 — evidence-grounded conversational orchestration
+
+Eleven approved tools expose deterministic analytics as structured evidence. Claude may call multiple tools in one reasoning round but does not receive unrestricted raw time series. The system prompt prohibits independent engineering/financial calculations and unsupported blame or warranty conclusions. Missing telemetry can force abstention.
+
+Without an API key, the deterministic router covers the same ten canonical demo questions so the walkthrough remains reproducible offline.
+
+### M5 — controlled scenario scoring and reproducible walkthrough
+
+M5 freezes the M3/M4 baseline and evaluates it rather than silently modifying analytics to improve results.
+
+`src/evaluation/` scores the implemented scenarios on six independent dimensions:
+
+- **detection** — was the event/anomaly found?
+- **localization** — was the evidence window appropriately localized?
+- **diagnosis** — did the leading supported cause match the injected cause where such a causal diagnosis is in scope?
+- **evidence grounding** — are required measurements and tool receipts present?
+- **calibration** — does stated confidence match evidence strength?
+- **abstention** — are unsupported conclusions refused when evidence is insufficient?
+
+The evaluator also traces all ten canonical questions from the experiment brief through their approved analytics/evidence paths.
+
+Run:
+
+```bash
+python scripts/run_m5_evaluation.py
+```
+
+This writes:
+
+- `reports/m5_evaluation.json` — machine-readable evidence and dimension-level results;
+- `reports/m5_evaluation.md` — concise reviewer report.
+
+### Important M5 result: evaluation is allowed to expose gaps
+
+M5 deliberately reports two limitations instead of hiding them:
+
+1. **Battery capacity degradation is currently a `CAPABILITY_GAP`.** The frozen M3/M4 baseline has no dedicated observed-telemetry battery-health/capacity-degradation diagnostic. The evaluator does not use the latent injected capacity state to manufacture an operational diagnosis.
+2. **Sensor-dropout localization is `PARTIAL`.** The current data-quality analytic correctly detects missing telemetry and abstains, but its evidence window is day-level rather than the exact injected 45-minute interval.
+
+Those are M6 candidates. The M5 rubric should remain fixed while M6 addresses diagnosis/evidence/calibration mismatches revealed by evaluation.
+
+## Ten canonical demo questions
+
+1. What's the current state of my system?
+2. Why did our energy production drop yesterday?
+3. How much of our consumption came from solar this month?
+4. What's unusual about the inverter's behaviour?
+5. The customer says the inverter just failed on its own — what actually happened around that time?
+6. How long will my battery last tonight at current usage?
+7. How sustainable was our energy usage this month?
+8. What's our ROI so far?
+9. Do we have enough data to tell what happened on the dropout date?
+10. Was the customer definitely responsible for this inverter failure?
+
+The final question is deliberately adversarial: the system may report strong technical evidence for overload while refusing to convert that evidence into proof of responsibility, intent, or warranty liability.
+
+## Evaluation interpretation
+
+M5 is a **controlled functional demonstration**, not the full research evaluation protocol. It does not report an aggregate accuracy percentage or statistical significance. The scenarios were authored by the same project, so they are easier than organically occurring field faults. A correct diagnosis also does not receive implicit credit for bad evidence: the dimensions remain visible separately.
+
+Real/representative Datalodger data, expert assessment, benchmark baselines, and statistical analysis remain future research work.
 
 ## Repository layout
 
@@ -72,30 +164,32 @@ See [`DEMO_EXPERIMENT_BRIEF.md`](DEMO_EXPERIMENT_BRIEF.md) for the complete expe
 intelligent-data-logger-demo/
 ├── config/installation.yaml
 ├── data/
+│   ├── processed/datalodger.sqlite
+│   └── ground_truth.json
 ├── notebooks/
+│   ├── 01_generate_synthetic_data.ipynb
+│   ├── 02_explore_and_validate_data.ipynb
+│   ├── 03_analytics_library_demo.ipynb
+│   ├── 04_reasoning_walkthrough.ipynb
+│   └── 05_scenario_scoring.ipynb
+├── reports/
+│   ├── m5_evaluation.json
+│   └── m5_evaluation.md
+├── scripts/run_m5_evaluation.py
 ├── src/
 │   ├── analytics/
 │   ├── datacontext/
+│   ├── evaluation/
 │   ├── evidence/
 │   ├── generator/
 │   ├── interface/
-│   └── reasoning/
+│   ├── reasoning/
+│   └── storage/
 ├── tests/
+├── M5_REVIEW_NOTES.md
 ├── DEMO_EXPERIMENT_BRIEF.md
 ├── requirements.txt
 └── requirements-dev.txt
 ```
 
-## M3 + M4 implemented slice
-
-M3 completes the deterministic analytics layer used by the demo: energy balance, normalized PV performance/trend detection, generic anomaly detection, inverter anomaly summary, simple generation persistence forecasting, battery runway, financial metrics, sustainability metrics, and observed-telemetry data-availability assessment. The gradual-decline detector uses observed PV/irradiance/temperature telemetry, excludes clipping samples, and does not read the simulator's latent performance factor.
-
-M4 expands the evidence/tool boundary to eleven approved tools. Claude receives structured evidence objects rather than raw telemetry and may call multiple tools in one reasoning round. The system prompt prohibits independent engineering/financial calculation and unsupported blame. Missing telemetry forces an evidence-level abstention. The offline deterministic router covers the ten canonical demo questions, and the status card now includes battery runway and alert context.
-
-The M3/M4 implementation remains a synthetic feasibility demonstration. The generation forecast is a transparent median-persistence baseline, not a weather-informed production model; battery runway uses configured nominal usable capacity rather than claiming a field-calibrated health estimate; and ROI/carbon outputs depend on the versioned assumptions in `config/installation.yaml`.
-
-## Safety and interpretation
-
-This demo is read-only. It does not control an inverter, battery, or load. Synthetic temporal associations should not be treated as proof of customer responsibility, warranty liability, or real-world fault causality. M1 also separates the existence of an inverter event from its estimated full-day energy impact, so brief alarms are not silently discarded merely because daily production loss is small.
-
-Current automated test suite: **32 passing tests**.
+See [`DEMO_EXPERIMENT_BRIEF.md`](DEMO_EXPERIMENT_BRIEF.md) for the full experiment design, limitations, and milestone definitions.
