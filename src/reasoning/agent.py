@@ -32,7 +32,9 @@ def fallback_answer(question:str)->str:
     if any(x in q for x in ("definitely responsible","customer responsible","blame","warranty")):
         e=execute_tool("investigate_inverter_failure",{"question":question}); return _fmt(e)+" The telemetry supports a leading technical explanation, but it cannot prove customer responsibility, intent, or warranty liability."
     if any(x in q for x in ("enough data","dropout","missing data","telemetry available")):
-        d=_date(question); return _fmt(execute_tool("assess_data_quality",{"question":question,"target_date":d or "2026-09-18"}))
+        d=_date(question); return _fmt(execute_tool("investigate_data_gap",{"question":question,"target_date":d or "2026-09-18"}))
+    if any(x in q for x in ("battery health","battery degradation","battery capacity decline","battery capacity degrading")):
+        return _fmt(execute_tool("investigate_battery_health",{"question":question}))
     if any(x in q for x in ("roi","payback","saving","financial")): return _fmt(execute_tool("get_financial_summary",{"question":question}))
     if any(x in q for x in ("sustainable","carbon","emission","renewable fraction")): return _fmt(execute_tool("get_sustainability_summary",{"question":question,"days":30}))
     if any(x in q for x in ("battery last","runway","battery runtime")): return _fmt(execute_tool("get_battery_runway",{"question":question}))

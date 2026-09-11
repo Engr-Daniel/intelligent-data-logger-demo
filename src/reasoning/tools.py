@@ -7,9 +7,10 @@ from src.analytics.generation_drop import analyze_generation_drop
 from src.analytics.root_cause import diagnose_overload
 from src.analytics.performance import detect_gradual_performance_decline
 from src.analytics.anomaly_detection import summarize_inverter_anomalies
-from src.analytics.data_quality import assess_data_availability
+from src.analytics.data_quality import assess_data_availability, localize_data_unavailability
 from src.analytics.decision_support import energy_summary, financial_summary, sustainability_summary, battery_runway_summary
 from src.analytics.forecasting import forecast_generation
+from src.analytics.battery_health import detect_battery_capacity_decline
 from src.evidence.models import EvidenceObject
 from src.datacontext.context import load_installation_config
 from src.storage.local_store import load_telemetry
@@ -36,6 +37,15 @@ def investigate_inverter_anomalies(question: str)->dict:
 def get_energy_summary(question: str,days:int=30)->dict:
     df,cfg=load_demo_context(); r=energy_summary(df,cfg["simulation"]["interval_minutes"],days); ms=[{"name":k,"value":v,"unit":"kWh" if k.endswith("kwh") else "%"} for k,v in r.items() if k.endswith("kwh") or k=="self_sufficiency_pct"]
     return _ev(question,{"finding":f"Energy balance for the latest {days} days was calculated from stored telemetry.","candidate_cause":None,"confidence":"high","data_window":r["data_window"],"measurements":ms,"data_quality":{"sufficient":True,"warnings":[]}},"energy_balance")
+
+def investigate_battery_health(question: str)->dict:
+    df,cfg=load_demo_context(); inst=cfg["installation"]; sim=cfg["simulation"]
+    r=detect_battery_capacity_decline(df, sim["interval_minutes"], inst["battery_nominal_kwh"]*inst["battery_usable_fraction"], inst["battery_charge_efficiency"], inst["battery_discharge_efficiency"])
+    assumptions=[{"name":k,"value":v} for k,v in r.pop("assumptions",{}).items()]
+    return _ev(question,r,"detect_battery_capacity_decline",assumptions)
+
+def investigate_data_gap(question: str,target_date:str)->dict:
+    df,_=load_demo_context(); return _ev(question,localize_data_unavailability(df,target_date),"localize_data_unavailability")
 
 def get_battery_runway(question: str)->dict:
     df,cfg=load_demo_context(); r=battery_runway_summary(df,cfg); ms=[{"name":"estimated_runway_hours","value":r.get("estimated_runway_hours"),"unit":"hours"}]
@@ -69,6 +79,8 @@ _tool("investigate_performance_trend","Assess unusual long-term inverter/PV beha
 _tool("investigate_inverter_anomalies","Summarize inverter alarms, derating states and overload-related anomalies.")
 _tool("get_energy_summary","Calculate solar contribution, self-sufficiency, consumption and grid energy for a recent period.",{"days":{"type":"integer","minimum":1,"maximum":120}})
 _tool("get_battery_runway","Estimate battery runtime at current usage with explicit assumptions.")
+_tool("investigate_battery_health","Estimate longitudinal battery usable-capacity change from observed SOC and charge/discharge flows; does not use latent simulator capacity state.")
+_tool("investigate_data_gap","Precisely localize observed missing-telemetry intervals on a requested date and abstain inside the gap.",{"target_date":{"type":"string"}},["target_date"])
 _tool("get_sustainability_summary","Calculate renewable fraction and avoided emissions using configured assumptions.",{"days":{"type":"integer","minimum":1,"maximum":120}})
 _tool("get_financial_summary","Calculate avoided cost, simple ROI and simple payback from configured assumptions.")
 _tool("assess_data_quality","Check whether enough telemetry exists on a specific date and abstain when it does not.",{"target_date":{"type":"string"}},["target_date"])

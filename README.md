@@ -42,6 +42,7 @@ pip install -r requirements-dev.txt
 python -m src.generator.simulate
 python -m src.datacontext.validate_demo
 python scripts/run_m5_evaluation.py
+python scripts/run_m6_dry_run.py
 pytest -q
 ```
 
@@ -137,6 +138,19 @@ M5 deliberately reports two limitations instead of hiding them:
 
 Those are M6 candidates. The M5 rubric should remain fixed while M6 addresses diagnosis/evidence/calibration mismatches revealed by evaluation.
 
+### M6 — internal dry run, gap resolution, and polish
+
+M6 keeps the M5 report frozen and addresses the two capability gaps it exposed without changing the M5 scoring dimensions.
+
+- **Battery degradation intelligence:** `detect_battery_capacity_decline()` estimates longitudinal effective usable-capacity change from observed SOC plus charge/discharge power and configured efficiencies. It does **not** read the simulator's latent `battery_usable_capacity_wh` or `battery_stored_energy_wh`. This is a controlled-demo estimator, not a field-validated battery state-of-health method.
+- **Dropout localization:** `localize_data_unavailability()` detects contiguous missing-telemetry intervals from observed missingness and cadence. The controlled 45-minute dropout is localized to its interval while diagnosis still abstains inside the gap.
+- **Reasoning:** two additional approved tools expose these capabilities as structured evidence, bringing the post-M6 operational tool set to 13.
+- **Dry run:** `python scripts/run_m6_dry_run.py` reruns physical validation, all five frozen-scope scenarios on the unchanged M5 dimensions, and all ten canonical query evidence paths.
+
+The frozen M5 report remains unchanged: it still records the battery capability gap and partial dropout localization that motivated M6. The M6 report is written separately to `reports/m6_dry_run.json` and `reports/m6_dry_run.md`.
+
+Current controlled M6 dry run: all five scenarios PASS on every applicable dimension, all ten canonical query evidence paths PASS, and physical validation PASS. These remain synthetic functional results, not field-accuracy claims.
+
 ## Ten canonical demo questions
 
 1. What's the current state of my system?
@@ -174,8 +188,11 @@ intelligent-data-logger-demo/
 │   └── 05_scenario_scoring.ipynb
 ├── reports/
 │   ├── m5_evaluation.json
-│   └── m5_evaluation.md
+│   ├── m5_evaluation.md
+│   ├── m6_dry_run.json
+│   └── m6_dry_run.md
 ├── scripts/run_m5_evaluation.py
+├── scripts/run_m6_dry_run.py
 ├── src/
 │   ├── analytics/
 │   ├── datacontext/
@@ -187,6 +204,7 @@ intelligent-data-logger-demo/
 │   └── storage/
 ├── tests/
 ├── M5_REVIEW_NOTES.md
+├── M6_REVIEW_NOTES.md
 ├── DEMO_EXPERIMENT_BRIEF.md
 ├── requirements.txt
 └── requirements-dev.txt

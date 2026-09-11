@@ -1,0 +1,1660 @@
+{
+  "milestone": "M6",
+  "synthetic_data": true,
+  "evaluation_type": "internal dry-run against the frozen M5 rubric; not statistical validation",
+  "m5_rubric_changed": false,
+  "scenario_results": [
+    {
+      "event_type": "cloudy_day_generation_drop",
+      "label": "Weather-driven PV production drop",
+      "overall": "PASS",
+      "note": "",
+      "dimensions": {
+        "detection": {
+          "status": "PASS",
+          "rationale": "candidate_cause='weather_related_low_irradiance'; expected one of ('weather_related_low_irradiance',)."
+        },
+        "localization": {
+          "status": "PASS",
+          "rationale": "Evidence window overlaps and is tightly localized to the injected event window."
+        },
+        "diagnosis": {
+          "status": "PASS",
+          "rationale": "Leading diagnosis matches injected cause alias."
+        },
+        "evidence_grounding": {
+          "status": "PASS",
+          "rationale": "Required measurements and supporting tool receipts are present."
+        },
+        "calibration": {
+          "status": "PASS",
+          "rationale": "confidence='high'; expected ('high',) for this controlled scenario."
+        },
+        "abstention": {
+          "status": "N/A",
+          "rationale": "No abstention is required for this scenario when sufficient evidence exists."
+        }
+      },
+      "evidence": {
+        "question": "Why did our energy production drop?",
+        "finding": "PV production was materially lower and the drop closely tracked lower irradiance, with no inverter alarm or abnormal operating state.",
+        "candidate_cause": "weather_related_low_irradiance",
+        "confidence": "high",
+        "data_window": {
+          "start": "2026-08-05T09:00:00+01:00",
+          "end": "2026-08-05T15:55:00+01:00"
+        },
+        "measurements": [
+          {
+            "name": "target_mean_pv_power_w",
+            "value": 1685.9,
+            "unit": "W"
+          },
+          {
+            "name": "baseline_mean_pv_power_w",
+            "value": 4327.9,
+            "unit": "W"
+          },
+          {
+            "name": "pv_drop_pct_vs_surrounding_days",
+            "value": 61.0,
+            "unit": "%"
+          },
+          {
+            "name": "target_mean_irradiance_wm2",
+            "value": 272.5,
+            "unit": "W/m2"
+          },
+          {
+            "name": "baseline_mean_irradiance_wm2",
+            "value": 719.4,
+            "unit": "W/m2"
+          },
+          {
+            "name": "irradiance_drop_pct_vs_surrounding_days",
+            "value": 62.1,
+            "unit": "%"
+          },
+          {
+            "name": "max_inverter_temp_c",
+            "value": 41.8,
+            "unit": "degC"
+          }
+        ],
+        "alternatives_checked": [
+          {
+            "cause": "weather_related_low_irradiance",
+            "supported": true,
+            "evidence": {
+              "pv_drop_pct_vs_surrounding_days": 61.0,
+              "irradiance_drop_pct_vs_surrounding_days": 62.1,
+              "inverter_alarm_present": false
+            }
+          },
+          {
+            "cause": "inverter_fault_or_derating",
+            "supported": false,
+            "evidence": {
+              "inverter_alarm_present": false,
+              "abnormal_operating_state_present": false,
+              "irradiance_drop_pct_vs_surrounding_days": 62.1,
+              "pv_drop_pct_vs_surrounding_days": 61.0
+            }
+          },
+          {
+            "cause": "inverter_event_limited_energy_impact",
+            "supported": false,
+            "evidence": {
+              "inverter_alarm_present": false,
+              "abnormal_operating_state_present": false,
+              "pv_drop_pct_vs_surrounding_days": 61.0,
+              "material_daily_drop_threshold_pct": 20.0
+            }
+          },
+          {
+            "cause": "thermal_derating",
+            "supported": false,
+            "evidence": {
+              "max_inverter_temp_c": 41.8
+            }
+          },
+          {
+            "cause": "missing_or_incomplete_data",
+            "supported": false,
+            "evidence": {
+              "missing_cells_in_target_window": 0
+            }
+          }
+        ],
+        "data_quality": {
+          "sufficient": true,
+          "warnings": []
+        },
+        "assumptions": [
+          {
+            "name": "comparison_baseline",
+            "value": "same daytime hours on surrounding days"
+          }
+        ],
+        "supporting_tools": [
+          "analyze_generation_drop"
+        ],
+        "evidence_type": "analytical_evidence",
+        "synthetic_data": true
+      }
+    },
+    {
+      "event_type": "customer_overload",
+      "label": "Customer overload preceding inverter alarm/derating",
+      "overall": "PASS",
+      "note": "",
+      "dimensions": {
+        "detection": {
+          "status": "PASS",
+          "rationale": "candidate_cause='overload'; expected one of ('overload',)."
+        },
+        "localization": {
+          "status": "PASS",
+          "rationale": "Evidence window overlaps and is tightly localized to the injected event window."
+        },
+        "diagnosis": {
+          "status": "PASS",
+          "rationale": "Leading diagnosis matches injected cause alias."
+        },
+        "evidence_grounding": {
+          "status": "PASS",
+          "rationale": "Required measurements and supporting tool receipts are present."
+        },
+        "calibration": {
+          "status": "PASS",
+          "rationale": "confidence='high'; expected ('high',) for this controlled scenario."
+        },
+        "abstention": {
+          "status": "N/A",
+          "rationale": "No abstention is required for this scenario when sufficient evidence exists."
+        }
+      },
+      "evidence": {
+        "question": "What actually happened around the inverter failure?",
+        "finding": "Sustained overload preceded the inverter alarm.",
+        "candidate_cause": "overload",
+        "confidence": "high",
+        "data_window": {
+          "start": "2026-08-08T19:25:00+01:00",
+          "end": "2026-08-08T20:05:00+01:00"
+        },
+        "measurements": [
+          {
+            "name": "peak_load_w",
+            "value": 6403.9,
+            "unit": "W"
+          },
+          {
+            "name": "inverter_rating_w",
+            "value": 5000,
+            "unit": "W"
+          },
+          {
+            "name": "duration_above_rating_min",
+            "value": 40.0,
+            "unit": "min"
+          },
+          {
+            "name": "peak_battery_discharge_w",
+            "value": 4000.0,
+            "unit": "W"
+          },
+          {
+            "name": "max_inverter_temp_c",
+            "value": 44.8,
+            "unit": "degC"
+          },
+          {
+            "name": "alarm_code",
+            "value": "OVERLOAD_02",
+            "unit": "categorical"
+          }
+        ],
+        "alternatives_checked": [
+          {
+            "cause": "grid_outage",
+            "supported": false,
+            "evidence": {
+              "grid_available_fraction": 1.0
+            }
+          },
+          {
+            "cause": "weather_related_generation_drop_only",
+            "supported": false,
+            "evidence": {
+              "median_irradiance_wm2": 0.0,
+              "duration_above_rating_min": 40.0,
+              "alarm_code": "OVERLOAD_02"
+            }
+          },
+          {
+            "cause": "thermal_event_without_overload",
+            "supported": false,
+            "evidence": {
+              "max_inverter_temp_c": 44.8,
+              "overload_supported": true
+            }
+          },
+          {
+            "cause": "missing_or_incomplete_data",
+            "supported": false,
+            "evidence": {
+              "missing_cells_in_window": 0
+            }
+          }
+        ],
+        "data_quality": {
+          "sufficient": true,
+          "warnings": []
+        },
+        "assumptions": [],
+        "supporting_tools": [
+          "diagnose_overload"
+        ],
+        "evidence_type": "analytical_evidence",
+        "synthetic_data": true
+      }
+    },
+    {
+      "event_type": "gradual_efficiency_decline",
+      "label": "Gradual irradiance/temperature-normalized PV performance decline",
+      "overall": "PASS",
+      "note": "",
+      "dimensions": {
+        "detection": {
+          "status": "PASS",
+          "rationale": "candidate_cause='gradual_pv_performance_decline'; expected one of ('gradual_pv_performance_decline',)."
+        },
+        "localization": {
+          "status": "PASS",
+          "rationale": "Evidence window overlaps and is tightly localized to the injected event window."
+        },
+        "diagnosis": {
+          "status": "PASS",
+          "rationale": "Leading diagnosis matches injected cause alias."
+        },
+        "evidence_grounding": {
+          "status": "PASS",
+          "rationale": "Required measurements and supporting tool receipts are present."
+        },
+        "calibration": {
+          "status": "PASS",
+          "rationale": "confidence='high'; expected ('high',) for this controlled scenario."
+        },
+        "abstention": {
+          "status": "N/A",
+          "rationale": "No abstention is required for this scenario when sufficient evidence exists."
+        }
+      },
+      "evidence": {
+        "question": "Has PV performance been declining over time?",
+        "finding": "Observed irradiance- and temperature-normalized PV performance shows a sustained downward multi-week trend.",
+        "candidate_cause": "gradual_pv_performance_decline",
+        "confidence": "high",
+        "data_window": {
+          "start": "2026-08-01T00:00:00+01:00",
+          "end": "2026-11-28T00:00:00+01:00"
+        },
+        "measurements": [
+          {
+            "name": "early_period_median_performance_ratio",
+            "value": 0.965,
+            "unit": "ratio"
+          },
+          {
+            "name": "late_period_median_performance_ratio",
+            "value": 0.8878,
+            "unit": "ratio"
+          },
+          {
+            "name": "normalized_performance_decline_pct",
+            "value": 8.0,
+            "unit": "%"
+          },
+          {
+            "name": "daily_trend_slope",
+            "value": -0.0007942,
+            "unit": "ratio/day"
+          },
+          {
+            "name": "valid_days",
+            "value": 120,
+            "unit": "days"
+          }
+        ],
+        "alternatives_checked": [
+          {
+            "cause": "lower_irradiance",
+            "supported": false,
+            "evidence": "Performance is normalized by measured irradiance."
+          },
+          {
+            "cause": "ambient_temperature_variation",
+            "supported": false,
+            "evidence": "Expected PV output is temperature-adjusted."
+          },
+          {
+            "cause": "inverter_clipping",
+            "supported": false,
+            "evidence": {
+              "excluded_clipping_samples": 2626
+            }
+          },
+          {
+            "cause": "missing_data",
+            "supported": false,
+            "evidence": {
+              "valid_days": 120
+            }
+          }
+        ],
+        "data_quality": {
+          "sufficient": true,
+          "warnings": []
+        },
+        "assumptions": [
+          {
+            "name": "temperature_coefficient_per_c",
+            "value": -0.004
+          },
+          {
+            "name": "minimum_irradiance_wm2",
+            "value": 200.0
+          },
+          {
+            "name": "clipping_excluded_samples",
+            "value": 2626
+          },
+          {
+            "name": "minimum_decline_pct",
+            "value": 4.0
+          }
+        ],
+        "supporting_tools": [
+          "detect_gradual_performance_decline"
+        ],
+        "evidence_type": "analytical_evidence",
+        "synthetic_data": true
+      }
+    },
+    {
+      "event_type": "battery_degradation_signature",
+      "label": "Battery usable-capacity degradation signature",
+      "overall": "PASS",
+      "note": "M6 estimates capacity change from observed SOC and charge/discharge flows; latent simulator capacity is not an input.",
+      "dimensions": {
+        "detection": {
+          "status": "PASS",
+          "rationale": "candidate_cause='battery_capacity_degradation'; expected one of ('battery_capacity_degradation',)."
+        },
+        "localization": {
+          "status": "PASS",
+          "rationale": "Evidence window overlaps and is tightly localized to the injected event window."
+        },
+        "diagnosis": {
+          "status": "PASS",
+          "rationale": "Leading diagnosis matches injected cause alias."
+        },
+        "evidence_grounding": {
+          "status": "PASS",
+          "rationale": "Required measurements and supporting tool receipts are present."
+        },
+        "calibration": {
+          "status": "PASS",
+          "rationale": "confidence='high'; expected ('high', 'medium') for this controlled scenario."
+        },
+        "abstention": {
+          "status": "N/A",
+          "rationale": "No abstention is required for this scenario when sufficient evidence exists."
+        }
+      },
+      "evidence": {
+        "question": "Is the battery's usable capacity degrading over time?",
+        "finding": "Observed SOC and charge/discharge flows imply a 5.7% reduction in effective usable battery capacity over the observation period.",
+        "candidate_cause": "battery_capacity_degradation",
+        "confidence": "high",
+        "data_window": {
+          "start": "2026-08-19T00:00:00+01:00",
+          "end": "2026-11-28T23:55:00+01:00"
+        },
+        "measurements": [
+          {
+            "name": "early_estimated_usable_capacity_wh",
+            "value": 9000.0,
+            "unit": "Wh"
+          },
+          {
+            "name": "late_estimated_usable_capacity_wh",
+            "value": 8490.6,
+            "unit": "Wh"
+          },
+          {
+            "name": "estimated_capacity_decline_pct",
+            "value": 5.66,
+            "unit": "%"
+          },
+          {
+            "name": "days_with_capacity_estimates",
+            "value": 120,
+            "unit": "days"
+          },
+          {
+            "name": "valid_transition_estimates",
+            "value": 13385,
+            "unit": "transitions"
+          }
+        ],
+        "alternatives_checked": [
+          {
+            "alternative": "single-interval SOC fluctuation",
+            "result": "reduced by daily-median aggregation across many transitions"
+          },
+          {
+            "alternative": "latent simulator capacity state",
+            "result": "not used by this diagnostic"
+          },
+          {
+            "alternative": "insufficient cycling evidence",
+            "result": "not supported"
+          }
+        ],
+        "data_quality": {
+          "sufficient": true,
+          "warnings": [
+            "Controlled-demo capacity estimator; not field-validated battery SOH inference."
+          ]
+        },
+        "assumptions": [
+          {
+            "name": "interval_minutes",
+            "value": 5
+          },
+          {
+            "name": "charge_efficiency",
+            "value": 0.95
+          },
+          {
+            "name": "discharge_efficiency",
+            "value": 0.95
+          },
+          {
+            "name": "nominal_usable_capacity_kwh_used_only_for_plausibility_filter",
+            "value": 9.0
+          },
+          {
+            "name": "minimum_soc_change_pct_points",
+            "value": 0.2
+          },
+          {
+            "name": "decline_threshold_pct",
+            "value": 3.0
+          }
+        ],
+        "supporting_tools": [
+          "detect_battery_capacity_decline"
+        ],
+        "evidence_type": "analytical_evidence",
+        "synthetic_data": true
+      }
+    },
+    {
+      "event_type": "sensor_dropout",
+      "label": "Sensor/telemetry dropout",
+      "overall": "PASS",
+      "note": "M6 localizes the missing interval from observed missingness and cadence, without consulting ground truth.",
+      "dimensions": {
+        "detection": {
+          "status": "PASS",
+          "rationale": "candidate_cause='telemetry_unavailable'; expected one of ('telemetry_unavailable',)."
+        },
+        "localization": {
+          "status": "PASS",
+          "rationale": "Evidence window overlaps and is tightly localized to the injected event window."
+        },
+        "diagnosis": {
+          "status": "PASS",
+          "rationale": "Leading diagnosis matches injected cause alias."
+        },
+        "evidence_grounding": {
+          "status": "PASS",
+          "rationale": "Required measurements and supporting tool receipts are present."
+        },
+        "calibration": {
+          "status": "PASS",
+          "rationale": "confidence='high'; expected ('high',) for this controlled scenario."
+        },
+        "abstention": {
+          "status": "PASS",
+          "rationale": "Insufficient telemetry is surfaced and causal diagnosis is withheld."
+        }
+      },
+      "evidence": {
+        "question": "Do we have enough data to tell what happened?",
+        "finding": "Telemetry is unavailable from 2026-09-18T12:00:00+01:00 to 2026-09-18T12:45:00+01:00; causal diagnosis should abstain for that interval.",
+        "candidate_cause": "telemetry_unavailable",
+        "confidence": "high",
+        "data_window": {
+          "start": "2026-09-18T12:00:00+01:00",
+          "end": "2026-09-18T12:45:00+01:00"
+        },
+        "measurements": [
+          {
+            "name": "rows_with_missing_telemetry",
+            "value": 9,
+            "unit": "rows"
+          },
+          {
+            "name": "missing_cells",
+            "value": 135,
+            "unit": "cells"
+          },
+          {
+            "name": "affected_fields",
+            "value": [
+              "battery_charge_w",
+              "battery_discharge_w",
+              "battery_soc_pct",
+              "battery_stored_energy_wh",
+              "battery_temp_c",
+              "cloud_cover_pct",
+              "grid_export_w",
+              "grid_import_w",
+              "inverter_dc_current_a",
+              "inverter_dc_voltage_v",
+              "inverter_efficiency",
+              "inverter_temp_c",
+              "irradiance_wm2",
+              "pv_ac_power_w",
+              "pv_dc_power_w"
+            ],
+            "unit": "fields"
+          },
+          {
+            "name": "gap_start",
+            "value": "2026-09-18T12:00:00+01:00",
+            "unit": "timestamp"
+          },
+          {
+            "name": "gap_end",
+            "value": "2026-09-18T12:45:00+01:00",
+            "unit": "timestamp"
+          },
+          {
+            "name": "gap_duration_minutes",
+            "value": 45.0,
+            "unit": "minutes"
+          },
+          {
+            "name": "contiguous_gap_count",
+            "value": 1,
+            "unit": "gaps"
+          }
+        ],
+        "alternatives_checked": [],
+        "data_quality": {
+          "sufficient": false,
+          "warnings": [
+            "Missing telemetry prevents diagnosis inside the localized interval"
+          ]
+        },
+        "assumptions": [],
+        "supporting_tools": [
+          "localize_data_unavailability"
+        ],
+        "evidence_type": "analytical_evidence",
+        "synthetic_data": true
+      }
+    }
+  ],
+  "canonical_query_results": [
+    {
+      "id": 1,
+      "question": "What's the current state of my system?",
+      "purpose": "Status-first snapshot",
+      "scenario": null,
+      "status": "PASS",
+      "checks": {
+        "expected_tools": true,
+        "evidence_traceable": true,
+        "assumptions_exposed_when_material": true,
+        "abstention_when_required": true,
+        "no_unsupported_blame": true
+      },
+      "supporting_tools": [
+        "current_system_status"
+      ],
+      "offline_answer": "Current system status was read from the latest complete telemetry interval. Evidence: pv_generation_w=0.0, load_w=712.0, battery_soc_pct=10.0, estimated_battery_runway_hours=0.0.",
+      "evidence": [
+        {
+          "question": "What's the current state of my system?",
+          "finding": "Current system status was read from the latest complete telemetry interval.",
+          "candidate_cause": null,
+          "confidence": "high",
+          "data_window": {
+            "start": "2026-11-28T23:55:00+01:00",
+            "end": "2026-11-28T23:55:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "pv_generation_w",
+              "value": 0.0,
+              "unit": "W"
+            },
+            {
+              "name": "load_w",
+              "value": 712.0,
+              "unit": "W"
+            },
+            {
+              "name": "battery_soc_pct",
+              "value": 10.0,
+              "unit": "%"
+            },
+            {
+              "name": "estimated_battery_runway_hours",
+              "value": 0.0,
+              "unit": "hours"
+            },
+            {
+              "name": "grid_import_w",
+              "value": 712.0,
+              "unit": "W"
+            },
+            {
+              "name": "active_alarm",
+              "value": null,
+              "unit": "categorical"
+            }
+          ],
+          "alternatives_checked": [],
+          "data_quality": {
+            "sufficient": true,
+            "warnings": []
+          },
+          "assumptions": [
+            {
+              "name": "battery_runway_method",
+              "value": "constant load; configured nominal usable capacity"
+            }
+          ],
+          "supporting_tools": [
+            "current_system_status"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "question": "Why did our energy production drop yesterday?",
+      "purpose": "Weather-vs-fault discrimination",
+      "scenario": "cloudy_day_generation_drop",
+      "status": "PASS",
+      "checks": {
+        "expected_tools": true,
+        "evidence_traceable": true,
+        "assumptions_exposed_when_material": true,
+        "abstention_when_required": true,
+        "no_unsupported_blame": true
+      },
+      "supporting_tools": [
+        "analyze_generation_drop"
+      ],
+      "offline_answer": "The strongest supported explanation is lower solar irradiance. PV production was materially lower and the drop closely tracked lower irradiance, with no inverter alarm or abnormal operating state. Evidence: target_mean_pv_power_w=1685.9, baseline_mean_pv_power_w=4327.9, pv_drop_pct_vs_surrounding_days=61.0, target_mean_irradiance_wm2=272.5.",
+      "evidence": [
+        {
+          "question": "Why did our energy production drop yesterday?",
+          "finding": "PV production was materially lower and the drop closely tracked lower irradiance, with no inverter alarm or abnormal operating state.",
+          "candidate_cause": "weather_related_low_irradiance",
+          "confidence": "high",
+          "data_window": {
+            "start": "2026-08-05T09:00:00+01:00",
+            "end": "2026-08-05T15:55:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "target_mean_pv_power_w",
+              "value": 1685.9,
+              "unit": "W"
+            },
+            {
+              "name": "baseline_mean_pv_power_w",
+              "value": 4327.9,
+              "unit": "W"
+            },
+            {
+              "name": "pv_drop_pct_vs_surrounding_days",
+              "value": 61.0,
+              "unit": "%"
+            },
+            {
+              "name": "target_mean_irradiance_wm2",
+              "value": 272.5,
+              "unit": "W/m2"
+            },
+            {
+              "name": "baseline_mean_irradiance_wm2",
+              "value": 719.4,
+              "unit": "W/m2"
+            },
+            {
+              "name": "irradiance_drop_pct_vs_surrounding_days",
+              "value": 62.1,
+              "unit": "%"
+            },
+            {
+              "name": "max_inverter_temp_c",
+              "value": 41.8,
+              "unit": "degC"
+            }
+          ],
+          "alternatives_checked": [
+            {
+              "cause": "weather_related_low_irradiance",
+              "supported": true,
+              "evidence": {
+                "pv_drop_pct_vs_surrounding_days": 61.0,
+                "irradiance_drop_pct_vs_surrounding_days": 62.1,
+                "inverter_alarm_present": false
+              }
+            },
+            {
+              "cause": "inverter_fault_or_derating",
+              "supported": false,
+              "evidence": {
+                "inverter_alarm_present": false,
+                "abnormal_operating_state_present": false,
+                "irradiance_drop_pct_vs_surrounding_days": 62.1,
+                "pv_drop_pct_vs_surrounding_days": 61.0
+              }
+            },
+            {
+              "cause": "inverter_event_limited_energy_impact",
+              "supported": false,
+              "evidence": {
+                "inverter_alarm_present": false,
+                "abnormal_operating_state_present": false,
+                "pv_drop_pct_vs_surrounding_days": 61.0,
+                "material_daily_drop_threshold_pct": 20.0
+              }
+            },
+            {
+              "cause": "thermal_derating",
+              "supported": false,
+              "evidence": {
+                "max_inverter_temp_c": 41.8
+              }
+            },
+            {
+              "cause": "missing_or_incomplete_data",
+              "supported": false,
+              "evidence": {
+                "missing_cells_in_target_window": 0
+              }
+            }
+          ],
+          "data_quality": {
+            "sufficient": true,
+            "warnings": []
+          },
+          "assumptions": [
+            {
+              "name": "comparison_baseline",
+              "value": "same daytime hours on surrounding days"
+            }
+          ],
+          "supporting_tools": [
+            "analyze_generation_drop"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "question": "How much of our consumption came from solar this month?",
+      "purpose": "Energy/self-sufficiency decision support",
+      "scenario": null,
+      "status": "PASS",
+      "checks": {
+        "expected_tools": true,
+        "evidence_traceable": true,
+        "assumptions_exposed_when_material": true,
+        "abstention_when_required": true,
+        "no_unsupported_blame": true
+      },
+      "supporting_tools": [
+        "energy_balance"
+      ],
+      "offline_answer": "Energy balance for the latest 30 days was calculated from stored telemetry. Evidence: pv_generation_kwh=1096.61, consumption_kwh=620.09, grid_import_kwh=132.93, grid_export_kwh=585.78.",
+      "evidence": [
+        {
+          "question": "How much of our consumption came from solar this month?",
+          "finding": "Energy balance for the latest 30 days was calculated from stored telemetry.",
+          "candidate_cause": null,
+          "confidence": "high",
+          "data_window": {
+            "start": "2026-10-29T23:55:00+01:00",
+            "end": "2026-11-28T23:55:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "pv_generation_kwh",
+              "value": 1096.61,
+              "unit": "kWh"
+            },
+            {
+              "name": "consumption_kwh",
+              "value": 620.09,
+              "unit": "kWh"
+            },
+            {
+              "name": "grid_import_kwh",
+              "value": 132.93,
+              "unit": "kWh"
+            },
+            {
+              "name": "grid_export_kwh",
+              "value": 585.78,
+              "unit": "kWh"
+            },
+            {
+              "name": "solar_self_consumed_kwh",
+              "value": 510.83,
+              "unit": "kWh"
+            },
+            {
+              "name": "self_sufficiency_pct",
+              "value": 82.4,
+              "unit": "%"
+            }
+          ],
+          "alternatives_checked": [],
+          "data_quality": {
+            "sufficient": true,
+            "warnings": []
+          },
+          "assumptions": [],
+          "supporting_tools": [
+            "energy_balance"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "question": "What's unusual about the inverter's behaviour?",
+      "purpose": "Multi-tool anomaly + trend orchestration",
+      "scenario": "customer_overload",
+      "status": "PASS",
+      "checks": {
+        "expected_tools": true,
+        "evidence_traceable": true,
+        "assumptions_exposed_when_material": true,
+        "abstention_when_required": true,
+        "no_unsupported_blame": true
+      },
+      "supporting_tools": [
+        "summarize_inverter_anomalies",
+        "detect_gradual_performance_decline"
+      ],
+      "offline_answer": "Inverter alarm/derating was observed with sustained load above the inverter rating in the alarm window. Evidence: alarm_rows=3, abnormal_state_rows=3, rows_above_inverter_rating_in_event_window=8, duration_above_rating_min=40.0. Observed irradiance- and temperature-normalized PV performance shows a sustained downward multi-week trend. Evidence: early_period_median_performance_ratio=0.965, late_period_median_performance_ratio=0.8878, normalized_performance_decline_pct=8.0, daily_trend_slope=-0.0007942.",
+      "evidence": [
+        {
+          "question": "What's unusual about the inverter's behaviour?",
+          "finding": "Inverter alarm/derating was observed with sustained load above the inverter rating in the alarm window.",
+          "candidate_cause": "overload_related_inverter_event",
+          "confidence": "high",
+          "data_window": {
+            "start": "2026-08-08T19:25:00+01:00",
+            "end": "2026-08-08T20:05:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "alarm_rows",
+              "value": 3,
+              "unit": "rows"
+            },
+            {
+              "name": "abnormal_state_rows",
+              "value": 3,
+              "unit": "rows"
+            },
+            {
+              "name": "rows_above_inverter_rating_in_event_window",
+              "value": 8,
+              "unit": "rows"
+            },
+            {
+              "name": "duration_above_rating_min",
+              "value": 40.0,
+              "unit": "min"
+            },
+            {
+              "name": "peak_load_w",
+              "value": 6403.9,
+              "unit": "W"
+            },
+            {
+              "name": "inverter_rating_w",
+              "value": 5000.0,
+              "unit": "W"
+            },
+            {
+              "name": "alarm_codes",
+              "value": [
+                "OVERLOAD_02"
+              ],
+              "unit": "categorical"
+            }
+          ],
+          "alternatives_checked": [
+            {
+              "cause": "thermal_event_without_overload",
+              "supported": false,
+              "evidence": {
+                "max_inverter_temp_c": 44.8,
+                "overload_supported": true
+              }
+            },
+            {
+              "cause": "alarm_or_derating_without_overload_evidence",
+              "supported": false,
+              "evidence": {
+                "alarm_codes": [
+                  "OVERLOAD_02"
+                ],
+                "duration_above_rating_min": 40.0
+              }
+            },
+            {
+              "cause": "missing_or_incomplete_data",
+              "supported": false,
+              "evidence": {
+                "missing_cells_in_window": 0
+              }
+            }
+          ],
+          "data_quality": {
+            "sufficient": true,
+            "warnings": []
+          },
+          "assumptions": [],
+          "supporting_tools": [
+            "summarize_inverter_anomalies"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        },
+        {
+          "question": "What's unusual about the inverter's behaviour?",
+          "finding": "Observed irradiance- and temperature-normalized PV performance shows a sustained downward multi-week trend.",
+          "candidate_cause": "gradual_pv_performance_decline",
+          "confidence": "high",
+          "data_window": {
+            "start": "2026-08-01T00:00:00+01:00",
+            "end": "2026-11-28T00:00:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "early_period_median_performance_ratio",
+              "value": 0.965,
+              "unit": "ratio"
+            },
+            {
+              "name": "late_period_median_performance_ratio",
+              "value": 0.8878,
+              "unit": "ratio"
+            },
+            {
+              "name": "normalized_performance_decline_pct",
+              "value": 8.0,
+              "unit": "%"
+            },
+            {
+              "name": "daily_trend_slope",
+              "value": -0.0007942,
+              "unit": "ratio/day"
+            },
+            {
+              "name": "valid_days",
+              "value": 120,
+              "unit": "days"
+            }
+          ],
+          "alternatives_checked": [
+            {
+              "cause": "lower_irradiance",
+              "supported": false,
+              "evidence": "Performance is normalized by measured irradiance."
+            },
+            {
+              "cause": "ambient_temperature_variation",
+              "supported": false,
+              "evidence": "Expected PV output is temperature-adjusted."
+            },
+            {
+              "cause": "inverter_clipping",
+              "supported": false,
+              "evidence": {
+                "excluded_clipping_samples": 2626
+              }
+            },
+            {
+              "cause": "missing_data",
+              "supported": false,
+              "evidence": {
+                "valid_days": 120
+              }
+            }
+          ],
+          "data_quality": {
+            "sufficient": true,
+            "warnings": []
+          },
+          "assumptions": [
+            {
+              "name": "temperature_coefficient_per_c",
+              "value": -0.004
+            },
+            {
+              "name": "minimum_irradiance_wm2",
+              "value": 200.0
+            },
+            {
+              "name": "clipping_excluded_samples",
+              "value": 2626
+            },
+            {
+              "name": "minimum_decline_pct",
+              "value": 4.0
+            }
+          ],
+          "supporting_tools": [
+            "detect_gradual_performance_decline"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "question": "The customer says the inverter just failed on its own \u2014 what actually happened around that time?",
+      "purpose": "Cross-component root-cause diagnosis",
+      "scenario": "customer_overload",
+      "status": "PASS",
+      "checks": {
+        "expected_tools": true,
+        "evidence_traceable": true,
+        "assumptions_exposed_when_material": true,
+        "abstention_when_required": true,
+        "no_unsupported_blame": true
+      },
+      "supporting_tools": [
+        "diagnose_overload"
+      ],
+      "offline_answer": "Sustained overload preceded the inverter alarm. Evidence: peak_load_w=6403.9, inverter_rating_w=5000, duration_above_rating_min=40.0, peak_battery_discharge_w=4000.0.",
+      "evidence": [
+        {
+          "question": "The customer says the inverter just failed on its own \u2014 what actually happened around that time?",
+          "finding": "Sustained overload preceded the inverter alarm.",
+          "candidate_cause": "overload",
+          "confidence": "high",
+          "data_window": {
+            "start": "2026-08-08T19:25:00+01:00",
+            "end": "2026-08-08T20:05:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "peak_load_w",
+              "value": 6403.9,
+              "unit": "W"
+            },
+            {
+              "name": "inverter_rating_w",
+              "value": 5000,
+              "unit": "W"
+            },
+            {
+              "name": "duration_above_rating_min",
+              "value": 40.0,
+              "unit": "min"
+            },
+            {
+              "name": "peak_battery_discharge_w",
+              "value": 4000.0,
+              "unit": "W"
+            },
+            {
+              "name": "max_inverter_temp_c",
+              "value": 44.8,
+              "unit": "degC"
+            },
+            {
+              "name": "alarm_code",
+              "value": "OVERLOAD_02",
+              "unit": "categorical"
+            }
+          ],
+          "alternatives_checked": [
+            {
+              "cause": "grid_outage",
+              "supported": false,
+              "evidence": {
+                "grid_available_fraction": 1.0
+              }
+            },
+            {
+              "cause": "weather_related_generation_drop_only",
+              "supported": false,
+              "evidence": {
+                "median_irradiance_wm2": 0.0,
+                "duration_above_rating_min": 40.0,
+                "alarm_code": "OVERLOAD_02"
+              }
+            },
+            {
+              "cause": "thermal_event_without_overload",
+              "supported": false,
+              "evidence": {
+                "max_inverter_temp_c": 44.8,
+                "overload_supported": true
+              }
+            },
+            {
+              "cause": "missing_or_incomplete_data",
+              "supported": false,
+              "evidence": {
+                "missing_cells_in_window": 0
+              }
+            }
+          ],
+          "data_quality": {
+            "sufficient": true,
+            "warnings": []
+          },
+          "assumptions": [],
+          "supporting_tools": [
+            "diagnose_overload"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "question": "How long will my battery last tonight at current usage?",
+      "purpose": "Battery-runway estimate with assumptions",
+      "scenario": null,
+      "status": "PASS",
+      "checks": {
+        "expected_tools": true,
+        "evidence_traceable": true,
+        "assumptions_exposed_when_material": true,
+        "abstention_when_required": true,
+        "no_unsupported_blame": true
+      },
+      "supporting_tools": [
+        "battery_runway"
+      ],
+      "offline_answer": "Battery runtime was estimated at the latest complete observation using a constant-load assumption. Evidence: estimated_runway_hours=0.0.",
+      "evidence": [
+        {
+          "question": "How long will my battery last tonight at current usage?",
+          "finding": "Battery runtime was estimated at the latest complete observation using a constant-load assumption.",
+          "candidate_cause": null,
+          "confidence": "medium",
+          "data_window": {
+            "start": "2026-11-28T23:55:00+01:00",
+            "end": "2026-11-28T23:55:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "estimated_runway_hours",
+              "value": 0.0,
+              "unit": "hours"
+            }
+          ],
+          "alternatives_checked": [],
+          "data_quality": {
+            "sufficient": true,
+            "warnings": []
+          },
+          "assumptions": [
+            {
+              "name": "current_load_w",
+              "value": 712.0372141373597
+            },
+            {
+              "name": "usable_capacity_kwh",
+              "value": 9.0
+            },
+            {
+              "name": "minimum_soc_pct",
+              "value": 10
+            },
+            {
+              "name": "load_assumed_constant",
+              "value": true
+            },
+            {
+              "name": "capacity_source",
+              "value": "configured nominal usable capacity; no battery-health estimator is claimed"
+            }
+          ],
+          "supporting_tools": [
+            "battery_runway"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "question": "How sustainable was our energy usage this month?",
+      "purpose": "Sustainability decision support",
+      "scenario": null,
+      "status": "PASS",
+      "checks": {
+        "expected_tools": true,
+        "evidence_traceable": true,
+        "assumptions_exposed_when_material": true,
+        "abstention_when_required": true,
+        "no_unsupported_blame": true
+      },
+      "supporting_tools": [
+        "sustainability_metrics"
+      ],
+      "offline_answer": "Sustainability metrics for the latest 30 days were calculated using the configured grid-displacement assumption. Evidence: renewable_fraction_pct=82.4, estimated_avoided_emissions_kgco2e=229.87, solar_self_consumed_kwh=510.83.",
+      "evidence": [
+        {
+          "question": "How sustainable was our energy usage this month?",
+          "finding": "Sustainability metrics for the latest 30 days were calculated using the configured grid-displacement assumption.",
+          "candidate_cause": null,
+          "confidence": "medium",
+          "data_window": {
+            "start": "2026-10-29T23:55:00+01:00",
+            "end": "2026-11-28T23:55:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "renewable_fraction_pct",
+              "value": 82.4,
+              "unit": "%"
+            },
+            {
+              "name": "estimated_avoided_emissions_kgco2e",
+              "value": 229.87,
+              "unit": "kgCO2e"
+            },
+            {
+              "name": "solar_self_consumed_kwh",
+              "value": 510.83,
+              "unit": "kWh"
+            }
+          ],
+          "alternatives_checked": [],
+          "data_quality": {
+            "sufficient": true,
+            "warnings": []
+          },
+          "assumptions": [
+            {
+              "name": "displaced_grid_kwh",
+              "value": 510.83
+            },
+            {
+              "name": "grid_emissions_factor_kg_per_kwh",
+              "value": 0.45
+            },
+            {
+              "name": "counterfactual",
+              "value": "grid_displacement"
+            },
+            {
+              "name": "emissions_factor_source",
+              "value": "synthetic_demo_assumption"
+            },
+            {
+              "name": "emissions_factor_year",
+              "value": 2026
+            },
+            {
+              "name": "baseline",
+              "value": "grid_displacement"
+            }
+          ],
+          "supporting_tools": [
+            "sustainability_metrics"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "question": "What's our ROI so far?",
+      "purpose": "Financial decision support",
+      "scenario": null,
+      "status": "PASS",
+      "checks": {
+        "expected_tools": true,
+        "evidence_traceable": true,
+        "assumptions_exposed_when_material": true,
+        "abstention_when_required": true,
+        "no_unsupported_blame": true
+      },
+      "supporting_tools": [
+        "financial_metrics"
+      ],
+      "offline_answer": "Simple financial metrics were calculated from synthetic telemetry and configured tariff/CAPEX assumptions. Evidence: avoided_energy_cost=465675.75, net_savings=465675.75, simple_roi_pct=7.16, annualized_net_savings=1416430.41.",
+      "evidence": [
+        {
+          "question": "What's our ROI so far?",
+          "finding": "Simple financial metrics were calculated from synthetic telemetry and configured tariff/CAPEX assumptions.",
+          "candidate_cause": null,
+          "confidence": "medium",
+          "data_window": {
+            "start": "2026-08-01T00:00:00+01:00",
+            "end": "2026-11-28T23:55:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "avoided_energy_cost",
+              "value": 465675.75,
+              "unit": "NGN"
+            },
+            {
+              "name": "net_savings",
+              "value": 465675.75,
+              "unit": "NGN"
+            },
+            {
+              "name": "simple_roi_pct",
+              "value": 7.16,
+              "unit": "%"
+            },
+            {
+              "name": "annualized_net_savings",
+              "value": 1416430.41,
+              "unit": "NGN/year"
+            },
+            {
+              "name": "simple_payback_years",
+              "value": 4.59,
+              "unit": "years"
+            }
+          ],
+          "alternatives_checked": [],
+          "data_quality": {
+            "sufficient": true,
+            "warnings": []
+          },
+          "assumptions": [
+            {
+              "name": "tariff_per_kwh",
+              "value": 225
+            },
+            {
+              "name": "capex",
+              "value": 6500000
+            },
+            {
+              "name": "maintenance_cost",
+              "value": 0
+            },
+            {
+              "name": "period_days",
+              "value": 120.0
+            },
+            {
+              "name": "payback_method",
+              "value": "annualized simple payback; no discount rate or financing effects"
+            },
+            {
+              "name": "currency",
+              "value": "NGN"
+            },
+            {
+              "name": "export_tariff_per_kwh",
+              "value": 0
+            },
+            {
+              "name": "avoided_grid_energy_proxy",
+              "value": "PV generation minus grid export; synthetic-demo estimate"
+            }
+          ],
+          "supporting_tools": [
+            "financial_metrics"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "question": "Do we have enough data to tell what happened on 2026-09-18?",
+      "purpose": "Data-quality-aware abstention",
+      "scenario": "sensor_dropout",
+      "status": "PASS",
+      "checks": {
+        "expected_tools": true,
+        "evidence_traceable": true,
+        "assumptions_exposed_when_material": true,
+        "abstention_when_required": true,
+        "no_unsupported_blame": true
+      },
+      "supporting_tools": [
+        "localize_data_unavailability"
+      ],
+      "offline_answer": "Telemetry is unavailable from 2026-09-18T12:00:00+01:00 to 2026-09-18T12:45:00+01:00; causal diagnosis should abstain for that interval.",
+      "evidence": [
+        {
+          "question": "Do we have enough data to tell what happened on 2026-09-18?",
+          "finding": "Telemetry is unavailable from 2026-09-18T12:00:00+01:00 to 2026-09-18T12:45:00+01:00; causal diagnosis should abstain for that interval.",
+          "candidate_cause": "telemetry_unavailable",
+          "confidence": "high",
+          "data_window": {
+            "start": "2026-09-18T12:00:00+01:00",
+            "end": "2026-09-18T12:45:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "rows_with_missing_telemetry",
+              "value": 9,
+              "unit": "rows"
+            },
+            {
+              "name": "missing_cells",
+              "value": 135,
+              "unit": "cells"
+            },
+            {
+              "name": "affected_fields",
+              "value": [
+                "battery_charge_w",
+                "battery_discharge_w",
+                "battery_soc_pct",
+                "battery_stored_energy_wh",
+                "battery_temp_c",
+                "cloud_cover_pct",
+                "grid_export_w",
+                "grid_import_w",
+                "inverter_dc_current_a",
+                "inverter_dc_voltage_v",
+                "inverter_efficiency",
+                "inverter_temp_c",
+                "irradiance_wm2",
+                "pv_ac_power_w",
+                "pv_dc_power_w"
+              ],
+              "unit": "fields"
+            },
+            {
+              "name": "gap_start",
+              "value": "2026-09-18T12:00:00+01:00",
+              "unit": "timestamp"
+            },
+            {
+              "name": "gap_end",
+              "value": "2026-09-18T12:45:00+01:00",
+              "unit": "timestamp"
+            },
+            {
+              "name": "gap_duration_minutes",
+              "value": 45.0,
+              "unit": "minutes"
+            },
+            {
+              "name": "contiguous_gap_count",
+              "value": 1,
+              "unit": "gaps"
+            }
+          ],
+          "alternatives_checked": [],
+          "data_quality": {
+            "sufficient": false,
+            "warnings": [
+              "Missing telemetry prevents diagnosis inside the localized interval"
+            ]
+          },
+          "assumptions": [],
+          "supporting_tools": [
+            "localize_data_unavailability"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "question": "Was the customer definitely responsible for this inverter failure?",
+      "purpose": "Adversarial certainty/blame calibration",
+      "scenario": "customer_overload",
+      "status": "PASS",
+      "checks": {
+        "expected_tools": true,
+        "evidence_traceable": true,
+        "assumptions_exposed_when_material": true,
+        "abstention_when_required": true,
+        "no_unsupported_blame": true
+      },
+      "supporting_tools": [
+        "diagnose_overload"
+      ],
+      "offline_answer": "Sustained overload preceded the inverter alarm. Evidence: peak_load_w=6403.9, inverter_rating_w=5000, duration_above_rating_min=40.0, peak_battery_discharge_w=4000.0. The telemetry supports a leading technical explanation, but it cannot prove customer responsibility, intent, or warranty liability.",
+      "evidence": [
+        {
+          "question": "Was the customer definitely responsible for this inverter failure?",
+          "finding": "Sustained overload preceded the inverter alarm.",
+          "candidate_cause": "overload",
+          "confidence": "high",
+          "data_window": {
+            "start": "2026-08-08T19:25:00+01:00",
+            "end": "2026-08-08T20:05:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "peak_load_w",
+              "value": 6403.9,
+              "unit": "W"
+            },
+            {
+              "name": "inverter_rating_w",
+              "value": 5000,
+              "unit": "W"
+            },
+            {
+              "name": "duration_above_rating_min",
+              "value": 40.0,
+              "unit": "min"
+            },
+            {
+              "name": "peak_battery_discharge_w",
+              "value": 4000.0,
+              "unit": "W"
+            },
+            {
+              "name": "max_inverter_temp_c",
+              "value": 44.8,
+              "unit": "degC"
+            },
+            {
+              "name": "alarm_code",
+              "value": "OVERLOAD_02",
+              "unit": "categorical"
+            }
+          ],
+          "alternatives_checked": [
+            {
+              "cause": "grid_outage",
+              "supported": false,
+              "evidence": {
+                "grid_available_fraction": 1.0
+              }
+            },
+            {
+              "cause": "weather_related_generation_drop_only",
+              "supported": false,
+              "evidence": {
+                "median_irradiance_wm2": 0.0,
+                "duration_above_rating_min": 40.0,
+                "alarm_code": "OVERLOAD_02"
+              }
+            },
+            {
+              "cause": "thermal_event_without_overload",
+              "supported": false,
+              "evidence": {
+                "max_inverter_temp_c": 44.8,
+                "overload_supported": true
+              }
+            },
+            {
+              "cause": "missing_or_incomplete_data",
+              "supported": false,
+              "evidence": {
+                "missing_cells_in_window": 0
+              }
+            }
+          ],
+          "data_quality": {
+            "sufficient": true,
+            "warnings": []
+          },
+          "assumptions": [],
+          "supporting_tools": [
+            "diagnose_overload"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        }
+      ]
+    }
+  ],
+  "m5_gap_resolution": {
+    "battery_degradation_diagnosis": "addressed with observed-SOC/power capacity-trend estimator",
+    "sensor_dropout_localization": "addressed with contiguous missing-interval localization"
+  },
+  "remaining_declared_limitations": [
+    "Battery capacity estimation is a controlled-demo analytic and is not a field-validated SOH estimator.",
+    "Forecasting remains a transparent recent-generation persistence baseline.",
+    "Battery runway remains a constant-load estimate using configured nominal usable capacity.",
+    "Production telemetry jitter/retry handling, fleet analysis, and real-device connectivity remain out of demo scope."
+  ]
+}
