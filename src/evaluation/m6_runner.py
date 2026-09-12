@@ -33,11 +33,17 @@ def run_m6_evaluation() -> dict[str, Any]:
             "battery_degradation_diagnosis":"addressed with observed-SOC/power capacity-trend estimator",
             "sensor_dropout_localization":"addressed with contiguous missing-interval localization",
         },
+        "final_scope_completion":{
+            "grid_outage_islanding":"required Scenario 6 implemented and evaluated from observed grid/inverter/battery/load telemetry",
+            "required_scenario_count":6,
+            "canonical_query_count":11,
+        },
         "remaining_declared_limitations":[
             "Battery capacity estimation is a controlled-demo analytic and is not a field-validated SOH estimator.",
             "Forecasting remains a transparent recent-generation persistence baseline.",
             "Battery runway remains a constant-load estimate using configured nominal usable capacity.",
             "Production telemetry jitter/retry handling, fleet analysis, and real-device connectivity remain out of demo scope.",
+            "Grid-outage/islanding behaviour is a controlled synthetic backup model, not validation against a specific inverter vendor or protection scheme.",
         ],
     }
 
@@ -56,7 +62,9 @@ def render_markdown(report:dict[str,Any])->str:
     lines += ["","## M5 gap resolution","",
               "- **Battery degradation:** now inferred from observed SOC + charge/discharge flows; the operational diagnostic does not read `battery_usable_capacity_wh` or `battery_stored_energy_wh`.",
               "- **Sensor dropout:** now localized to the contiguous missing interval from observed missingness/cadence; ground truth is used only afterward by evaluation scoring.",
-              "","## Ten canonical queries","","| # | Purpose | Status | Supporting analytics |","|---:|---|---|---|"]
+              "","## Final required Scenario 6","",
+              "- **Grid outage/islanding:** generated before dispatch, diagnosed from observed grid/inverter/battery/load telemetry, and evaluated on the unchanged six M5 dimensions. Zero grid import alone is explicitly not sufficient evidence of an outage.",
+              "","## Eleven canonical queries","","| # | Purpose | Status | Supporting analytics |","|---:|---|---|---|"]
     for q in report["canonical_query_results"]:
         lines.append(f"| {q['id']} | {q['purpose']} | **{q['status']}** | {', '.join(q['supporting_tools'])} |")
     lines += ["","## Remaining declared limitations",""]+[f"- {x}" for x in report["remaining_declared_limitations"]]
@@ -68,8 +76,8 @@ def render_markdown(report:dict[str,Any])->str:
     return "\n".join(lines)
 
 
-def write_m6_report(output_dir:Path=ROOT/"reports"):
-    output_dir.mkdir(parents=True,exist_ok=True); r=run_m6_evaluation()
+def write_m6_report(output_dir:Path=ROOT/"reports", report:dict[str,Any]|None=None):
+    output_dir.mkdir(parents=True,exist_ok=True); r=report if report is not None else run_m6_evaluation()
     jp=output_dir/"m6_dry_run.json"; mp=output_dir/"m6_dry_run.md"
     jp.write_text(json.dumps(r,indent=2),encoding="utf-8"); mp.write_text(render_markdown(r),encoding="utf-8")
     return jp,mp

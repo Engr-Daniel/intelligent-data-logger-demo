@@ -90,12 +90,14 @@ def test_m6_rerun_closes_the_two_m5_gaps_without_changing_scoring_dimensions(m6_
     assert set(battery["dimensions"])=={"detection","localization","diagnosis","evidence_grounding","calibration","abstention"}
 
 
-def test_m6_all_ten_canonical_queries_still_trace_cleanly(m6_report):
+def test_m6_all_final_canonical_queries_trace_cleanly(m6_report):
     report=m6_report
-    assert len(report["canonical_query_results"])==10
+    assert len(report["canonical_query_results"])==11
     assert all(q["status"]=="PASS" for q in report["canonical_query_results"])
     q9=next(q for q in report["canonical_query_results"] if q["id"]==9)
     assert q9["supporting_tools"]==["localize_data_unavailability"]
+    q11=next(q for q in report["canonical_query_results"] if q["id"]==11)
+    assert q11["supporting_tools"]==["diagnose_grid_outage"]
 
 
 def test_m5_report_artifact_remains_frozen_with_original_gap_results():

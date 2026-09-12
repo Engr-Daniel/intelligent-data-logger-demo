@@ -42,9 +42,22 @@ fields:
     dtype: float
     normal_range: [0, 7000]
     required: true
+  pv_available_ac_power_w:
+    unit: W
+    dtype: float
+    description: Available inverter AC output before islanded PV curtailment.
+    normal_range: [0, 5000]
+    required: true
   pv_ac_power_w:
     unit: W
     dtype: float
+    description: Actual inverter AC output delivered after any islanded curtailment.
+    normal_range: [0, 5000]
+    required: true
+  pv_curtailed_w:
+    unit: W
+    dtype: float
+    description: Available PV power intentionally not delivered during islanded surplus conditions.
     normal_range: [0, 5000]
     required: true
   inverter_efficiency:
@@ -52,9 +65,22 @@ fields:
     dtype: float
     normal_range: [0, 1]
     required: true
+  load_requested_power_w:
+    unit: W
+    dtype: float
+    description: Customer demand requested before any islanded load shedding.
+    normal_range: [0, 10000]
+    required: true
   load_power_w:
     unit: W
     dtype: float
+    description: Load actually served by local/grid supply after any islanded load shedding.
+    normal_range: [0, 10000]
+    required: true
+  unmet_load_w:
+    unit: W
+    dtype: float
+    description: Requested load that could not be served while islanded because local supply was insufficient.
     normal_range: [0, 10000]
     required: true
   battery_soc_pct:
@@ -111,7 +137,7 @@ fields:
   inverter_operating_state:
     unit: categorical
     dtype: string
-    allowed_values: [normal, derated]
+    allowed_values: [normal, derated, islanded]
     required: true
   inverter_alarm_code:
     unit: categorical

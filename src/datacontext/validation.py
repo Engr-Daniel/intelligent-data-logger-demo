@@ -68,6 +68,26 @@ def validate_telemetry(df: pd.DataFrame, config: dict, schema: dict) -> dict:
     minimum_coverage = float(schema.get("validation", {}).get("minimum_physics_coverage_pct", 95.0))
     power_sufficient = power_coverage >= minimum_coverage and power_eligible > 0
 
+    # Explicit islanded bookkeeping invariants. Requested demand must equal
+    # served load plus unmet load, and available PV must equal delivered PV
+    # plus curtailment. These checks make outage physics parameter-independent
+    # instead of relying on a specific event duration or demand level.
+    load_accounting_fields = ["load_requested_power_w", "load_power_w", "unmet_load_w"]
+    load_rows = df.dropna(subset=load_accounting_fields) if all(c in df for c in load_accounting_fields) else df.iloc[0:0]
+    load_accounting_residual = (
+        load_rows["load_requested_power_w"] - load_rows["load_power_w"] - load_rows["unmet_load_w"]
+    ) if len(load_rows) else pd.Series(dtype=float)
+    load_accounting_summary = _summary(load_accounting_residual, tolerance)
+    load_accounting_sufficient = (len(load_rows) / total_rows * 100 >= minimum_coverage) if total_rows else False
+
+    pv_accounting_fields = ["pv_available_ac_power_w", "pv_ac_power_w", "pv_curtailed_w"]
+    pv_rows = df.dropna(subset=pv_accounting_fields) if all(c in df for c in pv_accounting_fields) else df.iloc[0:0]
+    pv_accounting_residual = (
+        pv_rows["pv_available_ac_power_w"] - pv_rows["pv_ac_power_w"] - pv_rows["pv_curtailed_w"]
+    ) if len(pv_rows) else pd.Series(dtype=float)
+    pv_accounting_summary = _summary(pv_accounting_residual, tolerance)
+    pv_accounting_sufficient = (len(pv_rows) / total_rows * 100 >= minimum_coverage) if total_rows else False
+
     inst = config["installation"]
     battery_fields = ["battery_soc_pct", "battery_charge_w", "battery_discharge_w", "battery_stored_energy_wh", "battery_usable_capacity_wh"]
     battery_rows = df.dropna(subset=battery_fields) if all(c in df for c in battery_fields) else df.iloc[0:0]
@@ -107,6 +127,8 @@ def validate_telemetry(df: pd.DataFrame, config: dict, schema: dict) -> dict:
         "missing_telemetry_detected": missing_rows > 0,
         "schema_ranges_respected": not range_violations,
         "energy_balance_within_tolerance": power_sufficient and power_summary["violations"] == 0,
+        "load_demand_accounting_consistent": load_accounting_sufficient and load_accounting_summary["violations"] == 0,
+        "pv_curtailment_accounting_consistent": pv_accounting_sufficient and pv_accounting_summary["violations"] == 0,
         "battery_soc_bounds": battery_sufficient and soc_ok,
         "battery_charge_power_limit": battery_sufficient and charge_ok,
         "battery_discharge_power_limit": battery_sufficient and discharge_ok,
@@ -117,10 +139,15 @@ def validate_telemetry(df: pd.DataFrame, config: dict, schema: dict) -> dict:
     hard_fail = any([
         bool(missing_columns), duplicate_timestamps > 0, cadence_breaks > 0, bool(range_violations),
         power_sufficient and power_summary["violations"] > 0,
+        load_accounting_sufficient and load_accounting_summary["violations"] > 0,
+        pv_accounting_sufficient and pv_accounting_summary["violations"] > 0,
         battery_sufficient and not (soc_ok and charge_ok and discharge_ok and stored_ok),
         transition_sufficient and transition_summary["violations"] > 0,
     ])
-    insufficient = not (power_sufficient and battery_sufficient and transition_sufficient)
+    insufficient = not (
+        power_sufficient and load_accounting_sufficient and pv_accounting_sufficient
+        and battery_sufficient and transition_sufficient
+    )
     status = "FAIL" if hard_fail else ("INSUFFICIENT_DATA" if insufficient else "PASS")
 
     return {
@@ -137,6 +164,8 @@ def validate_telemetry(df: pd.DataFrame, config: dict, schema: dict) -> dict:
             "total_rows": total_rows,
             "minimum_physics_coverage_pct": minimum_coverage,
             "power_balance": {"eligible_rows": power_eligible, "excluded_rows": power_excluded, "coverage_pct": power_coverage},
+            "load_demand_accounting": {"eligible_rows": len(load_rows), "excluded_rows": total_rows - len(load_rows), "coverage_pct": (len(load_rows) / total_rows * 100) if total_rows else 0.0},
+            "pv_curtailment_accounting": {"eligible_rows": len(pv_rows), "excluded_rows": total_rows - len(pv_rows), "coverage_pct": (len(pv_rows) / total_rows * 100) if total_rows else 0.0},
             "battery_state": {"eligible_rows": len(battery_rows), "excluded_rows": total_rows - len(battery_rows), "coverage_pct": battery_coverage},
             "battery_transition": {
                 "evaluated_rows": transition_eligible,
@@ -156,6 +185,8 @@ def validate_telemetry(df: pd.DataFrame, config: dict, schema: dict) -> dict:
             "cadence_breaks": cadence_breaks,
             "range_violations": range_violations,
             "power_balance_residual_w": power_summary,
+            "load_demand_accounting_residual_w": load_accounting_summary,
+            "pv_curtailment_accounting_residual_w": pv_accounting_summary,
             "energy_balance_tolerance_w": tolerance,
             "battery_transition_residual_wh": transition_summary,
         },

@@ -152,16 +152,17 @@ def test_normal_day_reports_no_material_generation_anomaly():
     assert not any(item["supported"] for item in result["alternatives_checked"])
 
 
-def test_m1_full_generator_contains_all_required_scenarios():
+def test_final_generator_contains_all_six_required_scenarios():
     _, gt = simulate(load_config())
     event_types = {event["event_type"] for event in gt["events"]}
-    assert {
+    assert event_types == {
         "cloudy_day_generation_drop",
         "customer_overload",
         "gradual_efficiency_decline",
         "battery_degradation_signature",
         "sensor_dropout",
-    } <= event_types
+        "grid_outage_islanding",
+    }
 
 
 def test_gradual_efficiency_decline_reaches_configured_loss():

@@ -14,7 +14,7 @@ report=run_m6_evaluation()
 scenario_ok=all(r["overall"]=="PASS" for r in report["scenario_results"])
 queries_ok=all(q["status"]=="PASS" for q in report["canonical_query_results"])
 validation_ok=validation["status"]=="PASS"
-j,m=write_m6_report()
+j,m=write_m6_report(report=report)
 summary={"physical_validation":validation["status"],"all_scenarios_pass":scenario_ok,"all_canonical_queries_pass":queries_ok,"elapsed_seconds":round(time.perf_counter()-start,2),"report":str(m.relative_to(ROOT))}
 print(json.dumps(summary,indent=2))
 if not (scenario_ok and queries_ok and validation_ok): raise SystemExit(1)

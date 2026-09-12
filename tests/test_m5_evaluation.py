@@ -127,11 +127,12 @@ def test_m5_notebooks_are_real_and_label_synthetic_data():
         assert len(nb["cells"]) >= 4
 
 
-def test_scenario_scoring_notebook_calls_real_evaluator():
+def test_scenario_scoring_notebook_calls_final_real_evaluator():
     nb = json.loads((ROOT / "notebooks" / "05_scenario_scoring.ipynb").read_text(encoding="utf-8"))
     sources = "\n".join("".join(c.get("source", [])) if isinstance(c.get("source"), list) else c.get("source", "") for c in nb["cells"])
-    assert "run_m5_evaluation" in sources
-    assert "write_report" in sources
+    assert "run_m6_evaluation" in sources
+    assert "write_m6_report" in sources
+    assert "M5 report remains frozen" in sources
 
 
 def test_executed_notebooks_contain_no_error_outputs():

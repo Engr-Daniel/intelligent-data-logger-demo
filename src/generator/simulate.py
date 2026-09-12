@@ -127,9 +127,28 @@ def simulate(
 
     # Synthetic but explicit diagnostic channels for alternative-cause checks.
     grid_available = np.ones(len(idx), dtype=bool)
-    inverter_temp = temp + 8 + 0.0009 * load
-    alarm_mask = alarm == "OVERLOAD_02"
-    inverter_temp[alarm_mask] += 4
+
+    # Required Scenario 6: utility-grid outage followed by backup/islanded operation.
+    # The event is injected before dispatch so battery/grid flows are solved from the
+    # actual grid state rather than edited after the fact. A configured backup
+    # reserve is held while the grid is available and may be used during an outage.
+    grid_outage_start = pd.Timestamp(scenarios.get("grid_outage_start", "2026-10-10T21:30:00"))
+    if grid_outage_start.tzinfo is None:
+        grid_outage_start = grid_outage_start.tz_localize(inst["timezone"])
+    else:
+        grid_outage_start = grid_outage_start.tz_convert(inst["timezone"])
+    grid_outage_end = grid_outage_start + pd.Timedelta(minutes=int(scenarios.get("grid_outage_minutes", 60)))
+    grid_outage_mask = (idx >= grid_outage_start) & (idx < grid_outage_end)
+    grid_available[grid_outage_mask] = False
+    state[grid_outage_mask] = "islanded"
+
+    # ``load`` is requested customer demand before any islanded load shedding.
+    # ``pv_ac`` is the available inverter AC output before any islanded curtailment.
+    requested_load = load.copy()
+    served_load = load.copy()
+    unmet_load = np.zeros(len(idx))
+    pv_available_ac = pv_ac.copy()
+    pv_curtailed = np.zeros(len(idx))
 
     # Additional device-context channels from the experiment brief.
     daylight = np.clip(np.sin(np.pi * (hours - 6) / 12), 0, None)
@@ -177,20 +196,38 @@ def simulate(
         # Capacity fade can lower the physical ceiling between intervals.
         stored = min(max(stored, min_wh), max_wh)
 
-        net = pv_ac[i] - load[i]
+        # Dispatch is solved against requested demand and available PV. During
+        # islanded operation, any supply shortfall is recorded explicitly as
+        # unmet load, while surplus PV that cannot serve load or charge the
+        # battery is curtailed. ``load_power_w`` and ``pv_ac_power_w`` therefore
+        # represent power actually served/delivered, keeping the power-balance
+        # identity valid for all outage parameterizations.
+        net = pv_available_ac[i] - requested_load[i]
         if net >= 0:
             max_possible = (max_wh - stored) / (dt_h * inst["battery_charge_efficiency"])
             p = max(0, min(net, inst["battery_max_charge_w"], max_possible))
             charge[i] = p
             stored += p * dt_h * inst["battery_charge_efficiency"]
-            grid_export[i] = max(0, net - p) if grid_available[i] else 0.0
+            if grid_available[i]:
+                grid_export[i] = max(0, net - p)
+            else:
+                pv_curtailed[i] = max(0, net - p)
+                pv_ac[i] = pv_available_ac[i] - pv_curtailed[i]
         else:
             demand = -net
-            max_possible = (stored - min_wh) * inst["battery_discharge_efficiency"] / dt_h
+            reserve_pct = float(inst.get("battery_backup_reserve_pct", inst["battery_soc_min_pct"]))
+            discharge_floor_wh = min_wh if not grid_available[i] else usable_wh * reserve_pct / 100
+            discharge_floor_wh = max(min_wh, min(discharge_floor_wh, max_wh))
+            max_possible = (stored - discharge_floor_wh) * inst["battery_discharge_efficiency"] / dt_h
             p = max(0, min(demand, inst["battery_max_discharge_w"], max_possible))
             discharge[i] = p
             stored -= p * dt_h / inst["battery_discharge_efficiency"]
-            grid_import[i] = max(0, demand - p) if grid_available[i] else 0.0
+            if grid_available[i]:
+                grid_import[i] = max(0, demand - p)
+            else:
+                unmet_load[i] = max(0, demand - p)
+                served_load[i] = max(0, requested_load[i] - unmet_load[i])
+
 
         cumulative_throughput_wh += (charge[i] + discharge[i]) * dt_h
         cycle_count[i] = cumulative_throughput_wh / (2 * initial_usable_wh)
@@ -198,6 +235,9 @@ def simulate(
         soc[i] = 100 * stored / usable_wh
 
     battery_temp = temp + 2.0 + 0.0012 * (charge + discharge)
+    inverter_temp = temp + 8 + 0.0009 * served_load
+    alarm_mask = alarm == "OVERLOAD_02"
+    inverter_temp[alarm_mask] += 4
 
     df = pd.DataFrame(
         {
@@ -209,9 +249,13 @@ def simulate(
             "inverter_dc_voltage_v": inverter_dc_voltage_v,
             "inverter_dc_current_a": inverter_dc_current_a,
             "pv_dc_power_w": pv_dc,
+            "pv_available_ac_power_w": pv_available_ac,
             "pv_ac_power_w": pv_ac,
+            "pv_curtailed_w": pv_curtailed,
             "inverter_efficiency": np.divide(pv_ac, pv_dc, out=np.zeros_like(pv_ac), where=pv_dc > 1e-9),
-            "load_power_w": load,
+            "load_requested_power_w": requested_load,
+            "load_power_w": served_load,
+            "unmet_load_w": unmet_load,
             "battery_soc_pct": soc,
             "battery_stored_energy_wh": stored_energy,
             "battery_usable_capacity_wh": usable_capacity,
@@ -287,6 +331,16 @@ def simulate(
                 "affected_device": "telemetry_pipeline",
                 "true_cause": "intentional missing sensor readings for data-quality/abstention testing",
                 "fields_affected": dropout_fields,
+            },
+            {
+                "event_type": "grid_outage_islanding",
+                "start": grid_outage_start.isoformat(),
+                "end": grid_outage_end.isoformat(),
+                "affected_device": "grid_inverter_battery",
+                "true_cause": "utility grid became unavailable; inverter entered islanded backup operation and local dispatch explicitly accounts for served load, unmet demand, and PV curtailment",
+                "backup_reserve_pct": float(inst.get("battery_backup_reserve_pct", inst["battery_soc_min_pct"])),
+                "load_shedding_modeled": True,
+                "pv_curtailment_modeled": True,
             }
         ]
     }

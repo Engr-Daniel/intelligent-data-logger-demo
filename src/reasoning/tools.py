@@ -11,6 +11,7 @@ from src.analytics.data_quality import assess_data_availability, localize_data_u
 from src.analytics.decision_support import energy_summary, financial_summary, sustainability_summary, battery_runway_summary
 from src.analytics.forecasting import forecast_generation
 from src.analytics.battery_health import detect_battery_capacity_decline
+from src.analytics.grid_events import diagnose_grid_outage
 from src.evidence.models import EvidenceObject
 from src.datacontext.context import load_installation_config
 from src.storage.local_store import load_telemetry
@@ -47,6 +48,11 @@ def investigate_battery_health(question: str)->dict:
 def investigate_data_gap(question: str,target_date:str)->dict:
     df,_=load_demo_context(); return _ev(question,localize_data_unavailability(df,target_date),"localize_data_unavailability")
 
+def investigate_grid_event(question: str,target_date:str|None=None)->dict:
+    df,_=load_demo_context(); r=diagnose_grid_outage(df,target_date)
+    assumptions=[{"name":k,"value":v} for k,v in r.pop("assumptions",{}).items()]
+    return _ev(question,r,"diagnose_grid_outage",assumptions)
+
 def get_battery_runway(question: str)->dict:
     df,cfg=load_demo_context(); r=battery_runway_summary(df,cfg); ms=[{"name":"estimated_runway_hours","value":r.get("estimated_runway_hours"),"unit":"hours"}]
     return _ev(question,{"finding":"Battery runtime was estimated at the latest complete observation using a constant-load assumption.","candidate_cause":None,"confidence":"medium","data_window":r.get("data_window"),"measurements":ms,"data_quality":r.get("data_quality",{})},"battery_runway",[{"name":k,"value":v} for k,v in r.get("assumptions",{}).items()])
@@ -81,6 +87,7 @@ _tool("get_energy_summary","Calculate solar contribution, self-sufficiency, cons
 _tool("get_battery_runway","Estimate battery runtime at current usage with explicit assumptions.")
 _tool("investigate_battery_health","Estimate longitudinal battery usable-capacity change from observed SOC and charge/discharge flows; does not use latent simulator capacity state.")
 _tool("investigate_data_gap","Precisely localize observed missing-telemetry intervals on a requested date and abstain inside the gap.",{"target_date":{"type":"string"}},["target_date"])
+_tool("investigate_grid_event","Diagnose utility-grid outage, islanded backup operation, restoration, explicit unmet-load/load-shedding behaviour, and cross-component battery/load response from observed telemetry. Zero grid import alone is not treated as an outage.",{"target_date":{"type":"string"}})
 _tool("get_sustainability_summary","Calculate renewable fraction and avoided emissions using configured assumptions.",{"days":{"type":"integer","minimum":1,"maximum":120}})
 _tool("get_financial_summary","Calculate avoided cost, simple ROI and simple payback from configured assumptions.")
 _tool("assess_data_quality","Check whether enough telemetry exists on a specific date and abstain when it does not.",{"target_date":{"type":"string"}},["target_date"])

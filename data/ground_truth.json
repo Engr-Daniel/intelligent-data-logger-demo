@@ -57,6 +57,16 @@
         "grid_import_w",
         "grid_export_w"
       ]
+    },
+    {
+      "event_type": "grid_outage_islanding",
+      "start": "2026-10-10T21:35:00+01:00",
+      "end": "2026-10-10T22:35:00+01:00",
+      "affected_device": "grid_inverter_battery",
+      "true_cause": "utility grid became unavailable; inverter entered islanded backup operation and local dispatch explicitly accounts for served load, unmet demand, and PV curtailment",
+      "backup_reserve_pct": 30.0,
+      "load_shedding_modeled": true,
+      "pv_curtailment_modeled": true
     }
   ]
 }

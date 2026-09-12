@@ -9,6 +9,7 @@ installation:
   battery_usable_fraction: 0.90
   battery_soc_min_pct: 10
   battery_soc_max_pct: 100
+  battery_backup_reserve_pct: 30
   battery_charge_efficiency: 0.95
   battery_discharge_efficiency: 0.95
   battery_max_charge_w: 4000
@@ -45,3 +46,5 @@ simulation:
     battery_capacity_loss_fraction: 0.06
     sensor_dropout_start: 2026-09-18T12:00:00
     sensor_dropout_minutes: 45
+    grid_outage_start: 2026-10-10T21:35:00
+    grid_outage_minutes: 60

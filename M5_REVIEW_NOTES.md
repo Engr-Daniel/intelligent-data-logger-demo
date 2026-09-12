@@ -23,6 +23,8 @@ The milestone adds:
 5. **Sensor-dropout localization is intentionally PARTIAL.** The current data-quality analytic identifies the affected date and missing fields but returns a day-level evidence window, broader than the injected 45-minute dropout. Abstention itself is correct.
 6. **M6 may fix mismatches, but M5's rubric should remain stable.** This prevents evaluation criteria from being changed after seeing results.
 7. **The optional sixth scenario is not added retroactively.** Section 5.3 of the brief labels grid outage/islanding as an optional stretch scenario, while a later success-criteria line says "all six scenarios." The reviewer-approved M1 baseline froze the five non-stretch scenarios; M5 evaluates that baseline and documents the discrepancy rather than reopening M1.
+
+> **Post-M6 scope decision:** the final experiment subsequently made Scenario 6 (grid outage/islanding) required and implemented it in M6. This historical M5 note is retained unchanged in substance because M5 evaluated the then-frozen five-scenario baseline; M5 scoring/results are not rewritten retroactively.
 8. **Relative time is bound for reproducibility.** Canonical query 2 says "yesterday"; the evaluator explicitly binds that phrase to the controlled cloudy-day date (`2026-08-05`) rather than depending on the wall clock.
 9. **M5 scores evidence, not LLM writing style.** The live Claude orchestration path was closed in M4 and remains available in notebook 04 with an API key. M5's deterministic scoring evaluates tool selection/evidence contracts and avoids grading nondeterministic prose.
 

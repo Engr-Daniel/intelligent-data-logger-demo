@@ -76,25 +76,27 @@ A single fictitious residential installation:
 
 | Stream | Fields | Notes |
 |---|---|---|
-| PV / Inverter | `dc_power`, `ac_power`, `voltage`, `current`, `temperature_c`, `efficiency`, `operating_state`, `alarm_code` | Derived from irradiance + temperature + fault injections |
+| PV / Inverter | `dc_power`, `pv_available_ac_power_w`, `pv_ac_power_w`, `pv_curtailed_w`, `voltage`, `current`, `temperature_c`, `efficiency`, `operating_state`, `alarm_code` | Available versus delivered AC power is explicit so islanded PV curtailment is physically accounted for |
 | Battery | `soc_pct`, `stored_energy_wh`, `usable_capacity_wh`, `charge_rate_w`, `discharge_rate_w`, `temperature_c`, `cycle_count` | Energy-conserving model coupled to PV surplus/deficit and load, with SOC/power limits and efficiency losses |
-| Load / Smart meter | `load_power_w`, `grid_import_w`, `grid_export_w` | Behavioural model + injected overload event |
+| Load / Smart meter | `load_requested_power_w`, `load_power_w`, `unmet_load_w`, `grid_import_w`, `grid_export_w` | Requested demand, actually served load, and any islanded shortfall are explicit; behavioural model includes the injected overload event |
 | Weather | `irradiance_wm2`, `ambient_temp_c`, `cloud_cover_pct` | Synthetic clear-sky + stochastic cloud model |
 | Events (ground truth only, not seen by the model) | `timestamp`, `event_type`, `affected_device`, `true_cause`, `description` | Used only for scoring, never fed to the reasoning layer |
 
-### 5.3 Injected scenarios (minimum set for the demo)
+### 5.3 Injected scenarios (six required)
 
 1. **Cloudy-day generation drop** — a genuine weather-caused production dip, to test the system doesn't over-attribute drops to faults.
 2. **Customer overload → inverter derate/fault** — load spikes past a safe threshold for a sustained period, inverter logs a derate/alarm shortly after, battery shows unusual discharge; customer "self-report" is deliberately withheld from the system. This is the key installer scenario.
 3. **Gradual efficiency decline** — a slow multi-week drift in performance ratio (simulating soiling/degradation), to test trend-level anomaly detection vs. point anomalies.
 4. **Battery degradation signature** — usable capacity drifts down over the simulated period, cycling pattern shifts.
 5. **Sensor dropout** — a short gap of missing/garbled readings, to test that the system flags data-insufficiency instead of fabricating an answer.
-6. *(Optional stretch)* **Grid outage / islanding event** — battery picks up load abruptly; tests grid-interaction reasoning.
+6. **Grid outage / islanding event** — the utility grid becomes unavailable while the installation is operating with a configured battery backup reserve. Grid exchange falls to zero and the inverter enters an islanded state. PV and battery serve local demand subject to their physical power/energy limits; if local supply is insufficient, the shortfall is recorded explicitly as `unmet_load_w`, and if islanded PV surplus cannot be absorbed, it is recorded as `pv_curtailed_w`. Normal grid-connected operation resumes after restoration. This tests grid interaction, cross-component temporal reasoning, load-shedding awareness, and physically complete islanded bookkeeping.
+
+All **six scenarios are required** for final demo acceptance. Each must be logged separately in `ground_truth.json`, simulated through physically consistent telemetry rather than post-hoc label editing, and evaluated with the same ground-truth separation, evidence-grounding, calibration, and physical-validation rules.
 
 ### 5.4 Generation approach
 Python, `numpy`/`pandas`, seeded for reproducibility (`--seed` flag). No external data purchase is required; an optional stretch goal is to swap the synthetic weather model for a real historical weather API (e.g., Open-Meteo) to add realism without needing real PV telemetry.
 
-The generator must preserve basic physical consistency. In particular, battery stored energy is updated from interval charge/discharge energy with efficiency losses and bounded by usable capacity and SOC limits. PV, load, battery, grid import, and grid export must satisfy an interval-level energy-balance check within a documented numerical tolerance.
+The generator must preserve basic physical consistency. In particular, battery stored energy is updated from interval charge/discharge energy with efficiency losses and bounded by usable capacity and SOC limits. PV, served load, battery, grid import, and grid export must satisfy an interval-level power-balance check within a documented numerical tolerance. Requested demand must equal served load plus explicit unmet load, and available PV must equal delivered PV plus explicit curtailment. These invariants must remain valid even when islanded demand exceeds battery power/energy capacity or islanded PV surplus exceeds local absorption capacity.
 
 ### 5.5 Financial and sustainability assumptions
 
@@ -160,6 +162,7 @@ These are asked interactively in the walkthrough notebook, each checked against 
 8. "What's our ROI so far?" *(financial decision support)*
 9. "Do we have enough data to tell what happened on [dropout date]?" *(should correctly decline/caveat, scenario 5)*
 10. **Adversarial/certainty check:** "Was the customer definitely responsible for this inverter failure?" *(should separate evidence from inference, report the overload as the strongest supported candidate when appropriate, consider alternatives, and avoid claiming certainty or blame that the telemetry cannot establish)*
+11. **Grid interaction:** "What happened when the grid went down on 2026-10-10?" *(should detect and localize scenario 6, identify islanded backup operation, explain the grid/battery/load transition from approved evidence, and avoid treating zero grid import alone as proof of an outage)*
 
 ---
 
@@ -191,6 +194,7 @@ intelligent-data-logger-demo/
 │   │   ├── energy_balance.py
 │   │   ├── performance.py
 │   │   ├── root_cause.py
+│   │   ├── grid_events.py
 │   │   └── sustainability.py
 │   ├── reasoning/
 │   │   ├── tools.py               # tool/function schemas for the LLM
@@ -229,14 +233,14 @@ Notebooks are designed to run in **VSCode** (with the Jupyter extension) for dev
 
 The demo is considered successful if, running end-to-end on a fresh clone:
 
-1. The generator produces a reproducible synthetic dataset with all six scenarios present and logged in `ground_truth.json`.
+1. The generator produces a reproducible synthetic dataset containing **all six required scenarios (Section 5.3)**, with every injected scenario logged in `ground_truth.json`.
 2. Every analytics function runs independently and returns sane values against the synthetic data (sanity-checked in notebook 03).
-3. The reasoning layer answers all ten demo queries (Section 7) using only approved tool/evidence outputs, with every factual claim traceable to a specific tool call and data window.
+3. The reasoning layer answers all eleven demo queries (Section 7) using only approved tool/evidence outputs, with every factual claim traceable to a specific tool call and data window.
 4. Scenario scoring records separate checks for **detection** (event found), **localization** (correct time window), **diagnosis** (injected cause identified where supported), **evidence grounding** (correct measurements cited), **calibration** (certainty matches evidence strength), and **abstention** (unsupported conclusions refused).
-5. For scenarios with causal ground truth (2, 3, 4), the leading diagnosis matches the injected cause and the supporting evidence comes from the appropriate cross-component signals. A correct diagnosis must not receive full credit if its evidence is wrong or fabricated.
+5. For scenarios with causal ground truth (2, 3, 4, 6), the leading diagnosis matches the injected cause and the supporting evidence comes from the appropriate cross-component signals. A correct diagnosis must not receive full credit if its evidence is wrong or fabricated.
 6. For scenario 5 (sensor dropout), the system explicitly flags insufficient data rather than fabricating an explanation.
 7. For the adversarial certainty query, the system distinguishes correlation/temporal evidence from proof of customer responsibility and does not make unsupported blame or warranty claims.
-8. Battery, PV, load, grid import/export telemetry passes documented physical/energy-balance sanity checks.
+8. Battery, PV, load, and grid telemetry passes documented physical sanity checks, including interval power balance, requested-demand = served-load + unmet-load accounting, and available-PV = delivered-PV + curtailed-PV accounting.
 9. Financial and sustainability answers expose the configured assumptions used in their calculation and distinguish measured telemetry from derived estimates.
 10. A reviewer with no prior context can clone the repo, follow the README, and reproduce the walkthrough in under 15 minutes.
 
@@ -330,7 +334,7 @@ The exact implementation may differ, but the contract should remain structured a
 
 ## 15. Build Order
 
-The first implementation target should be a **thin vertical slice of the overload/fault scenario**, not all six scenarios at once:
+The first implementation target should be a **thin vertical slice of the overload/fault scenario**, not the full required scenario set at once:
 
 1. Generate a short physically consistent telemetry window containing normal operation and one overload event.
 2. Store it and validate energy balance/data quality.

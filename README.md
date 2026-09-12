@@ -62,7 +62,7 @@ Each notebook contains a Colab/local bootstrap and labels its outputs as synthet
 
 ### M1 — synthetic experiment
 
-The generator produces 120 days of 5-minute telemetry for one fictitious 6.6 kWp PV / 5 kW inverter / 10 kWh LFP installation. Five required controlled scenarios are present:
+The generator produces 120 days of 5-minute telemetry for one fictitious 6.6 kWp PV / 5 kW inverter / 10 kWh LFP installation. The final controlled experiment contains six required scenarios. The first five were frozen in the original M1 baseline:
 
 - weather-driven cloudy-day generation drop;
 - sustained customer-load overload preceding inverter alarm/derating;
@@ -70,13 +70,13 @@ The generator produces 120 days of 5-minute telemetry for one fictitious 6.6 kWp
 - gradual battery usable-capacity degradation;
 - intentional sensor/telemetry dropout.
 
-The optional grid-outage/islanding stretch scenario is not implemented. Ground truth is written separately to `data/ground_truth.json` and is never part of operational telemetry.
+The sixth required scenario was added during final M6 integration: **utility-grid outage with islanded backup operation**. Ground truth is written separately to `data/ground_truth.json` and is never part of operational telemetry. The final experiment brief now unambiguously requires all six scenarios.
 
 ### M2 — trustworthy operational data boundary
 
 `data/processed/datalodger.sqlite` contains operational telemetry only. `src/datacontext/schema.yaml` defines the telemetry contract, and `config/installation.yaml` versions technical, financial, sustainability, and simulation assumptions.
 
-Validation checks structural integrity, missingness, ranges, interval energy balance, SOC/power constraints, and battery energy-state transitions. Results can be `PASS`, `FAIL`, or `INSUFFICIENT_DATA`. Battery transition reporting distinguishes telemetry input coverage from equation applicability so structurally non-evaluable capacity-boundary transitions are not misrepresented as validated transitions.
+Validation checks structural integrity, missingness, ranges, interval energy balance, explicit requested/served/unmet-load accounting, explicit available/delivered/curtailed-PV accounting, SOC/power constraints, and battery energy-state transitions. Results can be `PASS`, `FAIL`, or `INSUFFICIENT_DATA`. Battery transition reporting distinguishes telemetry input coverage from equation applicability so structurally non-evaluable capacity-boundary transitions are not misrepresented as validated transitions.
 
 `battery_usable_capacity_wh` is a **simulated latent state** used to construct the controlled degradation scenario; the demo does not claim that ordinary inverter telemetry directly measures usable battery capacity.
 
@@ -144,14 +144,17 @@ M6 keeps the M5 report frozen and addresses the two capability gaps it exposed w
 
 - **Battery degradation intelligence:** `detect_battery_capacity_decline()` estimates longitudinal effective usable-capacity change from observed SOC plus charge/discharge power and configured efficiencies. It does **not** read the simulator's latent `battery_usable_capacity_wh` or `battery_stored_energy_wh`. This is a controlled-demo estimator, not a field-validated battery state-of-health method.
 - **Dropout localization:** `localize_data_unavailability()` detects contiguous missing-telemetry intervals from observed missingness and cadence. The controlled 45-minute dropout is localized to its interval while diagnosis still abstains inside the gap.
-- **Reasoning:** two additional approved tools expose these capabilities as structured evidence, bringing the post-M6 operational tool set to 13.
-- **Dry run:** `python scripts/run_m6_dry_run.py` reruns physical validation, all five frozen-scope scenarios on the unchanged M5 dimensions, and all ten canonical query evidence paths.
+- **Reasoning:** three additional approved tools expose the M6 capabilities as structured evidence, bringing the post-M6 operational tool set to 14.
+- **Required grid-outage/islanding scenario:** a 60-minute utility outage is simulated through the normal dispatch loop. A configured 30% backup reserve is available for outage operation; grid import/export go to zero, the inverter enters `islanded`, the battery supports local load, SOC falls, and normal grid-connected operation resumes after restoration. Islanded dispatch is now physically complete across edge cases: `load_requested_power_w = load_power_w + unmet_load_w`, and `pv_available_ac_power_w = pv_ac_power_w + pv_curtailed_w`. This means battery power-cap/energy-depletion shortfalls become explicit load shedding rather than disappearing from the balance, while unabsorbable daytime PV surplus is explicitly curtailed. `diagnose_grid_outage()` uses observed telemetry only and explicitly rejects zero grid import by itself as sufficient outage evidence.
+- **Dry run:** `python scripts/run_m6_dry_run.py` reruns physical validation, all six required scenarios on the unchanged M5 dimensions, and all eleven canonical query evidence paths.
 
 The frozen M5 report remains unchanged: it still records the battery capability gap and partial dropout localization that motivated M6. The M6 report is written separately to `reports/m6_dry_run.json` and `reports/m6_dry_run.md`.
 
-Current controlled M6 dry run: all five scenarios PASS on every applicable dimension, all ten canonical query evidence paths PASS, and physical validation PASS. These remain synthetic functional results, not field-accuracy claims.
+Current controlled M6 dry run: all six required scenarios PASS on every applicable dimension, all eleven canonical query evidence paths PASS, and physical validation PASS. These remain synthetic functional results, not field-accuracy claims.
 
-## Ten canonical demo questions
+**Final scope decision:** grid outage/islanding is now a required part of the experiment, not an optional stretch. The frozen M5 evaluation artifacts remain unchanged as the historical pre-M6 baseline; Scenario 6 is added and evaluated only in the final M6 state.
+
+## Eleven canonical demo questions
 
 1. What's the current state of my system?
 2. Why did our energy production drop yesterday?
@@ -163,6 +166,7 @@ Current controlled M6 dry run: all five scenarios PASS on every applicable dimen
 8. What's our ROI so far?
 9. Do we have enough data to tell what happened on the dropout date?
 10. Was the customer definitely responsible for this inverter failure?
+11. What happened when the grid went down on 2026-10-10?
 
 The final question is deliberately adversarial: the system may report strong technical evidence for overload while refusing to convert that evidence into proof of responsibility, intent, or warranty liability.
 

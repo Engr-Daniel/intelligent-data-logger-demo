@@ -430,7 +430,7 @@
           },
           {
             "name": "late_estimated_usable_capacity_wh",
-            "value": 8490.6,
+            "value": 8490.7,
             "unit": "Wh"
           },
           {
@@ -445,7 +445,7 @@
           },
           {
             "name": "valid_transition_estimates",
-            "value": 13385,
+            "value": 10437,
             "unit": "transitions"
           }
         ],
@@ -609,6 +609,192 @@
         "evidence_type": "analytical_evidence",
         "synthetic_data": true
       }
+    },
+    {
+      "event_type": "grid_outage_islanding",
+      "label": "Utility-grid outage with islanded backup operation",
+      "overall": "PASS",
+      "note": "Required Scenario 6: detects utility-grid loss and local backup/islanded response from observed grid, inverter, battery and load telemetry; zero grid import alone is explicitly rejected as sufficient outage evidence.",
+      "dimensions": {
+        "detection": {
+          "status": "PASS",
+          "rationale": "candidate_cause='grid_outage_with_backup_operation'; expected one of ('grid_outage_with_backup_operation',)."
+        },
+        "localization": {
+          "status": "PASS",
+          "rationale": "Evidence window overlaps and is tightly localized to the injected event window."
+        },
+        "diagnosis": {
+          "status": "PASS",
+          "rationale": "Leading diagnosis matches injected cause alias."
+        },
+        "evidence_grounding": {
+          "status": "PASS",
+          "rationale": "Required measurements and supporting tool receipts are present."
+        },
+        "calibration": {
+          "status": "PASS",
+          "rationale": "confidence='high'; expected ('high',) for this controlled scenario."
+        },
+        "abstention": {
+          "status": "N/A",
+          "rationale": "No abstention is required for this scenario when sufficient evidence exists."
+        }
+      },
+      "evidence": {
+        "question": "What happened when the grid went down?",
+        "finding": "Utility grid loss was followed by islanded backup operation; local PV/battery supply maintained the requested load until grid restoration.",
+        "candidate_cause": "grid_outage_with_backup_operation",
+        "confidence": "high",
+        "data_window": {
+          "start": "2026-10-10T21:35:00+01:00",
+          "end": "2026-10-10T22:35:00+01:00"
+        },
+        "measurements": [
+          {
+            "name": "outage_start",
+            "value": "2026-10-10T21:35:00+01:00",
+            "unit": "timestamp"
+          },
+          {
+            "name": "outage_end",
+            "value": "2026-10-10T22:35:00+01:00",
+            "unit": "timestamp"
+          },
+          {
+            "name": "outage_duration_minutes",
+            "value": 60.0,
+            "unit": "min"
+          },
+          {
+            "name": "mean_pre_event_grid_import_w",
+            "value": 66.6,
+            "unit": "W"
+          },
+          {
+            "name": "mean_outage_grid_import_w",
+            "value": 0.0,
+            "unit": "W"
+          },
+          {
+            "name": "mean_pre_event_battery_discharge_w",
+            "value": 1355.7,
+            "unit": "W"
+          },
+          {
+            "name": "mean_outage_battery_discharge_w",
+            "value": 1163.6,
+            "unit": "W"
+          },
+          {
+            "name": "immediate_battery_discharge_increase_w",
+            "value": 377.1,
+            "unit": "W"
+          },
+          {
+            "name": "immediate_grid_import_drop_w",
+            "value": 399.3,
+            "unit": "W"
+          },
+          {
+            "name": "battery_soc_drop_pct",
+            "value": 12.76,
+            "unit": "%"
+          },
+          {
+            "name": "islanded_state_fraction",
+            "value": 1.0,
+            "unit": "fraction"
+          },
+          {
+            "name": "max_local_power_balance_residual_w",
+            "value": 0.0,
+            "unit": "W"
+          },
+          {
+            "name": "max_unmet_load_w",
+            "value": 0.0,
+            "unit": "W"
+          },
+          {
+            "name": "unmet_load_energy_wh",
+            "value": 0.0,
+            "unit": "Wh"
+          },
+          {
+            "name": "requested_load_served_fraction",
+            "value": 1.0,
+            "unit": "fraction"
+          },
+          {
+            "name": "grid_restored_after_event",
+            "value": true,
+            "unit": "boolean"
+          }
+        ],
+        "alternatives_checked": [
+          {
+            "cause": "self_sufficient_zero_grid_import",
+            "supported": false,
+            "evidence": {
+              "grid_available_false_during_event": true,
+              "zero_import_while_grid_available_intervals_elsewhere": 176,
+              "interpretation": "Zero import alone is not used as outage evidence."
+            }
+          },
+          {
+            "cause": "inverter_fault",
+            "supported": false,
+            "evidence": {
+              "alarm_present_during_event": false,
+              "islanded_state_fraction": 1.0
+            }
+          },
+          {
+            "cause": "insufficient_local_backup_capacity",
+            "supported": false,
+            "evidence": {
+              "max_unmet_load_w": 0.0,
+              "unmet_load_energy_wh": 0.0,
+              "requested_load_served_fraction": 1.0
+            }
+          },
+          {
+            "cause": "missing_or_incomplete_telemetry",
+            "supported": false,
+            "evidence": {
+              "missing_cells_in_event": 0
+            }
+          }
+        ],
+        "data_quality": {
+          "sufficient": true,
+          "warnings": []
+        },
+        "assumptions": [
+          {
+            "name": "grid_available_semantics",
+            "value": "False means the local installation telemetry reports utility-grid unavailability."
+          },
+          {
+            "name": "islanding_semantics",
+            "value": "inverter_operating_state='islanded' represents the controlled demo's local backup operating state."
+          },
+          {
+            "name": "load_continuity_check",
+            "value": "During the outage, PV plus battery discharge must balance served load plus battery charging with no grid exchange."
+          },
+          {
+            "name": "load_shedding_semantics",
+            "value": "Requested demand is load_requested_power_w; load_power_w is actual served load; any shortfall is explicit in unmet_load_w."
+          }
+        ],
+        "supporting_tools": [
+          "diagnose_grid_outage"
+        ],
+        "evidence_type": "analytical_evidence",
+        "synthetic_data": true
+      }
     }
   ],
   "canonical_query_results": [
@@ -628,7 +814,7 @@
       "supporting_tools": [
         "current_system_status"
       ],
-      "offline_answer": "Current system status was read from the latest complete telemetry interval. Evidence: pv_generation_w=0.0, load_w=712.0, battery_soc_pct=10.0, estimated_battery_runway_hours=0.0.",
+      "offline_answer": "Current system status was read from the latest complete telemetry interval. Evidence: pv_generation_w=0.0, load_w=712.0, battery_soc_pct=30.0, estimated_battery_runway_hours=2.53.",
       "evidence": [
         {
           "question": "What's the current state of my system?",
@@ -652,12 +838,12 @@
             },
             {
               "name": "battery_soc_pct",
-              "value": 10.0,
+              "value": 30.0,
               "unit": "%"
             },
             {
               "name": "estimated_battery_runway_hours",
-              "value": 0.0,
+              "value": 2.53,
               "unit": "hours"
             },
             {
@@ -833,7 +1019,7 @@
       "supporting_tools": [
         "energy_balance"
       ],
-      "offline_answer": "Energy balance for the latest 30 days was calculated from stored telemetry. Evidence: pv_generation_kwh=1096.61, consumption_kwh=620.09, grid_import_kwh=132.93, grid_export_kwh=585.78.",
+      "offline_answer": "Energy balance for the latest 30 days was calculated from stored telemetry. Evidence: pv_generation_kwh=1096.61, consumption_kwh=620.09, requested_consumption_kwh=620.09, unmet_load_kwh=0.0.",
       "evidence": [
         {
           "question": "How much of our consumption came from solar this month?",
@@ -856,23 +1042,33 @@
               "unit": "kWh"
             },
             {
+              "name": "requested_consumption_kwh",
+              "value": 620.09,
+              "unit": "kWh"
+            },
+            {
+              "name": "unmet_load_kwh",
+              "value": 0.0,
+              "unit": "kWh"
+            },
+            {
               "name": "grid_import_kwh",
-              "value": 132.93,
+              "value": 181.54,
               "unit": "kWh"
             },
             {
               "name": "grid_export_kwh",
-              "value": 585.78,
+              "value": 639.67,
               "unit": "kWh"
             },
             {
               "name": "solar_self_consumed_kwh",
-              "value": 510.83,
+              "value": 456.94,
               "unit": "kWh"
             },
             {
               "name": "self_sufficiency_pct",
-              "value": 82.4,
+              "value": 73.7,
               "unit": "%"
             }
           ],
@@ -907,7 +1103,7 @@
         "summarize_inverter_anomalies",
         "detect_gradual_performance_decline"
       ],
-      "offline_answer": "Inverter alarm/derating was observed with sustained load above the inverter rating in the alarm window. Evidence: alarm_rows=3, abnormal_state_rows=3, rows_above_inverter_rating_in_event_window=8, duration_above_rating_min=40.0. Observed irradiance- and temperature-normalized PV performance shows a sustained downward multi-week trend. Evidence: early_period_median_performance_ratio=0.965, late_period_median_performance_ratio=0.8878, normalized_performance_decline_pct=8.0, daily_trend_slope=-0.0007942.",
+      "offline_answer": "Inverter alarm/derating was observed with sustained load above the inverter rating in the alarm window. Evidence: alarm_rows=3, abnormal_state_rows=15, rows_above_inverter_rating_in_event_window=8, duration_above_rating_min=40.0. Observed irradiance- and temperature-normalized PV performance shows a sustained downward multi-week trend. Evidence: early_period_median_performance_ratio=0.965, late_period_median_performance_ratio=0.8878, normalized_performance_decline_pct=8.0, daily_trend_slope=-0.0007942.",
       "evidence": [
         {
           "question": "What's unusual about the inverter's behaviour?",
@@ -926,7 +1122,7 @@
             },
             {
               "name": "abnormal_state_rows",
-              "value": 3,
+              "value": 15,
               "unit": "rows"
             },
             {
@@ -1208,7 +1404,7 @@
       "supporting_tools": [
         "battery_runway"
       ],
-      "offline_answer": "Battery runtime was estimated at the latest complete observation using a constant-load assumption. Evidence: estimated_runway_hours=0.0.",
+      "offline_answer": "Battery runtime was estimated at the latest complete observation using a constant-load assumption. Evidence: estimated_runway_hours=2.53.",
       "evidence": [
         {
           "question": "How long will my battery last tonight at current usage?",
@@ -1222,7 +1418,7 @@
           "measurements": [
             {
               "name": "estimated_runway_hours",
-              "value": 0.0,
+              "value": 2.53,
               "unit": "hours"
             }
           ],
@@ -1277,7 +1473,7 @@
       "supporting_tools": [
         "sustainability_metrics"
       ],
-      "offline_answer": "Sustainability metrics for the latest 30 days were calculated using the configured grid-displacement assumption. Evidence: renewable_fraction_pct=82.4, estimated_avoided_emissions_kgco2e=229.87, solar_self_consumed_kwh=510.83.",
+      "offline_answer": "Sustainability metrics for the latest 30 days were calculated using the configured grid-displacement assumption. Evidence: renewable_fraction_pct=73.7, estimated_avoided_emissions_kgco2e=205.62, solar_self_consumed_kwh=456.94.",
       "evidence": [
         {
           "question": "How sustainable was our energy usage this month?",
@@ -1291,17 +1487,17 @@
           "measurements": [
             {
               "name": "renewable_fraction_pct",
-              "value": 82.4,
+              "value": 73.7,
               "unit": "%"
             },
             {
               "name": "estimated_avoided_emissions_kgco2e",
-              "value": 229.87,
+              "value": 205.62,
               "unit": "kgCO2e"
             },
             {
               "name": "solar_self_consumed_kwh",
-              "value": 510.83,
+              "value": 456.94,
               "unit": "kWh"
             }
           ],
@@ -1313,7 +1509,7 @@
           "assumptions": [
             {
               "name": "displaced_grid_kwh",
-              "value": 510.83
+              "value": 456.94
             },
             {
               "name": "grid_emissions_factor_kg_per_kwh",
@@ -1360,7 +1556,7 @@
       "supporting_tools": [
         "financial_metrics"
       ],
-      "offline_answer": "Simple financial metrics were calculated from synthetic telemetry and configured tariff/CAPEX assumptions. Evidence: avoided_energy_cost=465675.75, net_savings=465675.75, simple_roi_pct=7.16, annualized_net_savings=1416430.41.",
+      "offline_answer": "Simple financial metrics were calculated from synthetic telemetry and configured tariff/CAPEX assumptions. Evidence: avoided_energy_cost=416571.75, net_savings=416571.75, simple_roi_pct=6.41, annualized_net_savings=1267072.41.",
       "evidence": [
         {
           "question": "What's our ROI so far?",
@@ -1374,27 +1570,27 @@
           "measurements": [
             {
               "name": "avoided_energy_cost",
-              "value": 465675.75,
+              "value": 416571.75,
               "unit": "NGN"
             },
             {
               "name": "net_savings",
-              "value": 465675.75,
+              "value": 416571.75,
               "unit": "NGN"
             },
             {
               "name": "simple_roi_pct",
-              "value": 7.16,
+              "value": 6.41,
               "unit": "%"
             },
             {
               "name": "annualized_net_savings",
-              "value": 1416430.41,
+              "value": 1267072.41,
               "unit": "NGN/year"
             },
             {
               "name": "simple_payback_years",
-              "value": 4.59,
+              "value": 5.13,
               "unit": "years"
             }
           ],
@@ -1645,16 +1841,196 @@
           "synthetic_data": true
         }
       ]
+    },
+    {
+      "id": 11,
+      "question": "What happened when the grid went down on 2026-10-10?",
+      "purpose": "Grid-outage and backup-operation reasoning",
+      "scenario": "grid_outage_islanding",
+      "status": "PASS",
+      "checks": {
+        "expected_tools": true,
+        "evidence_traceable": true,
+        "assumptions_exposed_when_material": true,
+        "abstention_when_required": true,
+        "no_unsupported_blame": true
+      },
+      "supporting_tools": [
+        "diagnose_grid_outage"
+      ],
+      "offline_answer": "Utility grid loss was followed by islanded backup operation; local PV/battery supply maintained the requested load until grid restoration. Evidence: outage_start=2026-10-10T21:35:00+01:00, outage_end=2026-10-10T22:35:00+01:00, outage_duration_minutes=60.0, mean_pre_event_grid_import_w=66.6.",
+      "evidence": [
+        {
+          "question": "What happened when the grid went down on 2026-10-10?",
+          "finding": "Utility grid loss was followed by islanded backup operation; local PV/battery supply maintained the requested load until grid restoration.",
+          "candidate_cause": "grid_outage_with_backup_operation",
+          "confidence": "high",
+          "data_window": {
+            "start": "2026-10-10T21:35:00+01:00",
+            "end": "2026-10-10T22:35:00+01:00"
+          },
+          "measurements": [
+            {
+              "name": "outage_start",
+              "value": "2026-10-10T21:35:00+01:00",
+              "unit": "timestamp"
+            },
+            {
+              "name": "outage_end",
+              "value": "2026-10-10T22:35:00+01:00",
+              "unit": "timestamp"
+            },
+            {
+              "name": "outage_duration_minutes",
+              "value": 60.0,
+              "unit": "min"
+            },
+            {
+              "name": "mean_pre_event_grid_import_w",
+              "value": 66.6,
+              "unit": "W"
+            },
+            {
+              "name": "mean_outage_grid_import_w",
+              "value": 0.0,
+              "unit": "W"
+            },
+            {
+              "name": "mean_pre_event_battery_discharge_w",
+              "value": 1355.7,
+              "unit": "W"
+            },
+            {
+              "name": "mean_outage_battery_discharge_w",
+              "value": 1163.6,
+              "unit": "W"
+            },
+            {
+              "name": "immediate_battery_discharge_increase_w",
+              "value": 377.1,
+              "unit": "W"
+            },
+            {
+              "name": "immediate_grid_import_drop_w",
+              "value": 399.3,
+              "unit": "W"
+            },
+            {
+              "name": "battery_soc_drop_pct",
+              "value": 12.76,
+              "unit": "%"
+            },
+            {
+              "name": "islanded_state_fraction",
+              "value": 1.0,
+              "unit": "fraction"
+            },
+            {
+              "name": "max_local_power_balance_residual_w",
+              "value": 0.0,
+              "unit": "W"
+            },
+            {
+              "name": "max_unmet_load_w",
+              "value": 0.0,
+              "unit": "W"
+            },
+            {
+              "name": "unmet_load_energy_wh",
+              "value": 0.0,
+              "unit": "Wh"
+            },
+            {
+              "name": "requested_load_served_fraction",
+              "value": 1.0,
+              "unit": "fraction"
+            },
+            {
+              "name": "grid_restored_after_event",
+              "value": true,
+              "unit": "boolean"
+            }
+          ],
+          "alternatives_checked": [
+            {
+              "cause": "self_sufficient_zero_grid_import",
+              "supported": false,
+              "evidence": {
+                "grid_available_false_during_event": true,
+                "zero_import_while_grid_available_intervals_elsewhere": 176,
+                "interpretation": "Zero import alone is not used as outage evidence."
+              }
+            },
+            {
+              "cause": "inverter_fault",
+              "supported": false,
+              "evidence": {
+                "alarm_present_during_event": false,
+                "islanded_state_fraction": 1.0
+              }
+            },
+            {
+              "cause": "insufficient_local_backup_capacity",
+              "supported": false,
+              "evidence": {
+                "max_unmet_load_w": 0.0,
+                "unmet_load_energy_wh": 0.0,
+                "requested_load_served_fraction": 1.0
+              }
+            },
+            {
+              "cause": "missing_or_incomplete_telemetry",
+              "supported": false,
+              "evidence": {
+                "missing_cells_in_event": 0
+              }
+            }
+          ],
+          "data_quality": {
+            "sufficient": true,
+            "warnings": []
+          },
+          "assumptions": [
+            {
+              "name": "grid_available_semantics",
+              "value": "False means the local installation telemetry reports utility-grid unavailability."
+            },
+            {
+              "name": "islanding_semantics",
+              "value": "inverter_operating_state='islanded' represents the controlled demo's local backup operating state."
+            },
+            {
+              "name": "load_continuity_check",
+              "value": "During the outage, PV plus battery discharge must balance served load plus battery charging with no grid exchange."
+            },
+            {
+              "name": "load_shedding_semantics",
+              "value": "Requested demand is load_requested_power_w; load_power_w is actual served load; any shortfall is explicit in unmet_load_w."
+            }
+          ],
+          "supporting_tools": [
+            "diagnose_grid_outage"
+          ],
+          "evidence_type": "analytical_evidence",
+          "synthetic_data": true
+        }
+      ]
     }
   ],
   "m5_gap_resolution": {
     "battery_degradation_diagnosis": "addressed with observed-SOC/power capacity-trend estimator",
     "sensor_dropout_localization": "addressed with contiguous missing-interval localization"
   },
+  "final_scope_completion": {
+    "grid_outage_islanding": "required Scenario 6 implemented and evaluated from observed grid/inverter/battery/load telemetry",
+    "required_scenario_count": 6,
+    "canonical_query_count": 11
+  },
   "remaining_declared_limitations": [
     "Battery capacity estimation is a controlled-demo analytic and is not a field-validated SOH estimator.",
     "Forecasting remains a transparent recent-generation persistence baseline.",
     "Battery runway remains a constant-load estimate using configured nominal usable capacity.",
-    "Production telemetry jitter/retry handling, fleet analysis, and real-device connectivity remain out of demo scope."
+    "Production telemetry jitter/retry handling, fleet analysis, and real-device connectivity remain out of demo scope.",
+    "Grid-outage/islanding behaviour is a controlled synthetic backup model, not validation against a specific inverter vendor or protection scheme."
   ]
 }

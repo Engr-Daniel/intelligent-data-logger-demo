@@ -44,6 +44,15 @@ M6_SCENARIO_CASES: tuple[ScenarioCase, ...] = (
         expected_confidence=("high",), abstention_expected=True,
         note="M6 localizes the missing interval from observed missingness and cadence, without consulting ground truth.",
     ),
+    ScenarioCase(
+        event_type="grid_outage_islanding", label="Utility-grid outage with islanded backup operation",
+        tool_name="investigate_grid_event",
+        tool_args={"question":"What happened when the grid went down?","target_date":"2026-10-10"},
+        expected_causes=("grid_outage_with_backup_operation",),
+        required_measurements=("outage_start","outage_end","outage_duration_minutes","mean_pre_event_grid_import_w","mean_outage_grid_import_w","immediate_battery_discharge_increase_w","battery_soc_drop_pct","islanded_state_fraction","grid_restored_after_event"),
+        expected_confidence=("high",),
+        note="Required Scenario 6: detects utility-grid loss and local backup/islanded response from observed grid, inverter, battery and load telemetry; zero grid import alone is explicitly rejected as sufficient outage evidence.",
+    ),
 )
 
 # Keep the ten canonical questions, but route the data-quality question through
@@ -56,4 +65,13 @@ M6_QUERY_CASES: tuple[QueryCase, ...] = tuple(
         c.purpose, c.scenario, c.requires_abstention, c.requires_no_blame,
     )
     for c in CANONICAL_QUERY_CASES
+) + (
+    QueryCase(
+        11,
+        "What happened when the grid went down on 2026-10-10?",
+        (("investigate_grid_event", {"question": "What happened when the grid went down on 2026-10-10?", "target_date": "2026-10-10"}),),
+        ("diagnose_grid_outage",),
+        "Grid-outage and backup-operation reasoning",
+        "grid_outage_islanding",
+    ),
 )

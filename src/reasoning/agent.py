@@ -33,6 +33,8 @@ def fallback_answer(question:str)->str:
         e=execute_tool("investigate_inverter_failure",{"question":question}); return _fmt(e)+" The telemetry supports a leading technical explanation, but it cannot prove customer responsibility, intent, or warranty liability."
     if any(x in q for x in ("enough data","dropout","missing data","telemetry available")):
         d=_date(question); return _fmt(execute_tool("investigate_data_gap",{"question":question,"target_date":d or "2026-09-18"}))
+    if any(x in q for x in ("grid outage","grid went down","grid failure","utility outage","islanded","islanding","backup mode","power outage")):
+        d=_date(question); return _fmt(execute_tool("investigate_grid_event",{"question":question,"target_date":d or "2026-10-10"}))
     if any(x in q for x in ("battery health","battery degradation","battery capacity decline","battery capacity degrading")):
         return _fmt(execute_tool("investigate_battery_health",{"question":question}))
     if any(x in q for x in ("roi","payback","saving","financial")): return _fmt(execute_tool("get_financial_summary",{"question":question}))
