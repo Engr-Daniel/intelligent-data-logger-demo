@@ -26,7 +26,8 @@ def _fmt(e):
     vals=", ".join(f"{k}={v}" for k,v in list(ms.items())[:4])
     return finding + (f" Evidence: {vals}." if vals else "")
 
-def fallback_answer(question:str)->str:
+def fallback_answer(question:str, *, executor=None)->str:
+    execute_tool = executor or globals()["execute_tool"]
     q=question.lower(); calls=[]
     if any(x in q for x in ("current state","system status","current status","state of my system")): return _fmt(execute_tool("get_system_status",{"question":question}))
     if any(x in q for x in ("definitely responsible","customer responsible","blame","warranty")):

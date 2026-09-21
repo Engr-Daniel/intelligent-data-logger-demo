@@ -6,6 +6,42 @@ A reproducible feasibility demo for a conversational intelligence layer over sol
 scenario measurements, CSV exports and limits on what the results establish.
 Project working documents: [AGENT.md](AGENT.md), [TASK.md](TASK.md), [MEMORY.md](MEMORY.md).
 
+## Interactive solar workspace
+
+After installing dependencies and generating telemetry, start the local dashboard:
+
+```bash
+python scripts/serve_dashboard.py
+```
+
+Open **http://127.0.0.1:8501**. On Windows you can also run
+`powershell -ExecutionPolicy Bypass -File scripts/start_dashboard.ps1`.
+The server uses the existing project dependencies; no paid UI software or hosting is needed.
+Use `--port 8502` if the default port is occupied. Stop the server with Ctrl+C.
+
+The overview always shows the latest complete **stored synthetic snapshot**, its timestamp,
+generation, served load, battery charge/runway, grid import/export and active inverter alarm.
+It is not a live device feed. Refresh reloads the store. Historical date selection changes
+only the power chart; missing telemetry appears as gaps and is available in a readings table.
+
+The investigation panel defaults to **Offline**, with independent questions and no API calls.
+Suggested topics populate the question box; press Send to run them. Unknown offline topics
+are explicitly declined. To use conversation follow-ups, configure `.env`, refresh the
+snapshot and choose **Claude** before starting a new conversation. Claude mode retains
+previous messages and tool evidence, uses the configured `ANTHROPIC_MODEL`, and incurs API
+usage charges. Questions about today/yesterday are anchored to the synthetic snapshot date.
+Each request is capped at six model rounds; each browser session at twenty questions.
+
+Expand evidence beneath each answer to inspect measurements, time windows, assumptions
+and alternative explanations. **Export session** downloads questions, responses, tool
+receipts, timing, model usage, live transcripts and provenance hashes as JSON. Export before
+starting a new conversation or stopping the server: sessions are held in server memory.
+Interactive exports are demonstration records, not automatically scored research results.
+
+This first version binds to localhost and keeps credentials on the server. Public hosting
+requires a separate deployment step with authentication, session lifecycle management and
+API spending controls; do not expose this development server directly to the internet.
+
 > **Important:** all telemetry, faults, and ground truth in this repository are synthetic. This repository demonstrates architecture and controlled functional behaviour; it does **not** establish real-world accuracy, statistical validity, warranty causality, or customer responsibility.
 
 [![Open Reasoning Walkthrough in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Engr-Daniel/intelligent-data-logger-demo/blob/main/notebooks/04_reasoning_walkthrough.ipynb)

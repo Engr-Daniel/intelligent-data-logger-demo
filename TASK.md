@@ -11,6 +11,10 @@
 
 ## Next: live conversational pilot
 
+- [x] Build a local status-first dashboard with historical charts, evidence inspection,
+  offline investigations, session export and a Claude follow-up conversation path.
+- [ ] Record a user-led walkthrough of the interface; review usability and presentation.
+
 - [ ] Verify local API configuration without exposing credentials.
 - [ ] Fix the model, prompt, question set, repeat count and spending limit before the run.
 - [ ] Capture full questions, answers, tool calls/results, model identifier, token usage,
