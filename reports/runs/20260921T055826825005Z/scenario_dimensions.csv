@@ -1,0 +1,37 @@
+event_type,scenario,dimension,status,rationale
+cloudy_day_generation_drop,Weather-driven PV production drop,detection,PASS,"candidate_cause='weather_related_low_irradiance'; expected one of ('weather_related_low_irradiance',)."
+cloudy_day_generation_drop,Weather-driven PV production drop,localization,PASS,Evidence window overlaps and is tightly localized to the injected event window.
+cloudy_day_generation_drop,Weather-driven PV production drop,diagnosis,PASS,Leading diagnosis matches injected cause alias.
+cloudy_day_generation_drop,Weather-driven PV production drop,evidence_grounding,PASS,Required measurements and supporting tool receipts are present.
+cloudy_day_generation_drop,Weather-driven PV production drop,calibration,PASS,"confidence='high'; expected ('high',) for this controlled scenario."
+cloudy_day_generation_drop,Weather-driven PV production drop,abstention,N/A,No abstention is required for this scenario when sufficient evidence exists.
+customer_overload,Customer overload preceding inverter alarm/derating,detection,PASS,"candidate_cause='overload'; expected one of ('overload',)."
+customer_overload,Customer overload preceding inverter alarm/derating,localization,PASS,Evidence window overlaps and is tightly localized to the injected event window.
+customer_overload,Customer overload preceding inverter alarm/derating,diagnosis,PASS,Leading diagnosis matches injected cause alias.
+customer_overload,Customer overload preceding inverter alarm/derating,evidence_grounding,PASS,Required measurements and supporting tool receipts are present.
+customer_overload,Customer overload preceding inverter alarm/derating,calibration,PASS,"confidence='high'; expected ('high',) for this controlled scenario."
+customer_overload,Customer overload preceding inverter alarm/derating,abstention,N/A,No abstention is required for this scenario when sufficient evidence exists.
+gradual_efficiency_decline,Gradual irradiance/temperature-normalized PV performance decline,detection,PASS,"candidate_cause='gradual_pv_performance_decline'; expected one of ('gradual_pv_performance_decline',)."
+gradual_efficiency_decline,Gradual irradiance/temperature-normalized PV performance decline,localization,PASS,Evidence window overlaps and is tightly localized to the injected event window.
+gradual_efficiency_decline,Gradual irradiance/temperature-normalized PV performance decline,diagnosis,PASS,Leading diagnosis matches injected cause alias.
+gradual_efficiency_decline,Gradual irradiance/temperature-normalized PV performance decline,evidence_grounding,PASS,Required measurements and supporting tool receipts are present.
+gradual_efficiency_decline,Gradual irradiance/temperature-normalized PV performance decline,calibration,PASS,"confidence='high'; expected ('high',) for this controlled scenario."
+gradual_efficiency_decline,Gradual irradiance/temperature-normalized PV performance decline,abstention,N/A,No abstention is required for this scenario when sufficient evidence exists.
+battery_degradation_signature,Battery usable-capacity degradation signature,detection,PASS,"candidate_cause='battery_capacity_degradation'; expected one of ('battery_capacity_degradation',)."
+battery_degradation_signature,Battery usable-capacity degradation signature,localization,PASS,Evidence window overlaps and is tightly localized to the injected event window.
+battery_degradation_signature,Battery usable-capacity degradation signature,diagnosis,PASS,Leading diagnosis matches injected cause alias.
+battery_degradation_signature,Battery usable-capacity degradation signature,evidence_grounding,PASS,Required measurements and supporting tool receipts are present.
+battery_degradation_signature,Battery usable-capacity degradation signature,calibration,PASS,"confidence='high'; expected ('high', 'medium') for this controlled scenario."
+battery_degradation_signature,Battery usable-capacity degradation signature,abstention,N/A,No abstention is required for this scenario when sufficient evidence exists.
+sensor_dropout,Sensor/telemetry dropout,detection,PASS,"candidate_cause='telemetry_unavailable'; expected one of ('telemetry_unavailable',)."
+sensor_dropout,Sensor/telemetry dropout,localization,PASS,Evidence window overlaps and is tightly localized to the injected event window.
+sensor_dropout,Sensor/telemetry dropout,diagnosis,PASS,Leading diagnosis matches injected cause alias.
+sensor_dropout,Sensor/telemetry dropout,evidence_grounding,PASS,Required measurements and supporting tool receipts are present.
+sensor_dropout,Sensor/telemetry dropout,calibration,PASS,"confidence='high'; expected ('high',) for this controlled scenario."
+sensor_dropout,Sensor/telemetry dropout,abstention,PASS,Insufficient telemetry is surfaced and causal diagnosis is withheld.
+grid_outage_islanding,Utility-grid outage with islanded backup operation,detection,PASS,"candidate_cause='grid_outage_with_backup_operation'; expected one of ('grid_outage_with_backup_operation',)."
+grid_outage_islanding,Utility-grid outage with islanded backup operation,localization,PASS,Evidence window overlaps and is tightly localized to the injected event window.
+grid_outage_islanding,Utility-grid outage with islanded backup operation,diagnosis,PASS,Leading diagnosis matches injected cause alias.
+grid_outage_islanding,Utility-grid outage with islanded backup operation,evidence_grounding,PASS,Required measurements and supporting tool receipts are present.
+grid_outage_islanding,Utility-grid outage with islanded backup operation,calibration,PASS,"confidence='high'; expected ('high',) for this controlled scenario."
+grid_outage_islanding,Utility-grid outage with islanded backup operation,abstention,N/A,No abstention is required for this scenario when sufficient evidence exists.

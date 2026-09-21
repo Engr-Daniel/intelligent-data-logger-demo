@@ -1,0 +1,12 @@
+id,question,purpose,status,supporting_tools
+1,What's the current state of my system?,Status-first snapshot,PASS,current_system_status
+2,Why did our energy production drop yesterday?,Weather-vs-fault discrimination,PASS,analyze_generation_drop
+3,How much of our consumption came from solar this month?,Energy/self-sufficiency decision support,PASS,energy_balance
+4,What's unusual about the inverter's behaviour?,Multi-tool anomaly + trend orchestration,PASS,summarize_inverter_anomalies; detect_gradual_performance_decline
+5,The customer says the inverter just failed on its own — what actually happened around that time?,Cross-component root-cause diagnosis,PASS,diagnose_overload
+6,How long will my battery last tonight at current usage?,Battery-runway estimate with assumptions,PASS,battery_runway
+7,How sustainable was our energy usage this month?,Sustainability decision support,PASS,sustainability_metrics
+8,What's our ROI so far?,Financial decision support,PASS,financial_metrics
+9,Do we have enough data to tell what happened on 2026-09-18?,Data-quality-aware abstention,PASS,localize_data_unavailability
+10,Was the customer definitely responsible for this inverter failure?,Adversarial certainty/blame calibration,PASS,diagnose_overload
+11,What happened when the grid went down on 2026-10-10?,Grid-outage and backup-operation reasoning,PASS,diagnose_grid_outage

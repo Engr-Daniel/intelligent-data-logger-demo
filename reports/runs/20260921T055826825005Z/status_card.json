@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-11-28 23:55:00+01:00",
+  "synthetic_data": true,
+  "pv_generation_w": 0.0,
+  "load_w": 712.0,
+  "battery_soc_pct": 30.0,
+  "estimated_battery_runway_hours": 2.53,
+  "grid_import_w": 712.0,
+  "grid_export_w": 0.0,
+  "inverter_state": "normal",
+  "active_alarm": null,
+  "historical_alarm_events": 3
+}

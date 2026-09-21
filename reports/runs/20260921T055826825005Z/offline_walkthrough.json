@@ -1,0 +1,46 @@
+[
+  {
+    "question": "What's the current state of my system?",
+    "answer": "Current system status was read from the latest complete telemetry interval. Evidence: pv_generation_w=0.0, load_w=712.0, battery_soc_pct=30.0, estimated_battery_runway_hours=2.53."
+  },
+  {
+    "question": "Why did our energy production drop yesterday?",
+    "answer": "The strongest supported explanation is lower solar irradiance. PV production was materially lower and the drop closely tracked lower irradiance, with no inverter alarm or abnormal operating state. Evidence: target_mean_pv_power_w=1685.9, baseline_mean_pv_power_w=4327.9, pv_drop_pct_vs_surrounding_days=61.0, target_mean_irradiance_wm2=272.5."
+  },
+  {
+    "question": "How much of our consumption came from solar this month?",
+    "answer": "Energy balance for the latest 30 days was calculated from stored telemetry. Evidence: pv_generation_kwh=1096.61, consumption_kwh=620.09, requested_consumption_kwh=620.09, unmet_load_kwh=0.0."
+  },
+  {
+    "question": "What's unusual about the inverter's behaviour?",
+    "answer": "Inverter alarm/derating was observed with sustained load above the inverter rating in the alarm window. Evidence: alarm_rows=3, abnormal_state_rows=15, rows_above_inverter_rating_in_event_window=8, duration_above_rating_min=40.0. Observed irradiance- and temperature-normalized PV performance shows a sustained downward multi-week trend. Evidence: early_period_median_performance_ratio=0.965, late_period_median_performance_ratio=0.8878, normalized_performance_decline_pct=8.0, daily_trend_slope=-0.0007942."
+  },
+  {
+    "question": "The customer says the inverter just failed on its own \u2014 what actually happened around that time?",
+    "answer": "Sustained overload preceded the inverter alarm. Evidence: peak_load_w=6403.9, inverter_rating_w=5000, duration_above_rating_min=40.0, peak_battery_discharge_w=4000.0."
+  },
+  {
+    "question": "How long will my battery last tonight at current usage?",
+    "answer": "Battery runtime was estimated at the latest complete observation using a constant-load assumption. Evidence: estimated_runway_hours=2.53."
+  },
+  {
+    "question": "How sustainable was our energy usage this month?",
+    "answer": "Sustainability metrics for the latest 30 days were calculated using the configured grid-displacement assumption. Evidence: renewable_fraction_pct=73.7, estimated_avoided_emissions_kgco2e=205.62, solar_self_consumed_kwh=456.94."
+  },
+  {
+    "question": "What's our ROI so far?",
+    "answer": "Simple financial metrics were calculated from synthetic telemetry and configured tariff/CAPEX assumptions. Evidence: avoided_energy_cost=416571.75, net_savings=416571.75, simple_roi_pct=6.41, annualized_net_savings=1267072.41."
+  },
+  {
+    "question": "Do we have enough data to tell what happened on 2026-09-18?",
+    "answer": "Telemetry is unavailable from 2026-09-18T12:00:00+01:00 to 2026-09-18T12:45:00+01:00; causal diagnosis should abstain for that interval."
+  },
+  {
+    "question": "Was the customer definitely responsible for this inverter failure?",
+    "answer": "Sustained overload preceded the inverter alarm. Evidence: peak_load_w=6403.9, inverter_rating_w=5000, duration_above_rating_min=40.0, peak_battery_discharge_w=4000.0. The telemetry supports a leading technical explanation, but it cannot prove customer responsibility, intent, or warranty liability."
+  },
+  {
+    "question": "What happened when the grid went down on 2026-10-10?",
+    "answer": "Utility grid loss was followed by islanded backup operation; local PV/battery supply maintained the requested load until grid restoration. Evidence: outage_start=2026-10-10T21:35:00+01:00, outage_end=2026-10-10T22:35:00+01:00, outage_duration_minutes=60.0, mean_pre_event_grid_import_w=66.6."
+  }
+]

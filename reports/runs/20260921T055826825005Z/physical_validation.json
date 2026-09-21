@@ -1,0 +1,129 @@
+{
+  "status": "PASS",
+  "passed": true,
+  "checks": {
+    "required_columns_present": true,
+    "timestamps_unique": true,
+    "cadence_continuous": true,
+    "missing_telemetry_detected": true,
+    "schema_ranges_respected": true,
+    "energy_balance_within_tolerance": true,
+    "load_demand_accounting_consistent": true,
+    "pv_curtailment_accounting_consistent": true,
+    "battery_soc_bounds": true,
+    "battery_charge_power_limit": true,
+    "battery_discharge_power_limit": true,
+    "battery_stored_energy_within_capacity": true,
+    "battery_energy_transition_consistent": true
+  },
+  "data_quality_events": [
+    {
+      "event_type": "telemetry_unavailable",
+      "rows_affected": 9,
+      "fields_affected": [
+        "battery_charge_w",
+        "battery_discharge_w",
+        "battery_soc_pct",
+        "battery_stored_energy_wh",
+        "battery_temp_c",
+        "cloud_cover_pct",
+        "grid_export_w",
+        "grid_import_w",
+        "inverter_dc_current_a",
+        "inverter_dc_voltage_v",
+        "inverter_efficiency",
+        "inverter_temp_c",
+        "irradiance_wm2",
+        "pv_ac_power_w",
+        "pv_dc_power_w"
+      ],
+      "detected_from": "observed_missing_values"
+    }
+  ],
+  "coverage": {
+    "total_rows": 34560,
+    "minimum_physics_coverage_pct": 95.0,
+    "power_balance": {
+      "eligible_rows": 34551,
+      "excluded_rows": 9,
+      "coverage_pct": 99.97395833333333
+    },
+    "load_demand_accounting": {
+      "eligible_rows": 34560,
+      "excluded_rows": 0,
+      "coverage_pct": 100.0
+    },
+    "pv_curtailment_accounting": {
+      "eligible_rows": 34551,
+      "excluded_rows": 9,
+      "coverage_pct": 99.97395833333333
+    },
+    "battery_state": {
+      "eligible_rows": 34551,
+      "excluded_rows": 9,
+      "coverage_pct": 99.97395833333333
+    },
+    "battery_transition": {
+      "evaluated_rows": 24113,
+      "excluded_missing_rows": 11,
+      "structural_non_evaluable_rows": 10436,
+      "input_coverage_pct": 99.97106397754565,
+      "equation_applicability_pct": 69.77343094418241,
+      "sufficiency_basis": "input_coverage_pct",
+      "pass_meaning": "Sufficient input telemetry was available and no violations were found among transitions to which the M2 flow-only equation applies."
+    }
+  },
+  "details": {
+    "missing_columns": [],
+    "missing_rows": 9,
+    "missing_by_field": {
+      "irradiance_wm2": 9,
+      "cloud_cover_pct": 9,
+      "inverter_temp_c": 9,
+      "inverter_dc_voltage_v": 9,
+      "inverter_dc_current_a": 9,
+      "pv_dc_power_w": 9,
+      "pv_ac_power_w": 9,
+      "inverter_efficiency": 9,
+      "battery_soc_pct": 9,
+      "battery_stored_energy_wh": 9,
+      "battery_charge_w": 9,
+      "battery_discharge_w": 9,
+      "battery_temp_c": 9,
+      "grid_import_w": 9,
+      "grid_export_w": 9
+    },
+    "duplicate_timestamps": 0,
+    "cadence_breaks": 0,
+    "range_violations": {},
+    "power_balance_residual_w": {
+      "max": 2.2737367544323206e-13,
+      "median": 0.0,
+      "p95": 0.0,
+      "violations": 0,
+      "violation_pct": 0.0
+    },
+    "load_demand_accounting_residual_w": {
+      "max": 0.0,
+      "median": 0.0,
+      "p95": 0.0,
+      "violations": 0,
+      "violation_pct": 0.0
+    },
+    "pv_curtailment_accounting_residual_w": {
+      "max": 0.0,
+      "median": 0.0,
+      "p95": 0.0,
+      "violations": 0,
+      "violation_pct": 0.0
+    },
+    "energy_balance_tolerance_w": 1e-06,
+    "battery_transition_residual_wh": {
+      "max": 0.0,
+      "median": 0.0,
+      "p95": 0.0,
+      "violations": 0,
+      "violation_pct": 0.0
+    }
+  }
+}

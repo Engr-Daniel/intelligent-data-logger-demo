@@ -2,6 +2,10 @@
 
 A reproducible feasibility demo for a conversational intelligence layer over solar PV, inverter, battery, load, grid, and weather telemetry.
 
+**Research results:** start with [RESULTS.md](RESULTS.md) for the recorded experiment,
+scenario measurements, CSV exports and limits on what the results establish.
+Project working documents: [AGENT.md](AGENT.md), [TASK.md](TASK.md), [MEMORY.md](MEMORY.md).
+
 > **Important:** all telemetry, faults, and ground truth in this repository are synthetic. This repository demonstrates architecture and controlled functional behaviour; it does **not** establish real-world accuracy, statistical validity, warranty causality, or customer responsibility.
 
 [![Open Reasoning Walkthrough in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Engr-Daniel/intelligent-data-logger-demo/blob/main/notebooks/04_reasoning_walkthrough.ipynb)
@@ -47,6 +51,13 @@ pytest -q
 ```
 
 No API key is required for generation, validation, deterministic analytics, scenario scoring, or the offline reasoning walkthrough. To exercise the live Claude tool-use loop, copy `.env.example` to `.env`, set `ANTHROPIC_API_KEY`, and optionally set `ANTHROPIC_MODEL`.
+
+For a fresh offline experiment with archived results, run `python scripts/run_experiment.py`
+after installing dependencies. It regenerates the configured synthetic dataset and saves
+physical validation, fresh M5/M6 reports, the status card, eleven offline answers, and
+a manifest with package versions and input/source hashes under `reports/runs/<UTC timestamp>/`.
+The existing milestone reports remain intact. Run `python -m pytest -q` separately
+to verify the regression suite; the offline experiment does not exercise live Claude.
 
 A reviewer can therefore reproduce the controlled M5 evaluation without external services. The notebook sequence is:
 
