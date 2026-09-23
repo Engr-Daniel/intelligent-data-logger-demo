@@ -95,3 +95,14 @@ statistical significance, model answer quality or superiority over research base
 The M5-to-M6 comparison documents implementation changes on development scenarios.
 Longitudinal/cross-component benefit remains a hypothesis requiring controlled comparison.
 Keep overload evidence distinct from proof of customer responsibility or warranty liability.
+
+## Dashboard visual polish (2026-09-23)
+
+Grid import now uses deep blue (#1746a2), shared by the chart and legend.
+The battery card uses a native responsive progress bar, with the estimated runway
+and constant-load assumption on separate lines. Metric spacing and the tablet grid
+were adjusted to prevent cramped cards. Headless Edge checks passed at 1440, 1024,
+850, 390 and 320 px: no horizontal overflow, bar contained within the card, 13 px
+clearance before the runway text, correct chart colour, repeated refreshes and no
+JavaScript errors. Desktop and mobile screenshots were visually inspected.
+These were local UI checks; no Claude API calls or research experiments were run.

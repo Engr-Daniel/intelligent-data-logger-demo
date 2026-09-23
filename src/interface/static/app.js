@@ -14,13 +14,14 @@ function metric(id, value, unit) { $(id).innerHTML = `${number(value)} <small>${
 function plot(rows) {
   if (!rows.length) { $('chart').textContent='No observations available for this date.'; $('chart-table').replaceChildren(); return; }
   const keys=['pv_ac_power_w','load_power_w','grid_import_w'];
-  const colors=['#237650','#edb65c','#7d9fad'];
+  const palette=getComputedStyle(document.documentElement);
+  const colors=['--green','--orange','--blue'].map(token=>palette.getPropertyValue(token).trim());
   const max=Math.max(1000,...rows.flatMap(r=>keys.map(k=>r[k]??0)));
   const ceiling=Math.ceil(max/1000)*1000;
   const x=i=>46+(i/Math.max(1,rows.length-1))*510, y=v=>215-v/ceiling*180;
   let svg='<svg viewBox="0 0 580 250" xmlns="http://www.w3.org/2000/svg"><title>Daily power in kilowatts, Africa/Lagos time</title>';
   for(let i=0;i<=4;i++) { const v=ceiling*i/4; svg+=`<line x1="46" y1="${y(v)}" x2="556" y2="${y(v)}" stroke="#edf0e9"/><text x="33" y="${y(v)+3}" text-anchor="end" fill="#8d9b8a" font-size="9">${number(v/1000)}</text>`; }
-  keys.forEach((key,k)=>{let d='',connected=false; rows.forEach((r,i)=>{if(r[key]==null){connected=false;return;} d+=`${connected?'L':'M'}${x(i).toFixed(2)},${y(r[key]).toFixed(2)} `;connected=true;});svg+=`<path d="${d}" fill="none" stroke="${colors[k]}" stroke-width="2" stroke-linejoin="round"/>`;});
+  keys.forEach((key,k)=>{let d='',connected=false; rows.forEach((r,i)=>{if(r[key]==null){connected=false;return;} d+=`${connected?'L':'M'}${x(i).toFixed(2)},${y(r[key]).toFixed(2)} `;connected=true;});svg+=`<path d="${d}" fill="none" stroke="${colors[k]}" stroke-width="${k===2?2.6:2}" stroke-linejoin="round" stroke-linecap="round"/>`;});
   [0,6,12,18,23].forEach(hour=>{const i=rows.findIndex(r=>Number(r.timestamp.slice(11,13))===hour);if(i>=0)svg+=`<text x="${x(i)}" y="239" text-anchor="middle" fill="#8d9b8a" font-size="9">${String(hour).padStart(2,'0')}:00</text>`;});
   $('chart').innerHTML=svg+'</svg>';
   $('chart-table').innerHTML='<table><thead><tr><th>Time</th><th>Solar W</th><th>Load W</th><th>Grid W</th></tr></thead><tbody>'+rows.map(r=>`<tr><td>${escapeHTML(r.timestamp.slice(11,16))}</td>${keys.map(k=>`<td>${number(r[k])}</td>`).join('')}</tr>`).join('')+'</tbody></table>';
@@ -37,10 +38,10 @@ async function refresh(day) {
     $('system-state').textContent='Inverter · '+d.inverter_state.replaceAll('_',' ');
     $('alarm').textContent=d.values.active_alarm?'Active alarm · '+d.values.active_alarm:'No active alarm at snapshot';
     metric('pv',d.values.pv_generation_w/1000,'kW');metric('load',d.values.load_w/1000,'kW');metric('soc',d.values.battery_soc_pct,'%');metric('grid',d.values.grid_import_w/1000,'kW');
-    // Style sheet is same-origin; use an accessible native representation for the fill width.
-    $('battery-fill').replaceChildren(); $('battery-fill').textContent='';
-    $('battery-fill').parentElement.innerHTML=`<svg viewBox="0 0 100 3" width="120" height="3" aria-hidden="true"><rect width="100" height="3" fill="#eef2e9"/><rect width="${Math.max(0,Math.min(100,d.values.battery_soc_pct))}" height="3" fill="#6c9663"/></svg><span id="battery-fill" hidden></span>`;
-    $('runway').textContent=number(d.values.estimated_battery_runway_hours,2)+' h estimated · constant load';
+    const charge=d.values.battery_soc_pct;
+    $('battery-level').value=Number.isFinite(charge)?Math.max(0,Math.min(100,charge)):0;
+    $('battery-level').setAttribute('aria-valuetext',Number.isFinite(charge)?number(charge)+' percent':'Unavailable');
+    $('runway').textContent=d.values.estimated_battery_runway_hours==null?'Runway unavailable':number(d.values.estimated_battery_runway_hours,2)+' h estimated runway';
     $('export').textContent=number(d.grid_export_w/1000)+' kW exported to grid';
     $('day').min=d.first_day;$('day').max=d.last_day;$('day').value=d.selected_day;
     plot(d.chart);$('chart-note').textContent=`Five-minute observations · ${d.missing_rows} incomplete rows on this day. Gaps remain visible.`;

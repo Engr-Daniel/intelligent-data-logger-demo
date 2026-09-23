@@ -11,7 +11,7 @@
 <div class="metrics">
 <article class="metric"><div class="metric-label">Solar generation <span class="metric-icon sun">☀</span></div><div class="metric-value" id="pv">—</div><div class="metric-foot">Delivered AC power</div></article>
 <article class="metric"><div class="metric-label">Home consumption <span class="metric-icon">⌂</span></div><div class="metric-value" id="load">—</div><div class="metric-foot">Served load at snapshot</div></article>
-<article class="metric"><div class="metric-label">Battery charge <span class="metric-icon">▤</span></div><div class="metric-value" id="soc">—</div><div class="battery-track"><div id="battery-fill"></div></div><div class="metric-foot" id="runway">—</div></article>
+<article class="metric"><div class="metric-label">Battery charge <span class="metric-icon">▤</span></div><div class="metric-value" id="soc">—</div><progress class="battery-level" id="battery-level" max="100" value="0" aria-label="Battery charge"></progress><div class="metric-foot"><span id="runway">—</span><span class="metric-assumption">At constant load</span></div></article>
 <article class="metric"><div class="metric-label">Grid import <span class="metric-icon">⇄</span></div><div class="metric-value" id="grid">—</div><div class="metric-foot" id="export">—</div></article>
 </div></section>
 <div class="workspace-grid">
