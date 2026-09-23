@@ -1,5 +1,36 @@
 # Project memory
 
+## NASEF upgrade — 23 September 2026
+
+The user clarified that this is for a full paper, hardware cannot be built in time,
+synthetic experiments must be strengthened, and both offline and online paths are needed.
+The user explicitly requested a new branch and said Claude API credit was purchased.
+Active work branch: `research/nasef2026-synthetic-benchmark`.
+
+The v1 protocol focuses on historical/cross-component information access, with a shared
+diagnostic policy, 8 development and 24 disjoint evaluation installation seeds, twelve
+matched episodes, four access conditions and three observation-stress levels. It is an
+internally frozen protocol, not an external preregistration. Do not change its thresholds
+against the recorded evaluation; create a new version and seeds for later changes.
+
+Evaluation archive: `reports/research/20260923T190318100907Z_evaluation/`.
+All 288 clean episodes passed physics checks; 3,456 paired predictions were evaluated.
+Clean full-history/cross-component accuracy: 233/240 identifiable cases, 97.1%
+(installation-cluster 95% interval 95.4–98.8). Severe corruption: 90.0%.
+All comparisons are same-simulator, shared-policy ablations, not independent competitors.
+Original demo datasets and frozen reports were preserved.
+
+A bounded live pilot was attempted and stopped on the first HTTP 400 response because
+the key is not workspace-scoped. One additional capped diagnostic request confirmed that
+error. No generated outputs/usage counters were returned. Optional
+`ANTHROPIC_WORKSPACE_ID` header support is now implemented across the API paths.
+The user has been asked to configure it; never copy their key into reports or messages.
+
+`paper/METHODS_AND_RESULTS.md` and `paper/ABSTRACT_DRAFT.md` contain evidence-based draft
+material, not a finished submission or verified novelty claim. Official conference pages
+list 30 September abstract / 5 October full-paper deadlines but have conflicting abstract
+wording; see `paper/SUBMISSION_NOTES.md` and confirm the earlier date with organizers.
+
 ## User direction
 
 - This is research work intended for a paper. Results must be clear, traceable and

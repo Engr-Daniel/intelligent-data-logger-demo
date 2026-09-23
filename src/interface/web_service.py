@@ -15,6 +15,7 @@ from dotenv import load_dotenv
 
 from src.datacontext.context import load_installation_config
 from src.reasoning.agent import SYSTEM, fallback_answer
+from src.reasoning.api_config import workspace_headers
 from src.reasoning.tools import TOOL_DEFINITIONS, execute_tool
 from src.storage.local_store import DEFAULT_DB, load_telemetry
 
@@ -132,7 +133,7 @@ class Conversation:
                     if not key:
                         raise ValueError("Configure ANTHROPIC_API_KEY in your local .env file first.")
                     from anthropic import Anthropic
-                    client = Anthropic(api_key=key, timeout=60, max_retries=0)
+                    client = Anthropic(api_key=key, timeout=60, max_retries=0, default_headers=workspace_headers())
                 record["model"] = os.getenv("ANTHROPIC_MODEL") or "claude-sonnet-4-5"
                 # Explicit snapshot anchor resolves relative dates without simulator ground truth.
                 current = dashboard()

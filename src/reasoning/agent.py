@@ -3,6 +3,7 @@ import json, os, re
 from typing import Any
 from dotenv import load_dotenv
 from src.reasoning.tools import TOOL_DEFINITIONS, execute_tool
+from src.reasoning.api_config import workspace_headers
 
 SYSTEM="""You are the conversational interface for a synthetic solar-energy intelligence demo.
 Use approved analytics tools for every engineering, financial, sustainability, forecasting, or diagnostic factual claim.
@@ -58,7 +59,7 @@ def answer(question:str,max_tool_rounds:int=6)->str:
     from anthropic import Anthropic
     client=Anthropic(api_key=key); model=os.getenv("ANTHROPIC_MODEL") or "claude-sonnet-4-5"; messages=[{"role":"user","content":question}]
     for _ in range(max_tool_rounds):
-        response=client.messages.create(model=model,max_tokens=900,system=SYSTEM,tools=TOOL_DEFINITIONS,messages=messages)
+        response=client.messages.create(model=model,max_tokens=900,system=SYSTEM,tools=TOOL_DEFINITIONS,messages=messages,extra_headers=workspace_headers())
         uses=[b for b in response.content if getattr(b,"type",None)=="tool_use"]
         if not uses:return "".join(b.text for b in response.content if getattr(b,"type",None)=="text").strip()
         messages.append({"role":"assistant","content":response.content}); results=[]

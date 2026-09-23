@@ -1,0 +1,5 @@
+# Research archives are byte-addressed by their manifests. Preserve their exact bytes
+# on every platform, including CSV/JSON line endings and frozen source snapshots.
+reports/research/** -text whitespace=cr-at-eol
+# Matplotlib SVG path commands include generated trailing spaces.
+reports/research/**/*.svg -text whitespace=-blank-at-eol,cr-at-eol

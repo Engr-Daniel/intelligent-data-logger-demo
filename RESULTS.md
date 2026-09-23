@@ -1,8 +1,36 @@
 # Research results
 
-**Current evidence: a controlled synthetic feasibility demonstration.** The offline
+## NASEF synthetic study — 23 September 2026
+
+The new [research run index](reports/research/README.md) contains the completed
+four-condition information-access evaluation, separate from the original demo below.
+
+| Clean telemetry condition | Correct diagnosis on identifiable cases | 95% cluster interval |
+|---|---:|---:|
+| Full history + cross-component | 97.1% | 95.4–98.8% |
+| Full history + inverter-only | 53.8% | 51.3–56.2% |
+| Recent 24 hours + cross-component | 40.0% | 40.0–40.0% |
+| Recent 24 hours + inverter-only | 20.0% | 20.0–20.0% |
+
+Evaluation: 24 synthetic installations, 12 episodes each, 4 conditions, 3 stress levels,
+3,456 paired predictions. Each clean condition has 240 identifiable cases plus 48
+abstention-required cases. The full condition resolved 233/240 identifiable cases;
+severe observation corruption reduced its accuracy to 90.0%. All clean trajectories
+passed physical checks. Confidence intervals resample installations, not telemetry rows.
+
+These percentages measure predefined diagnostic labels in a new comparative benchmark;
+they are not percentages derived from the original six demo scenario passes. Low
+recent-only scores include principled abstentions on historical questions. Comparisons
+are between a shared policy's information-access conditions, not optimized competitors.
+See [methods and results](paper/METHODS_AND_RESULTS.md) for coverage, false positives,
+task-level interpretation and failures. The first live pilot was blocked by a required
+Anthropic workspace header; no successful live result is claimed.
+
+## Original feasibility demo — 21 September 2026
+
+**Historical evidence: a controlled synthetic feasibility demonstration.** The offline
 run completed on 21 September 2026. Live Claude evaluation and the manuscript's
-comparative research study have not yet been performed.
+comparative study had not been performed at the time of that run.
 
 ## Experiment conditions
 

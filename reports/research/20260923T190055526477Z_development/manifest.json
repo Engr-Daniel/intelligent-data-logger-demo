@@ -1,0 +1,57 @@
+{
+  "protocol_id": "nasef-synthetic-v1",
+  "split": "development",
+  "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107
+  ],
+  "started_utc": "2026-09-23T19:00:55.526477+00:00",
+  "status": "complete",
+  "synthetic": true,
+  "python": "3.10.0",
+  "packages": {
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "matplotlib": "3.10.9"
+  },
+  "code_sha256": {
+    "src\\research\\policy.py": "d4165ee4c899eee2e71287981554b1a5e01aa24d9d27252d4123b12ad9c0cf61",
+    "src\\research\\reporting.py": "77c22d88c826c4bb64075684e89e09ab620db705541ef9d090af6047824cc087",
+    "src\\research\\simulation.py": "c45e4b680c7ec848e82eee418fa551e2c8607ead4978b8e44fec72932db22dbe",
+    "src\\research\\__init__.py": "9f93906ef1c1886e8fae2f3017875062fcce36a8697299ba649184fdbad481ff",
+    "scripts\\run_research_benchmark.py": "f6f35e63f18f65faf2ce411406ef07504488b0b308cb4389ff8bec0a27d35376",
+    "config\\research_protocol.json": "34a590c88dc00cf5a876aea9874eb2ec7c8592918afcc05e92a34d166bc46229",
+    "docs\\RESEARCH_PROTOCOL.md": "4eda1d2c79a543174e35cce0add9be9f4c3280111e7c78f5f8ae6b695a9bc13c"
+  },
+  "telemetry_archived": false,
+  "sampling_unit": "installation seed; episodes, conditions and stress levels are paired",
+  "finished_utc": "2026-09-23T19:01:40.390423+00:00",
+  "predictions": 1152,
+  "episodes": 96,
+  "all_physical_checks_passed": true,
+  "artifact_sha256": {
+    "accuracy.png": "60b5879bbcd60fc63544f1f2f02609dc6bc2efafef281cef2c992c63c1b970e9",
+    "accuracy.svg": "6e7ee830635a9c086e23ade262443d7b28404db13ba1f8c4b4cb6e6ff991f286",
+    "confusion.csv": "64458a22a6003d77f33291abc948c4382c378e82ef3ce012a0ac5816891b0af4",
+    "dataset_hashes.csv": "b70e8ba6d01470dfaadc40c7d224b4395d8f14ea18c067be77337b26f77727fb",
+    "installation_metrics.csv": "d4212653488c39dd7f23d81be5a9cd36be806027efdd436a7e26ac5733bc5716",
+    "metrics.csv": "572d03064f35da478bb0b4791e6f9c732092bfeb863acf2724323f8560167260",
+    "oracle.jsonl": "cafe55d969271b24ece28df7559ed84e3a37eb72273b83c6e22db5bb8db88120",
+    "paired_effects.csv": "4eceb8cf5c4832454fed18dc373e4254061bfafb6e1d2905cabe9c72016d610f",
+    "physical_checks.jsonl": "ceeb5480d9c9ec37a0260c0a6b745025014e8193b5800eb301f849db4dc48ce0",
+    "predictions.csv": "8af975dc2e46eba323ca2065caeb4832c9ae7da3d3c5f71b779dde3d436e7470",
+    "protocol.json": "05b009648f8390183186fa94c93458ed24872cd947339dce4cdfc8ad69d9bb0b",
+    "receipts.jsonl": "44b1b36308cb22861c229ae22748f0093d13683205e56ba5a4b1754274b7ae12",
+    "REPORT.md": "029d1b3c278cae5a95147dd481b09fe031a1de41bc92b2f9169a0173f8528815",
+    "robustness.png": "d546462c78772b51a89c0a7e8336bf1b1953ba5b172f82b43b983e01f1f8a1fc",
+    "robustness.svg": "a96f1a7a6089ddf4ec89599fc237bd8e3771c342eff6fec59df250d39584a73b",
+    "task_metrics.csv": "3e9e40f59c81d0655a8f9535f93c8b202d28defe41de86430483eaa3b29ca05f",
+    "unresolved_or_incorrect.csv": "b349b394568e3d0dd7d06e8bfc17f89933b6257a533284fbf852dd26b4233f3e"
+  }
+}

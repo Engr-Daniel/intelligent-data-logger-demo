@@ -6,6 +6,11 @@ Read `TASK.md`, `MEMORY.md`, and `RESULTS.md` before continuing experiments.
 This singular filename is the user-requested project guide; tools that only discover
 `AGENTS.md` automatically may need this file opened explicitly.
 
+For the NASEF upgrade also read `docs/RESEARCH_PROTOCOL.md`. Keep v1 evaluation seeds
+and thresholds frozen after results are observed. The new benchmark's per-case label
+accuracy is distinct from the original demo's scenario PASS counts; always give its
+denominator, coverage, information-access conditions and synthetic limitations.
+
 ## Research standards
 
 - Separate implemented capabilities, measured results, hypotheses, and future work.

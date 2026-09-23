@@ -1,5 +1,23 @@
 # Research task tracker
 
+## NASEF full-paper upgrade — 23 September 2026
+
+- [x] Create branch `research/nasef2026-synthetic-benchmark`.
+- [x] Read the working draft; narrow empirical claims to a synthetic information-access study.
+- [x] Write v1 protocol, disjoint seeds, four conditions, stress levels and outcome definitions.
+- [x] Implement isolated plant simulator, physical checks and oracle-free access boundary.
+- [x] Run development (8 installations) and evaluation (24 installations) without evaluation tuning.
+- [x] Export case evidence, cluster intervals, paired effects, failure tables and PNG/SVG figures.
+- [x] Implement a capped live-Claude pilot with structured outputs, usage records and tests.
+- [x] Draft paper methods/results, a bounded abstract and venue notes.
+- [ ] Complete live pilot: set the required workspace ID or use a workspace-scoped API key.
+- [ ] Complete verified related work, domain review and full-paper venue formatting.
+- [ ] Review weak baselines/task-mix limitations before making broader comparative claims.
+- [ ] Obtain external-data or independent simulator validation in subsequent research.
+
+The earlier real-data and expert-panel plan below remains future work for the broader
+vision. The current submission can only report the narrower synthetic study actually run.
+
 ## Completed
 
 - [x] Implement the synthetic M1–M6 demonstration.

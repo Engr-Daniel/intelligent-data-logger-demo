@@ -6,6 +6,40 @@ A reproducible feasibility demo for a conversational intelligence layer over sol
 scenario measurements, CSV exports and limits on what the results establish.
 Project working documents: [AGENT.md](AGENT.md), [TASK.md](TASK.md), [MEMORY.md](MEMORY.md).
 
+## NASEF 2026 research upgrade
+
+Branch: `research/nasef2026-synthetic-benchmark`. The original demo remains intact.
+The new study evaluates information access using disjoint development/evaluation
+installation seeds, twelve matched episodes, four history/channel conditions, three
+observation-stress levels, and installation-cluster uncertainty intervals.
+
+- [Frozen research protocol](docs/RESEARCH_PROTOCOL.md)
+- [Research run index and results](reports/research/README.md)
+- [Paper methods/results material](paper/METHODS_AND_RESULTS.md)
+- [Abstract draft](paper/ABSTRACT_DRAFT.md) and [submission notes](paper/SUBMISSION_NOTES.md)
+
+```bash
+python scripts/run_research_benchmark.py --split development
+python scripts/run_research_benchmark.py --split evaluation
+# Optional: add --archive-telemetry to retain compressed episode data locally.
+python scripts/run_research_live.py                 # plan only; no API calls
+python scripts/run_research_live.py --execute --max-usd 3
+# Verify an archive without rerunning simulation or contacting an API:
+python scripts/verify_research_run.py reports/research/<run-directory>
+```
+
+Every run gets a new `reports/research/` directory with raw outcomes, evidence,
+configuration/source snapshots, hashes, CSV tables and PNG/SVG figures. Archived
+telemetry goes under ignored `data/research/`. Research runs do not overwrite the
+dashboard's original dataset or original milestone reports. Use evaluation seeds only
+after freezing a protocol; do not adjust thresholds against those outcomes.
+
+Live execution is a bounded paid development pilot with a fixed dated model, at most
+48 generation requests and no retries. It requires `ANTHROPIC_API_KEY` in `.env` and,
+for a multi-workspace key, `ANTHROPIC_WORKSPACE_ID`. Its label/citation checks measure
+reporting fidelity; independent review of prose remains necessary. The local dollar
+reservation is a conservative planning estimate, not an account billing guarantee.
+
 ## Interactive solar workspace
 
 After installing dependencies and generating telemetry, start the local dashboard:
