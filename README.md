@@ -1,4 +1,5 @@
 # Intelligent Data Logger — Demo Experiment
+Check the experiment explore here: [Intelligent Data Logger Experiment Explorer](https://daniel-intelligent-data-logger-explorer.oyewaledanieloyewola.chatgpt.site)
 
 A reproducible feasibility demo for a conversational intelligence layer over solar PV, inverter, battery, load, grid, and weather telemetry.
 
