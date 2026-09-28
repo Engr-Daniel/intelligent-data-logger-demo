@@ -1,0 +1,25 @@
+case_id,episode,condition,outer_fence_removed,valid_json,label_fidelity,oracle_correct,citation_validity,nonempty_explanation,invalid_citations
+site-100-case-00,day_normal,full_cross,True,True,True,True,True,True,[]
+site-100-case-00,day_normal,recent_inverter,True,True,True,False,False,True,"['inverter_alarm', 'inverter_temp_c', 'pv_ac_power_w']"
+site-100-case-01,day_weather,full_cross,True,True,True,True,True,True,[]
+site-100-case-01,day_weather,recent_inverter,True,True,True,False,True,True,[]
+site-100-case-02,day_derating,full_cross,True,True,True,True,True,True,[]
+site-100-case-02,day_derating,recent_inverter,True,True,True,False,False,True,['pv_ac_power_w']
+site-100-case-03,alarm_normal,full_cross,True,True,True,True,True,True,[]
+site-100-case-03,alarm_normal,recent_inverter,True,True,True,True,True,True,[]
+site-100-case-04,alarm_overload,full_cross,True,True,True,True,False,True,"['inverter_alarm', 'load_power_w']"
+site-100-case-04,alarm_overload,recent_inverter,True,True,True,False,True,True,[]
+site-100-case-05,alarm_thermal,full_cross,True,True,True,True,True,True,[]
+site-100-case-05,alarm_thermal,recent_inverter,True,True,True,True,False,True,"['inverter_alarm', 'inverter_temp_c']"
+site-100-case-06,alarm_unexplained,full_cross,True,True,True,True,True,True,[]
+site-100-case-06,alarm_unexplained,recent_inverter,True,True,True,True,True,True,[]
+site-100-case-07,trend_stable,full_cross,True,True,True,True,True,True,[]
+site-100-case-07,trend_stable,recent_inverter,True,True,True,False,False,True,"['data_window', 'minimum_history_days']"
+site-100-case-08,trend_decline,full_cross,True,True,True,True,True,True,[]
+site-100-case-08,trend_decline,recent_inverter,True,True,True,False,False,True,['minimum_history_days']
+site-100-case-09,trend_weather,full_cross,True,True,True,True,True,True,[]
+site-100-case-09,trend_weather,recent_inverter,True,True,True,False,False,True,"['data_window', 'minimum_history_days']"
+site-100-case-10,trend_low_efficiency,full_cross,True,True,True,True,True,True,[]
+site-100-case-10,trend_low_efficiency,recent_inverter,True,True,True,False,False,True,['minimum_history_days']
+site-100-case-11,day_missing,full_cross,True,True,True,True,False,True,"['ambient_temp_c', 'battery_charge_w', 'battery_discharge_w', 'battery_soc_pct', 'grid_export_w', 'grid_import_w', 'inverter_alarm', 'inverter_temp_c', 'irradiance_wm2', 'load_power_w', 'pv_ac_power_w']"
+site-100-case-11,day_missing,recent_inverter,True,True,True,True,True,True,[]

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071525">
+  <meta name="description" content="An interactive explorer of the six recorded synthetic solar Intelligent Data Logger scenarios and their M1–M6 evidence.">
+  <title>Intelligent Data Logger · Experiment Explorer</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071525'/%3E%3Cpath d='M7 36h12l7-15 9 25 7-13h15' fill='none' stroke='%2347c5e5' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#detail-content">Skip to scenario evidence</a>
+  <div class="app-shell">
+    <header class="masthead">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M2 23h8l5-10 7 19 5-11h11"/></svg></span><span><strong>Intelligent Data Logger</strong><small>Experiment explorer</small></span></div>
+      <div class="masthead-right"><span class="mode">RECORDED SYNTHETIC RUN</span><a class="private-badge" href="./research.html">Research benchmark →</a></div>
+    </header>
+
+    <main>
+      <section class="overview" aria-label="Experiment snapshot">
+        <div class="overview-lead">
+          <div class="eyebrow">M1–M6 / CONTROLLED FEASIBILITY DEMO</div>
+          <h1>Six scenarios. One traceable run.</h1>
+          <p>Select an event to follow the injected condition, what the operational data shows, how the analytic reasons, and what the frozen evaluation recorded.</p>
+        </div>
+        <div class="stats" aria-label="Recorded run summary">
+          <div><strong>120</strong><span>simulated days</span></div>
+          <div><strong>34,560</strong><span>five-minute rows</span></div>
+          <div><strong>6 / 6</strong><span>M6 scenarios pass</span></div>
+          <div><strong>11 / 11</strong><span>offline query paths pass</span></div>
+        </div>
+      </section>
+
+      <section class="timeline-section" aria-labelledby="timeline-title">
+        <div class="section-heading"><div><span class="eyebrow">SIMULATION WINDOW · AFRICA/LAGOS</span><h2 id="timeline-title">Experiment timeline</h2></div><span class="section-note">1 Aug – 28 Nov 2026 · select an event</span></div>
+        <div class="timeline-key"><span>01 AUG</span><span>01 SEP</span><span>01 OCT</span><span>01 NOV</span><span>28 NOV</span></div>
+        <div id="timeline" class="timeline" aria-label="Injected scenario timeline"></div>
+      </section>
+
+      <div class="workspace">
+        <aside class="scenario-rail" aria-labelledby="scenario-heading">
+          <div class="rail-head"><span class="eyebrow">SCENARIO SELECTOR</span><h2 id="scenario-heading">Investigate</h2></div>
+          <div id="scenario-list" class="scenario-list" role="group" aria-label="Select scenario"></div>
+          <div class="rail-foot"><span class="mini-icon">i</span><span>This is a recorded-run explainer. Selecting an event does not rerun Python or contact a live device.</span></div>
+        </aside>
+
+        <article class="detail" aria-live="polite" aria-atomic="false">
+          <div id="detail-content" class="loading">Loading the recorded experiment…</div>
+        </article>
+      </div>
+
+      <section class="runbook" aria-labelledby="runbook-title">
+        <div class="section-heading"><div><span class="eyebrow">WHAT RUNNING THE PROJECT DOES</span><h2 id="runbook-title">From simulation to evidence</h2></div><a class="source-link" href="https://github.com/Engr-Daniel/intelligent-data-logger-demo/tree/research/nasef2026-synthetic-benchmark" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+        <div class="workflow" id="workflow"></div>
+        <details class="commands"><summary>Reproduce the original M1–M6 run <span aria-hidden="true">⌄</span></summary><div class="commands-body"><p>From the project checkout, install its development requirements, then run the archived offline experiment and regression suite.</p><pre><code>pip install -r requirements-dev.txt
+python scripts/run_experiment.py
+python -m pytest -q</code></pre><p>The run writes a new timestamped folder under <code>reports/runs/</code> with validation, M5/M6 scoring, eleven offline answers and provenance. The recorded run shown here is <code>20260921T055826825005Z</code>. No API key is required for the offline path.</p></div></details>
+      </section>
+      <footer><span>One installation · seed 42 · synthetic telemetry · M6 dry run</span><span>Scenario passes are functional checks, not field accuracy or live Claude evaluation.</span></footer>
+    </main>
+  </div>
+</body>
+</html>

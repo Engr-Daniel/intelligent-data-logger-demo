@@ -1,0 +1,715 @@
+{
+  "run": "20260923T190318100907Z_evaluation",
+  "installations": 24,
+  "episodes": 288,
+  "predictions": 3456,
+  "identifiable_per_condition": 240,
+  "abstention_cases_per_condition": 48,
+  "metrics": [
+    {
+      "stress": "clean",
+      "condition": "full_cross",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.9708333333333333",
+      "diagnostic_accuracy_lo": "0.9541666666666666",
+      "diagnostic_accuracy_hi": "0.9875000000000002",
+      "coverage": "0.8298611111111112",
+      "coverage_lo": "0.8229166666666666",
+      "coverage_hi": "0.8333333333333334",
+      "selective_accuracy": "0.975",
+      "selective_accuracy_lo": "0.9583333333333334",
+      "selective_accuracy_hi": "0.9916666666666667",
+      "normal_false_positive_rate": "0.008333333333333333",
+      "normal_false_positive_rate_lo": "0.0",
+      "normal_false_positive_rate_hi": "0.025000000000000005",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    },
+    {
+      "stress": "clean",
+      "condition": "full_inverter",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.5375",
+      "diagnostic_accuracy_lo": "0.5125000000000001",
+      "diagnostic_accuracy_hi": "0.5625",
+      "coverage": "0.5868055555555556",
+      "coverage_lo": "0.5729166666666666",
+      "coverage_hi": "0.6041666666666666",
+      "selective_accuracy": "0.7638888888888888",
+      "selective_accuracy_lo": "0.7301587301587302",
+      "selective_accuracy_hi": "0.7976190476190474",
+      "normal_false_positive_rate": "0.19166666666666668",
+      "normal_false_positive_rate_lo": "0.15",
+      "normal_false_positive_rate_hi": "0.24166666666666667",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    },
+    {
+      "stress": "clean",
+      "condition": "recent_cross",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.4000000000000001",
+      "diagnostic_accuracy_lo": "0.4000000000000001",
+      "diagnostic_accuracy_hi": "0.4000000000000001",
+      "coverage": "0.3333333333333333",
+      "coverage_lo": "0.3333333333333333",
+      "coverage_hi": "0.3333333333333333",
+      "selective_accuracy": "1.0",
+      "selective_accuracy_lo": "1.0",
+      "selective_accuracy_hi": "1.0",
+      "normal_false_positive_rate": "0.0",
+      "normal_false_positive_rate_lo": "0.0",
+      "normal_false_positive_rate_hi": "0.0",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    },
+    {
+      "stress": "clean",
+      "condition": "recent_inverter",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.20000000000000004",
+      "diagnostic_accuracy_lo": "0.20000000000000004",
+      "diagnostic_accuracy_hi": "0.20000000000000004",
+      "coverage": "0.16666666666666666",
+      "coverage_lo": "0.16666666666666666",
+      "coverage_hi": "0.16666666666666666",
+      "selective_accuracy": "1.0",
+      "selective_accuracy_lo": "1.0",
+      "selective_accuracy_hi": "1.0",
+      "normal_false_positive_rate": "0.0",
+      "normal_false_positive_rate_lo": "0.0",
+      "normal_false_positive_rate_hi": "0.0",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    },
+    {
+      "stress": "moderate",
+      "condition": "full_cross",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.975",
+      "diagnostic_accuracy_lo": "0.9541666666666666",
+      "diagnostic_accuracy_hi": "0.9916666666666667",
+      "coverage": "0.8333333333333334",
+      "coverage_lo": "0.8333333333333334",
+      "coverage_hi": "0.8333333333333334",
+      "selective_accuracy": "0.975",
+      "selective_accuracy_lo": "0.9541666666666666",
+      "selective_accuracy_hi": "0.9916666666666667",
+      "normal_false_positive_rate": "0.008333333333333333",
+      "normal_false_positive_rate_lo": "0.0",
+      "normal_false_positive_rate_hi": "0.025000000000000005",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    },
+    {
+      "stress": "moderate",
+      "condition": "full_inverter",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.5375",
+      "diagnostic_accuracy_lo": "0.5125000000000001",
+      "diagnostic_accuracy_hi": "0.5625",
+      "coverage": "0.5868055555555556",
+      "coverage_lo": "0.5729166666666666",
+      "coverage_hi": "0.6041666666666666",
+      "selective_accuracy": "0.7638888888888888",
+      "selective_accuracy_lo": "0.7301587301587302",
+      "selective_accuracy_hi": "0.7976190476190474",
+      "normal_false_positive_rate": "0.19166666666666668",
+      "normal_false_positive_rate_lo": "0.15",
+      "normal_false_positive_rate_hi": "0.24166666666666667",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    },
+    {
+      "stress": "moderate",
+      "condition": "recent_cross",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.4000000000000001",
+      "diagnostic_accuracy_lo": "0.4000000000000001",
+      "diagnostic_accuracy_hi": "0.4000000000000001",
+      "coverage": "0.3333333333333333",
+      "coverage_lo": "0.3333333333333333",
+      "coverage_hi": "0.3333333333333333",
+      "selective_accuracy": "1.0",
+      "selective_accuracy_lo": "1.0",
+      "selective_accuracy_hi": "1.0",
+      "normal_false_positive_rate": "0.0",
+      "normal_false_positive_rate_lo": "0.0",
+      "normal_false_positive_rate_hi": "0.0",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    },
+    {
+      "stress": "moderate",
+      "condition": "recent_inverter",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.20000000000000004",
+      "diagnostic_accuracy_lo": "0.20000000000000004",
+      "diagnostic_accuracy_hi": "0.20000000000000004",
+      "coverage": "0.16666666666666666",
+      "coverage_lo": "0.16666666666666666",
+      "coverage_hi": "0.16666666666666666",
+      "selective_accuracy": "1.0",
+      "selective_accuracy_lo": "1.0",
+      "selective_accuracy_hi": "1.0",
+      "normal_false_positive_rate": "0.0",
+      "normal_false_positive_rate_lo": "0.0",
+      "normal_false_positive_rate_hi": "0.0",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    },
+    {
+      "stress": "severe",
+      "condition": "full_cross",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.9",
+      "diagnostic_accuracy_lo": "0.8708333333333332",
+      "diagnostic_accuracy_hi": "0.9291666666666667",
+      "coverage": "0.7847222222222223",
+      "coverage_lo": "0.7604166666666666",
+      "coverage_hi": "0.8055555555555557",
+      "selective_accuracy": "0.9564814814814815",
+      "selective_accuracy_lo": "0.9314814814814815",
+      "selective_accuracy_hi": "0.9782407407407409",
+      "normal_false_positive_rate": "0.008333333333333333",
+      "normal_false_positive_rate_lo": "0.0",
+      "normal_false_positive_rate_hi": "0.025000000000000005",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    },
+    {
+      "stress": "severe",
+      "condition": "full_inverter",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.5333333333333333",
+      "diagnostic_accuracy_lo": "0.5083333333333333",
+      "diagnostic_accuracy_hi": "0.5583333333333333",
+      "coverage": "0.5833333333333334",
+      "coverage_lo": "0.5729166666666666",
+      "coverage_hi": "0.59375",
+      "selective_accuracy": "0.7621527777777777",
+      "selective_accuracy_lo": "0.7271763392857141",
+      "selective_accuracy_hi": "0.7976190476190474",
+      "normal_false_positive_rate": "0.20000000000000004",
+      "normal_false_positive_rate_lo": "0.16666666666666666",
+      "normal_false_positive_rate_hi": "0.2416666666666667",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    },
+    {
+      "stress": "severe",
+      "condition": "recent_cross",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.38333333333333336",
+      "diagnostic_accuracy_lo": "0.3666666666666667",
+      "diagnostic_accuracy_hi": "0.3958333333333334",
+      "coverage": "0.3194444444444444",
+      "coverage_lo": "0.3055555555555555",
+      "coverage_hi": "0.3298611111111111",
+      "selective_accuracy": "1.0",
+      "selective_accuracy_lo": "1.0",
+      "selective_accuracy_hi": "1.0",
+      "normal_false_positive_rate": "0.0",
+      "normal_false_positive_rate_lo": "0.0",
+      "normal_false_positive_rate_hi": "0.0",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    },
+    {
+      "stress": "severe",
+      "condition": "recent_inverter",
+      "installations": "24",
+      "cases": "288",
+      "diagnostic_accuracy": "0.20000000000000004",
+      "diagnostic_accuracy_lo": "0.20000000000000004",
+      "diagnostic_accuracy_hi": "0.20000000000000004",
+      "coverage": "0.16666666666666666",
+      "coverage_lo": "0.16666666666666666",
+      "coverage_hi": "0.16666666666666666",
+      "selective_accuracy": "1.0",
+      "selective_accuracy_lo": "1.0",
+      "selective_accuracy_hi": "1.0",
+      "normal_false_positive_rate": "0.0",
+      "normal_false_positive_rate_lo": "0.0",
+      "normal_false_positive_rate_hi": "0.0",
+      "correct_abstention": "1.0",
+      "correct_abstention_lo": "1.0",
+      "correct_abstention_hi": "1.0"
+    }
+  ],
+  "source_sha256": {
+    "metrics.csv": "2785ee35ec0b88a67c1117f77016586b5359bd37bd168349b419dbd2d77ff58b",
+    "paired_effects.csv": "8e694b011660c410bc9db1b179a7b5c5dec1b0af095978ab0f21e2a7fb8f584a",
+    "task_metrics.csv": "ee326a4fa9479ac795cab7eb4cf801ff80064ba601f8327de3be1daea6b17d73",
+    "unresolved_or_incorrect.csv": "7c4e119ecd89dbffe72c057ce3fa79824861562241e87658af56614ac9ec23e5",
+    "predictions.csv": "dddca6f2b767abdd46350ceca0bc09b7c93d9ee639cc0b07532a74dd2dbeaebb"
+  },
+  "live": {
+    "run": "20260928T072939445717Z_live_development",
+    "summary": {
+      "attempted_conversations": 24,
+      "planned_conversations": 24,
+      "requests": 48,
+      "estimated_usage_usd": 0.213009,
+      "reserved_usd": 1.090599,
+      "completed": 24,
+      "tool_selection_correct": 24,
+      "counts": {
+        "valid_json": 0,
+        "label_fidelity": 0,
+        "oracle_correct": 0,
+        "citation_validity": 0,
+        "nonempty_explanation": 0
+      }
+    },
+    "model": "claude-sonnet-4-5-20250929",
+    "format_sensitivity": {
+      "analysis": "post-hoc outer Markdown fence removal only; original primary scores unchanged",
+      "source_run": "20260928T072939445717Z_live_development",
+      "denominator": 24,
+      "counts": {
+        "outer_fence_removed": 24,
+        "valid_json": 24,
+        "label_fidelity": 24,
+        "oracle_correct": 16,
+        "citation_validity": 15,
+        "nonempty_explanation": 24
+      },
+      "by_condition": {
+        "full_cross": {
+          "outer_fence_removed": 12,
+          "valid_json": 12,
+          "label_fidelity": 12,
+          "oracle_correct": 12,
+          "citation_validity": 10,
+          "nonempty_explanation": 12
+        },
+        "recent_inverter": {
+          "outer_fence_removed": 12,
+          "valid_json": 12,
+          "label_fidelity": 12,
+          "oracle_correct": 4,
+          "citation_validity": 5,
+          "nonempty_explanation": 12
+        }
+      },
+      "latency_seconds": {
+        "median": 6.263,
+        "min": 4.184,
+        "max": 37.639
+      },
+      "source_sha256": {
+        "conversations.jsonl": "6fc584e85f3186b77ec8c22686ed8a529139758a5f320387017614dd02dbcd93"
+      },
+      "script_sha256": "d51f8d7159fc9ec7509d66ff148ffd4e7a08c17bac19173d10b7a05eab877799"
+    },
+    "records": [
+      {
+        "case_id": "site-100-case-00",
+        "episode": "day_normal",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "What explains the solar output on 2026-03-31? Is there a material reduction?",
+        "final_text": "```json\n{\n  \"label\": \"normal\",\n  \"explanation\": \"The solar output on 2026-03-31 shows no material reduction. The system exhibited a target normalized performance of approximately 90.0%, with a relative performance loss of only -0.023% (essentially negligible, and the negative value indicates slight overperformance relative to baseline). The mean PV AC power output was 5107 W. Irradiance loss was less than 1%, indicating good weather conditions. All evidence points to normal operation with no significant performance degradation.\",\n  \"citations\": [\n    \"target_mean_pv_w\",\n    \"target_normalized_performance\",\n    \"relative_performance_loss\",\n    \"irradiance_loss\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 13.667
+      },
+      {
+        "case_id": "site-100-case-00",
+        "episode": "day_normal",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "What explains the solar output on 2026-03-31? Is there a material reduction?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"The evidence tool abstained from determining whether there is a material reduction in solar output on 2026-03-31. While telemetry data is available for the full day (96 measurements covering 00:00 to 23:45), output-only measurements cannot distinguish between normal weather-related variations (such as cloud cover or seasonal irradiance changes) and actual conversion losses due to equipment degradation or malfunction. The target mean PV output was 5106.9 W, but without corresponding irradiance or weather data, it is not possible to assess whether actual performance deviated materially from expected performance under the prevailing conditions.\",\n  \"citations\": [\"pv_ac_power_w\", \"inverter_temp_c\", \"inverter_alarm\", \"target_mean_pv_w\"]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 7.349
+      },
+      {
+        "case_id": "site-100-case-01",
+        "episode": "day_weather",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "What explains the solar output on 2026-03-31? Is there a material reduction?",
+        "final_text": "```json\n{\n  \"label\": \"weather_loss\",\n  \"explanation\": \"On 2026-03-31, the solar output reduction is explained by lower irradiance (weather conditions). The evidence shows an irradiance loss of approximately 32%, while the system's normalized performance remained at 89.9% with only a 0.02% relative performance loss. This indicates the system operated normally given the available sunlight. There is no material reduction attributable to system degradation or faults—the lower output is due to environmental factors such as cloud cover or atmospheric conditions.\",\n  \"citations\": [\n    \"target_mean_pv_w\",\n    \"target_normalized_performance\",\n    \"relative_performance_loss\",\n    \"irradiance_loss\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 12.132
+      },
+      {
+        "case_id": "site-100-case-01",
+        "episode": "day_weather",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "What explains the solar output on 2026-03-31? Is there a material reduction?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"The evidence tool abstained from determining whether there is a material reduction in solar output on 2026-03-31. While telemetry is available for the full day (96 data points covering 00:00 to 23:45), output-only measurements cannot distinguish between normal weather-driven variation (such as cloud cover) and actual conversion losses from equipment degradation or malfunction. The target mean PV output was 3557.2 W, but without irradiance or reference data, it is impossible to assess whether observed output represents underperformance.\",\n  \"citations\": [\n    \"required_input_coverage\",\n    \"target_mean_pv_w\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 37.639
+      },
+      {
+        "case_id": "site-100-case-02",
+        "episode": "day_derating",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "What explains the solar output on 2026-03-31? Is there a material reduction?",
+        "final_text": "```json\n{\n  \"label\": \"pv_loss\",\n  \"explanation\": \"On 2026-03-31, the solar system exhibited a material reduction in output. The normalized performance was 0.616, representing a relative performance loss of 31.5% compared to the weather-normalized historical baseline. This indicates the system produced significantly less power than expected given the available solar irradiance. The irradiance loss was minimal at 0.9%, confirming that weather conditions do not explain the shortfall. The mean AC power output was 3,557 W. This performance degradation exceeds the 15% threshold for material loss.\",\n  \"citations\": [\n    \"target_normalized_performance\",\n    \"relative_performance_loss\",\n    \"irradiance_loss\",\n    \"target_mean_pv_w\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 6.393
+      },
+      {
+        "case_id": "site-100-case-02",
+        "episode": "day_derating",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "What explains the solar output on 2026-03-31? Is there a material reduction?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"The evidence tool abstained from determining whether there is a material reduction in solar output on 2026-03-31. While telemetry data is available for the full day (96 measurements covering 00:00 to 23:45 with complete input coverage), output-only telemetry cannot distinguish between weather-related reductions (e.g., clouds, atmospheric conditions) and actual conversion losses from equipment degradation or faults. The target mean PV output was 3557.15 W, but without irradiance or weather reference data, it is not possible to assess whether any observed reduction represents underperformance relative to available solar resource or simply reflects normal weather variation.\",\n  \"citations\": [\n    \"pv_ac_power_w\",\n    \"target_mean_pv_w\",\n    \"required_input_coverage\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 7.848
+      },
+      {
+        "case_id": "site-100-case-03",
+        "episode": "alarm_normal",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "Investigate any inverter alarm on 2026-03-31. What explanation is supported?",
+        "final_text": "```json\n{\n  \"label\": \"normal\",\n  \"explanation\": \"No inverter alarm was detected on 2026-03-31. The alarm assessment tool found 0 alarm samples in the queried day with complete input data coverage (100%). All available telemetry columns were examined across 5,760 data rows spanning from 2026-01-31 to 2026-03-31, and no alarm condition was identified.\",\n  \"citations\": [\n    \"alarm_samples\",\n    \"required_input_coverage\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 5.208
+      },
+      {
+        "case_id": "site-100-case-03",
+        "episode": "alarm_normal",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "Investigate any inverter alarm on 2026-03-31. What explanation is supported?",
+        "final_text": "```json\n{\n  \"label\": \"normal\",\n  \"explanation\": \"No inverter alarm was detected on 2026-03-31. The system recorded 96 data samples throughout the day with full input coverage (100%), and zero alarm samples were observed. All available inverter telemetry (AC power output, inverter temperature, and alarm status) showed normal operation across the entire day.\",\n  \"citations\": [\n    \"required_input_coverage\",\n    \"alarm_samples\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 4.879
+      },
+      {
+        "case_id": "site-100-case-04",
+        "episode": "alarm_overload",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "Investigate any inverter alarm on 2026-03-31. What explanation is supported?",
+        "final_text": "```json\n{\n  \"label\": \"overload\",\n  \"explanation\": \"The inverter alarm on 2026-03-31 is supported by evidence of above-rating load conditions. The system experienced 90 minutes of overload, with peak load reaching 8332.5 W while the inverter rating is only 6215.9 W. This sustained overload condition preceded the generic inverter alarm events (4 alarm samples recorded). The overload duration of 90 minutes significantly exceeds the 30-minute threshold used for assessment.\",\n  \"citations\": [\n    \"alarm_samples\",\n    \"overload_minutes\",\n    \"peak_load_w\",\n    \"inverter_rating_w\",\n    \"load_power_w\",\n    \"inverter_alarm\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 5.743
+      },
+      {
+        "case_id": "site-100-case-04",
+        "episode": "alarm_overload",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "Investigate any inverter alarm on 2026-03-31. What explanation is supported?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"The evidence tool detected 4 alarm samples on 2026-03-31 but abstained from determining the cause. An alarm alone does not establish its cause. The available measurements show maximum inverter temperature of 35.2°C, well below the thermal threshold of 75.0°C, ruling out overheating. However, the tool did not find sufficient evidence to support a specific technical explanation for the alarms.\",\n  \"citations\": [\"alarm_samples\", \"max_inverter_temp_c\"]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 5.222
+      },
+      {
+        "case_id": "site-100-case-05",
+        "episode": "alarm_thermal",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "Investigate any inverter alarm on 2026-03-31. What explanation is supported?",
+        "final_text": "```json\n{\n  \"label\": \"thermal\",\n  \"explanation\": \"The inverter alarm on 2026-03-31 is supported by a thermal explanation. Elevated inverter temperature coincides with the alarm event. The maximum inverter temperature reached 84.96°C, which exceeds the thermal threshold of 75.0°C. Six alarm samples were recorded during the analysis period. The peak load was 2,598 W, well below the inverter rating of 6,216 W, and no overload conditions were detected, ruling out overload as a cause.\",\n  \"citations\": [\n    \"alarm_samples\",\n    \"max_inverter_temp_c\",\n    \"peak_load_w\",\n    \"inverter_rating_w\",\n    \"overload_minutes\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 6.024
+      },
+      {
+        "case_id": "site-100-case-05",
+        "episode": "alarm_thermal",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "Investigate any inverter alarm on 2026-03-31. What explanation is supported?",
+        "final_text": "```json\n{\n  \"label\": \"thermal\",\n  \"explanation\": \"Elevated inverter temperature coincides with the alarm. The maximum inverter temperature reached 84.96°C on 2026-03-31, exceeding the thermal threshold of 75.0°C. Six alarm samples were recorded during the day.\",\n  \"citations\": [\"inverter_temp_c\", \"inverter_alarm\", \"max_inverter_temp_c\"]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 4.184
+      },
+      {
+        "case_id": "site-100-case-06",
+        "episode": "alarm_unexplained",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "Investigate any inverter alarm on 2026-03-31. What explanation is supported?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"An alarm was detected on 2026-03-31 with 6 alarm samples recorded. However, the evidence tool abstained from identifying a specific cause because an alarm alone does not establish its root cause. The available measurements show the inverter operated well within normal parameters: peak load was 2,598 W against a 6,216 W rating (42% utilization), no overload minutes were recorded, and maximum inverter temperature was 35.2°C, well below the 75°C thermal threshold. While the alarm occurred, the supporting technical data does not point to overload, thermal stress, or other common fault conditions that would explain the alarm trigger.\",\n  \"citations\": [\n    \"alarm_samples\",\n    \"peak_load_w\",\n    \"inverter_rating_w\",\n    \"overload_minutes\",\n    \"max_inverter_temp_c\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 7.367
+      },
+      {
+        "case_id": "site-100-case-06",
+        "episode": "alarm_unexplained",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "Investigate any inverter alarm on 2026-03-31. What explanation is supported?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"The evidence tool detected 6 alarm samples on 2026-03-31 but abstained from determining the cause. While inverter temperature reached a maximum of 35.2°C (well below the 75°C thermal threshold), and input coverage was complete at 1.0, an alarm alone does not establish its root cause. The tool had access to 96 data rows spanning the full day with measurements of AC power, inverter temperature, and alarm status, but this was insufficient to support a specific technical explanation for the alarms.\",\n  \"citations\": [\n    \"alarm_samples\",\n    \"max_inverter_temp_c\",\n    \"required_input_coverage\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 6.133
+      },
+      {
+        "case_id": "site-100-case-07",
+        "episode": "trend_stable",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "Has PV performance declined over the stored history up to 2026-03-31?",
+        "final_text": "```json\n{\n  \"label\": \"normal\",\n  \"explanation\": \"No material longitudinal decline in PV performance was detected in the available history up to 2026-03-31. The analysis covered 60 valid days from 2026-01-31 to 2026-03-31 with complete input coverage. Weather-normalized performance showed the early median at 0.8994 and the late median at 0.8995, representing a decline fraction of -0.0001 (effectively no decline, with the negative value indicating a slight improvement). This is well below the 0.05 threshold for concerning performance loss.\",\n  \"citations\": [\n    \"valid_days\",\n    \"early_median\",\n    \"late_median\",\n    \"decline_fraction\",\n    \"weather_normalized\",\n    \"required_input_coverage\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 6.906
+      },
+      {
+        "case_id": "site-100-case-07",
+        "episode": "trend_stable",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "Has PV performance declined over the stored history up to 2026-03-31?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"The evidence tool abstained because insufficient historical data is available to estimate longitudinal PV performance change. Only 1 valid day of data exists (2026-03-31), while a minimum of 14 days of history is required to assess performance trends over time.\",\n  \"citations\": [\n    \"valid_days\",\n    \"minimum_history_days\",\n    \"data_window\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 4.938
+      },
+      {
+        "case_id": "site-100-case-08",
+        "episode": "trend_decline",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "Has PV performance declined over the stored history up to 2026-03-31?",
+        "final_text": "```json\n{\n  \"label\": \"pv_decline\",\n  \"explanation\": \"The stored history up to 2026-03-31 shows sustained decline in weather-normalized PV performance. Analysis of 60 valid days reveals that the early median performance ratio was 0.891, while the late median dropped to 0.805, representing a decline fraction of approximately 9.7%. This exceeds the 5% trend decline threshold, indicating measurable degradation over the observation period.\",\n  \"citations\": [\n    \"valid_days\",\n    \"early_median\",\n    \"late_median\",\n    \"decline_fraction\",\n    \"weather_normalized\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 5.934
+      },
+      {
+        "case_id": "site-100-case-08",
+        "episode": "trend_decline",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "Has PV performance declined over the stored history up to 2026-03-31?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"The evidence tool abstained because insufficient historical data is available to estimate longitudinal PV performance change. Only 1 valid day of data exists (2026-03-31), while a minimum of 14 days of history is required to assess performance trends over time.\",\n  \"citations\": [\n    \"valid_days\",\n    \"minimum_history_days\",\n    \"required_input_coverage\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 5.536
+      },
+      {
+        "case_id": "site-100-case-09",
+        "episode": "trend_weather",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "Has PV performance declined over the stored history up to 2026-03-31?",
+        "final_text": "```json\n{\n  \"label\": \"normal\",\n  \"explanation\": \"No material longitudinal decline in PV performance was detected over the stored history up to 2026-03-31. The analysis covered 60 valid days from 2026-01-31 to 2026-03-31 with complete input coverage. Weather-normalized performance showed the early median at 0.8994 and late median at 0.8992, representing a decline fraction of only 0.017%. This is well below the 5% threshold that would indicate concerning degradation.\",\n  \"citations\": [\n    \"valid_days\",\n    \"early_median\",\n    \"late_median\",\n    \"decline_fraction\",\n    \"weather_normalized\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 7.177
+      },
+      {
+        "case_id": "site-100-case-09",
+        "episode": "trend_weather",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "Has PV performance declined over the stored history up to 2026-03-31?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"The evidence tool abstained because insufficient historical data is available to estimate longitudinal PV performance change. Only 1 valid day of data exists (2026-03-31), while a minimum of 14 days of history is required to assess performance trends over time.\",\n  \"citations\": [\n    \"valid_days\",\n    \"minimum_history_days\",\n    \"data_window\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 5.294
+      },
+      {
+        "case_id": "site-100-case-10",
+        "episode": "trend_low_efficiency",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "Has PV performance declined over the stored history up to 2026-03-31?",
+        "final_text": "```json\n{\n  \"label\": \"normal\",\n  \"explanation\": \"No material longitudinal decline in PV performance was detected over the stored history up to 2026-03-31. The analysis covered 60 valid days from 2026-01-31 to 2026-03-31 with complete input coverage. Weather-normalized performance ratios showed the early median at 0.6865 and the late median at 0.6864, representing a decline fraction of only 0.0031% (0.000031), which is well below the 5% threshold for concern. This indicates stable system performance over the observed period.\",\n  \"citations\": [\n    \"valid_days\",\n    \"early_median\",\n    \"late_median\",\n    \"decline_fraction\",\n    \"weather_normalized\",\n    \"required_input_coverage\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 6.797
+      },
+      {
+        "case_id": "site-100-case-10",
+        "episode": "trend_low_efficiency",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "Has PV performance declined over the stored history up to 2026-03-31?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"The evidence tool cannot determine whether PV performance has declined over the stored history up to 2026-03-31 because insufficient historical data is available. Only 1 valid day of data exists in the system, whereas a minimum of 14 days is required to estimate longitudinal performance change. The available data covers only 2026-03-31 with 96 rows of 15-minute interval measurements.\",\n  \"citations\": [\n    \"valid_days\",\n    \"minimum_history_days\",\n    \"required_input_coverage\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 5.724
+      },
+      {
+        "case_id": "site-100-case-11",
+        "episode": "day_missing",
+        "condition": "full_cross",
+        "status": "complete",
+        "question": "What explains the solar output on 2026-03-31? Is there a material reduction?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"The evidence tool abstained from assessing solar output on 2026-03-31 due to insufficient evidence. The tool reported 0.0% required input coverage, falling below the minimum 80% coverage threshold needed for analysis. While data is available spanning January 31 to March 31, 2026 (5,760 rows across multiple measurements including AC power, irradiance, temperatures, and system parameters), the specific inputs required to evaluate daily output performance and detect material reductions were not sufficiently present. Without adequate coverage of the necessary measurements, no determination can be made about whether output was normal or materially reduced on that date.\",\n  \"citations\": [\n    \"required_input_coverage\",\n    \"pv_ac_power_w\",\n    \"inverter_temp_c\",\n    \"inverter_alarm\",\n    \"irradiance_wm2\",\n    \"ambient_temp_c\",\n    \"load_power_w\",\n    \"battery_soc_pct\",\n    \"battery_charge_w\",\n    \"battery_discharge_w\",\n    \"grid_import_w\",\n    \"grid_export_w\"\n  ]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 8.595
+      },
+      {
+        "case_id": "site-100-case-11",
+        "episode": "day_missing",
+        "condition": "recent_inverter",
+        "status": "complete",
+        "question": "What explains the solar output on 2026-03-31? Is there a material reduction?",
+        "final_text": "```json\n{\n  \"label\": \"unknown\",\n  \"explanation\": \"The evidence tool abstained from assessing solar output on 2026-03-31 due to insufficient evidence. While 96 data rows are available covering the full day (00:00 to 23:45), the required_input_coverage is 0.0, falling below the minimum threshold of 0.8 (80%). This indicates that critical input measurements needed to evaluate performance—such as irradiance or expected generation data—are missing or incomplete. Without adequate input coverage, it is not possible to determine whether there was a material reduction in output or to explain the day's performance.\",\n  \"citations\": [\"required_input_coverage\"]\n}\n```",
+        "scores": {
+          "valid_json": false,
+          "label_fidelity": false,
+          "oracle_correct": false,
+          "citation_validity": false,
+          "nonempty_explanation": false
+        },
+        "elapsed_seconds": 6.839
+      }
+    ]
+  }
+}

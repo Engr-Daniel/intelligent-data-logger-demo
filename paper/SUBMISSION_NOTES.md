@@ -1,41 +1,52 @@
-# NASEF submission notes
+﻿# Submission package — 28 September 2026
 
-Checked 23 September 2026 against the [official conference page](https://www.sesn.com.ng/SolarEnergyConference.aspx)
-and [SESN homepage](https://www.sesn.com.ng/).
+The author will submit the documents personally. No submission, registration,
+email or payment has been sent by this project.
 
-- Listed conference: 21–23 October 2026, AUST Abuja.
-- The important-dates section lists abstract deadline 30 September and full paper
-  submission 5 October. The abstract paragraph separately says 5 October, so the
-  official page is internally inconsistent. Plan against the earlier abstract date
-  and confirm with the organizers before relying on the later date.
-- The call specifies a title of no more than 20 words, abstract no more than 300 words,
-  3–5 keywords, and a Word document in 12-point Times New Roman, double spaced.
-- The digitalization/AI/smart-energy sub-theme appears relevant. Exact full-paper
-  template, page limit and reference style still need confirmation.
-- No submission, email, registration or payment has been made by this repository work.
+## Prepared files
 
-## Before submitting the full paper
+Run `python scripts/build_submission.py --contact path/to/private-contact.json` to
+produce the abstract and full paper in `paper/submission/`. The local package contains
+confirmed authors Oyewale, D.O. and Meyer-Petgrave, F., both at Petgrave.io Technologies
+Ltd, Nigeria, and Daniel Oyewale's supplied correspondence details. The contact config
+and generated correspondence-bearing files are ignored by Git. Public manuscript
+sources contain names and affiliation but not the phone number.
 
-- Complete and verify related work from primary publications; audit the supplied draft's
-  broad novelty statements rather than repeating them as established facts.
-- Confirm authors, affiliations, correspondence, acknowledgements and venue requirements.
-- Obtain domain review of simulator assumptions and inspect unresolved/incorrect cases.
-- Present synthetic conditional results prominently; avoid claims of field accuracy,
-  customer liability, real-world battery health or an evaluated physical device.
-- Complete the live pilot if live conversational claims are included. Current failure
-  requires workspace configuration; the implemented pathway alone is not a result.
-- Cite the final code commit and archive the exact experiment artifacts used in the paper.
-- Decide whether to include further independent baseline models/data before making
-  stronger comparative claims; the current four arms are information-access ablations.
+The title is 12 whitespace-delimited words; the abstract is 228. There are five
+keywords. Word files use Times New Roman 12 pt and double-spaced body text. The full
+paper has three tables and three figures. No unverified funding, conflict-of-interest,
+contribution or ethics declaration has been invented; authors should add any declarations
+required by the venue and verify their accuracy.
 
-## API configuration
+## Official instructions checked 28 September
 
-For a multi-workspace API key, add `ANTHROPIC_WORKSPACE_ID` to local `.env`. It is sent
-as the `anthropic-workspace-id` header by the dashboard, original reasoning path and
-research live runner. Alternatively use a workspace-scoped API key. Workspace IDs
-are available in Claude Console → Settings → Workspaces.
-[Anthropic authentication documentation](https://platform.claude.com/docs/en/manage-claude/authentication)
+Source: [SESN conference page](https://www.sesn.com.ng/SolarEnergyConference.aspx).
+The page requests a title no longer than 20 words, author surnames/initials and
+superscript affiliations, corresponding-author phone/email, an abstract up to 300
+words, 3–5 keywords, and a Word attachment in 12-point Times New Roman, double spaced.
+The listed important dates give 30 September for abstracts and 5 October for full
+papers; the abstract paragraph separately says 5 October. Use the earlier date.
 
-The archived failed live pilot attempted one request; an additional 32-output-token
-diagnostic request was also rejected with the same workspace-header error. Neither
-returned generated output or usage counters. No successful model results are inferred.
+The published recipient list contains inconsistent-looking `qmail.com` addresses;
+confirm the recipients directly with the organizer rather than silently correcting
+them or sending to an assumed address. The user is handling submission.
+A definitive full-paper template, page limit and reference style were not available
+in the checked call. The manuscript uses a provisional scholarly layout; reformat if
+the organizer supplies a template. Do not claim venue-format approval.
+
+## Evidence ready for author review
+
+- The offline evaluation is preserved: 233/240 identifiable clean cases for full access.
+- A live pilot now completed 24 conversations and 48 requests. Strict JSON acceptance
+  was 0/24; all responses were fenced Markdown. This failure is included in both abstract
+  and manuscript. The post-hoc analysis is explicitly identified and separate.
+- Six bounded related-work descriptions were checked against primary records; see
+  [verification log](RELATED_WORK_VERIFICATION.md). This is not an exhaustive search.
+- No physical logger, field data, human usability trial, blinded prose rating or
+  independent domain validation is claimed. Domain review remains desirable and has
+  not been performed by an outside expert.
+- Public demonstration and result links appear in the data/code availability section.
+  The public website is a static evidence presentation, not a hosted Claude chat.
+
+Read both Word files before uploading. In particular, confirm the author ordering,
+affiliation, correspondence details, scientific interpretation and venue instructions.

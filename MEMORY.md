@@ -106,3 +106,34 @@ were adjusted to prevent cramped cards. Headless Edge checks passed at 1440, 102
 clearance before the runway text, correct chart colour, repeated refreshes and no
 JavaScript errors. Desktop and mobile screenshots were visually inspected.
 These were local UI checks; no Claude API calls or research experiments were run.
+
+## Publication preparation — 28 September 2026
+
+The user supplied an explorer ZIP and requested GitHub Pages, README screenshots and
+completed abstract/full-paper Word files for self-submission today. Confirmed public
+byline: Oyewale, D.O. and Meyer-Petgrave, F.; Petgrave.io Technologies Ltd, Nigeria.
+Correspondence details are in ignored local configuration and submission documents.
+The ZIP's shared README/MEMORY/TASK/server/dashboard copies were not blindly overlaid.
+Its six evidence/dimension/outcome/ground-truth objects match the archived original demo.
+
+Live pilot `20260928T072728456454Z_live_development` failed on APIConnectionError before
+any generated response/usage. A non-generating authenticated connectivity check succeeded.
+A fresh `20260928T072939445717Z_live_development` run completed 24 conversations / 48
+requests, estimated USD 0.213009. Intended tool selection 24/24; strict JSON 0/24 because
+all replies were Markdown fenced. Primary scores remain immutable. Separate post-hoc
+analysis `20260928_live_format_sensitivity` removes one fence and obtains 24/24 label
+fidelity, 15/24 valid measurement-name citation sets and 16/24 oracle agreement including
+required abstentions. Assistant qualitative prose review is not independent human scoring.
+
+`paper/FULL_PAPER.md` integrates this evidence, six checked primary references and
+explicit synthetic/model-policy/coverage limitations. Abstract is 228 words; Word
+files are generated under ignored `paper/submission/`. The user will submit personally.
+No emails, registration or payment were sent. Full-paper template/page limit and
+organizer recipient details still require author confirmation. No acceptance claim.
+
+Public site build uses a strict eight-asset allowlist and manifest; no API credentials
+or Python backend are deployed. Pages workflow publishes `.site/` from main. Explorer
+includes separate original-demo and comparative-study views plus a telemetry-hash-
+verified outage trace. Regression suite: 115 passed in 113.95 seconds. Both offline
+archives verified. Browser checks cover all six scenarios, stress selections, primary/
+post-hoc distinction, the dashboard and 320–1440 px layouts with no JS/CSP errors.

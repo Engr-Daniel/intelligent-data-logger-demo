@@ -1,35 +1,11 @@
-# Abstract draft — author review required
+# Evaluating historical and cross-component evidence for conversational solar-system diagnostics: a synthetic study
 
-## Title
+Oyewale, D.O.¹ and Meyer-Petgrave, F.¹
 
-Evaluating historical and cross-component evidence for conversational solar-system diagnostics: a synthetic study
+¹Petgrave.io Technologies Ltd, Nigeria
 
 ## Abstract
 
-Solar monitoring telemetry can support diagnostic explanations, but the value of
-combining installation history with measurements from multiple components requires
-explicit evaluation. This study presents an evidence-producing diagnostic architecture
-for the Intelligent Data Logger and evaluates information access through controlled
-synthetic experiments. A physically checked PV–battery–load simulator generated twelve
-matched episodes for each of 24 evaluation installations, separate from eight development
-installations. Episodes included normal operation, weather-related production loss,
-conversion loss, overload, thermal alarms, gradual performance decline and insufficient
-evidence. A shared deterministic policy was evaluated under four combinations of
-historical/recent-only and cross-component/inverter-only access, with clean and corrupted
-observations. The study produced 3,456 paired predictions. On identifiable clean-data
-cases, full historical and cross-component access achieved 97.1% correct diagnoses
-(95% installation-cluster bootstrap interval: 95.4–98.8%), compared with 53.8% for
-historical inverter-only access and 40.0% for recent-only cross-component access.
-Accuracy decreased to 90.0% under severe observation corruption. Recent-only conditions
-retained acute diagnostic capabilities but frequently abstained on longitudinal tasks,
-demonstrating the importance of reporting coverage alongside correctness. The findings
-support a task-dependent role for persistent, cross-component evidence in this controlled
-setting. The comparison evaluates information ablations rather than independently
-optimized competing systems. Project-authored synthetic data, shared modelling
-assumptions and the absence of field or successful live-model evaluation limit
-generalization. Physical deployment and independent-data validation remain future work.
+Solar monitoring telemetry can support diagnostic explanations, but the value of combining installation history with measurements from multiple components requires explicit evaluation. This study presents an evidence-producing diagnostic architecture for the Intelligent Data Logger and evaluates information access through controlled synthetic experiments. A physically checked PV–battery–load simulator generated twelve matched episodes for each of 24 evaluation installations, separate from eight development installations. A shared deterministic policy was evaluated under four combinations of historical/recent-only and cross-component/inverter-only access, with clean and corrupted observations, producing 3,456 paired predictions. On identifiable clean-data cases, full historical and cross-component access achieved 97.1% correct diagnoses (95% installation-cluster bootstrap interval: 95.4–98.8%), compared with 53.8% for historical inverter-only access and 40.0% for recent-only cross-component access. Accuracy decreased to 90.0% under severe observation corruption. Restricted conditions frequently abstained on tasks requiring unavailable evidence, making coverage essential to interpretation. A separate 24-conversation Claude development pilot selected the intended tool in every conversation, but all responses failed the strict JSON-output requirement. Post-hoc removal of Markdown fences recovered 24 receipt-consistent labels; only 15 responses satisfied the measurement-name citation rule. The results support a task-dependent role for persistent, cross-component evidence while exposing interface-contract and citation failures in the conversational layer. The comparisons are shared-policy information ablations, not optimized competing systems. Project-authored synthetic data, shared modelling assumptions and the absence of field validation limit generalization. Independent-data evaluation and physical deployment remain future work.
 
-**Keywords:** solar diagnostics, synthetic telemetry, operational history, evidence grounding
-
-Add confirmed author names, affiliations and corresponding-author contact details.
-This abstract deliberately makes no successful Claude or hardware-validation claim.
+Keywords: solar diagnostics, synthetic telemetry, operational history, evidence grounding, conversational interfaces

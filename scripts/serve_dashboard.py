@@ -73,6 +73,18 @@ class Handler(BaseHTTPRequestHandler):
         parts = urlsplit(self.path)
         files = {"/": ("index.html", "text/html; charset=utf-8"),
                  "/app.css": ("app.css", "text/css"), "/app.js": ("app.js", "text/javascript")}
+        for name, mime in {"index.html": "text/html; charset=utf-8", "research.html": "text/html; charset=utf-8",
+                           "styles.css": "text/css", "app.js": "text/javascript", "research.js": "text/javascript",
+                           "data/experiment.json": "application/json", "data/research.json": "application/json",
+                           "data/outage.json": "application/json"}.items():
+            files["/explorer/" + name] = ("explorer/" + name, mime)
+        files["/explorer/"] = ("explorer/index.html", "text/html; charset=utf-8")
+        if parts.path == "/explorer":
+            self.send_response(308)
+            self.send_header("Location", "/explorer/" + ("?" + parts.query if parts.query else ""))
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
         try:
             if parts.path in files:
                 name, mime = files[parts.path]

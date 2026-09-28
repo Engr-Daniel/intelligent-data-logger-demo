@@ -1,0 +1,340 @@
+{
+  "source_run": "20260921T055826825005Z",
+  "source_file": "data/processed/telemetry.csv",
+  "sha256": "6eb2de801803b1f1a50dc9b91871beac912e3d8c7170adaa2a9630ba154a20b8",
+  "rows": [
+    {
+      "timestamp": "2026-10-10 20:30:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1628.5021382297273,
+      "load_power_w": 1628.5021382297273,
+      "battery_soc_pct": 47.57244199554856,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 20:35:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1593.7300792853969,
+      "load_power_w": 1593.7300792853969,
+      "battery_soc_pct": 45.96703337460846,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 20:40:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1581.4457278417578,
+      "load_power_w": 1581.4457278417578,
+      "battery_soc_pct": 44.37399331517429,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 20:45:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1607.5390399736473,
+      "load_power_w": 1607.5390399736473,
+      "battery_soc_pct": 42.75466049792693,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 20:50:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1540.2168002858857,
+      "load_power_w": 1540.2168002858857,
+      "battery_soc_pct": 41.20314114113883,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 20:55:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1513.730989512089,
+      "load_power_w": 1513.730989512089,
+      "battery_soc_pct": 39.67829715451471,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:00:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1473.5364881401856,
+      "load_power_w": 1473.5364881401856,
+      "battery_soc_pct": 38.19393882814367,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:05:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1452.1098489587628,
+      "load_power_w": 1452.1098489587628,
+      "battery_soc_pct": 36.73115964019584,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:10:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1499.4320779101442,
+      "load_power_w": 1499.4320779101442,
+      "battery_soc_pct": 35.22070187442159,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:15:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1418.949476391263,
+      "load_power_w": 1418.949476391263,
+      "battery_soc_pct": 33.79131653251954,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:20:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1434.2536920743423,
+      "load_power_w": 1434.2536920743423,
+      "battery_soc_pct": 32.34650774449137,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:25:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1410.2273674110088,
+      "load_power_w": 1410.2273674110088,
+      "battery_soc_pct": 30.925897382434925,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:30:00+01:00",
+      "grid_import_w": 399.34504423005706,
+      "battery_discharge_w": 919.1483132768703,
+      "load_power_w": 1318.4933575069274,
+      "battery_soc_pct": 30.0,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:35:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1296.200608942933,
+      "load_power_w": 1296.200608942933,
+      "battery_soc_pct": 28.69425113011494,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:40:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1321.8055461018394,
+      "load_power_w": 1321.8055461018394,
+      "battery_soc_pct": 27.362702084341517,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:45:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1274.6035194195733,
+      "load_power_w": 1274.6035194195733,
+      "battery_soc_pct": 26.078699745630505,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:50:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1231.7767280373905,
+      "load_power_w": 1231.7767280373905,
+      "battery_soc_pct": 24.83783670692934,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 21:55:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1227.1329038425192,
+      "load_power_w": 1227.1329038425192,
+      "battery_soc_pct": 23.601646869648572,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:00:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1218.7948067442057,
+      "load_power_w": 1218.7948067442057,
+      "battery_soc_pct": 22.373851962243585,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:05:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1146.378196394446,
+      "load_power_w": 1146.378196394446,
+      "battery_soc_pct": 21.2190064098744,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:10:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1094.9271121596416,
+      "load_power_w": 1094.9271121596416,
+      "battery_soc_pct": 20.115989397609297,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:15:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1092.3242212703778,
+      "load_power_w": 1092.3242212703778,
+      "battery_soc_pct": 19.01559009237014,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:20:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1025.6964344763048,
+      "load_power_w": 1025.6964344763048,
+      "battery_soc_pct": 17.982309265093228,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:25:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 1034.2289136308368,
+      "load_power_w": 1034.2289136308368,
+      "battery_soc_pct": 16.940428285990865,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:30:00+01:00",
+      "grid_import_w": 0.0,
+      "battery_discharge_w": 999.6961556387615,
+      "load_power_w": 999.6961556387615,
+      "battery_soc_pct": 15.933332595513901,
+      "grid_available": 0,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:35:00+01:00",
+      "grid_import_w": 938.6243301186171,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 938.6243301186171,
+      "battery_soc_pct": 15.93336527250307,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:40:00+01:00",
+      "grid_import_w": 927.314122418426,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 927.314122418426,
+      "battery_soc_pct": 15.93339794962627,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:45:00+01:00",
+      "grid_import_w": 903.4500609688511,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 903.4500609688511,
+      "battery_soc_pct": 15.933430626883503,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:50:00+01:00",
+      "grid_import_w": 919.3836103910525,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 919.3836103910525,
+      "battery_soc_pct": 15.933463304274769,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 22:55:00+01:00",
+      "grid_import_w": 829.459193162465,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 829.459193162465,
+      "battery_soc_pct": 15.93349598180007,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 23:00:00+01:00",
+      "grid_import_w": 807.3060110413468,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 807.3060110413468,
+      "battery_soc_pct": 15.933528659459405,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 23:05:00+01:00",
+      "grid_import_w": 800.8055936768233,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 800.8055936768233,
+      "battery_soc_pct": 15.933561337252781,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 23:10:00+01:00",
+      "grid_import_w": 815.2492127020956,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 815.2492127020956,
+      "battery_soc_pct": 15.933594015180189,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 23:15:00+01:00",
+      "grid_import_w": 799.6220164119336,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 799.6220164119336,
+      "battery_soc_pct": 15.933626693241637,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 23:20:00+01:00",
+      "grid_import_w": 759.7562527052436,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 759.7562527052436,
+      "battery_soc_pct": 15.933659371437122,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 23:25:00+01:00",
+      "grid_import_w": 757.5506401411617,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 757.5506401411617,
+      "battery_soc_pct": 15.933692049766647,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    },
+    {
+      "timestamp": "2026-10-10 23:30:00+01:00",
+      "grid_import_w": 756.0520022494563,
+      "battery_discharge_w": 0.0,
+      "load_power_w": 756.0520022494563,
+      "battery_soc_pct": 15.93372472823021,
+      "grid_available": 1,
+      "unmet_load_w": 0.0
+    }
+  ]
+}

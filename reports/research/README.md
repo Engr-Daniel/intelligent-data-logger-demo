@@ -9,6 +9,17 @@ The benchmark isolates historical and cross-component data access. Start with th
 | [Evaluation](20260923T190318100907Z_evaluation/REPORT.md) | 24 disjoint seeds, 288 episodes, 3,456 predictions | Complete; clean physical checks passed |
 | [Live development pilot](20260923T190500485533Z_live_development/REPORT.md) | Planned 24 conversations | Incomplete: first request rejected; workspace ID required |
 
+## Live pilot — 28 September 2026
+
+- [Preserved connection failure](20260928T072728456454Z_live_development/REPORT.md):
+  one attempted request, no generated response or usage returned.
+- [Completed pilot](20260928T072939445717Z_live_development/REPORT.md): 24 conversations,
+  48 requests, intended tools selected in 24/24, strict JSON accepted in 0/24.
+- [Post-hoc format sensitivity](20260928_live_format_sensitivity/REPORT.md): removing
+  one outer Markdown fence recovers 24 receipt-consistent labels; 15/24 satisfy the
+  measurement-name citation rule; 16/24 match the oracle including required abstentions.
+  This supplements, and does not replace, the frozen primary scores.
+
 ## Paper artifacts
 
 - [Clean-data accuracy figure (PNG)](20260923T190318100907Z_evaluation/accuracy.png)

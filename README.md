@@ -1,4 +1,34 @@
-# Intelligent Data Logger — Demo Experiment
+# Intelligent Data Logger — Research demonstrator
+
+
+**[Open the public experiment explorer](https://Engr-Daniel.github.io/intelligent-data-logger-demo/)** · **[Explore the research results](https://Engr-Daniel.github.io/intelligent-data-logger-demo/research.html)**
+
+A controlled synthetic study of historical and cross-component evidence for solar
+diagnostics, with an interactive six-scenario explainer and a separate local
+conversational dashboard. No hardware or field installation was evaluated.
+
+![Public research explorer: access conditions, uncertainty and live-pilot evidence](docs/images/research-explorer.png)
+
+![Original scenario explorer: timeline, injection and traceable diagnostic evidence](docs/images/experiment-explorer.png)
+
+Original hosted prototype: [Intelligent Data Logger Experiment Explorer](https://daniel-intelligent-data-logger-explorer.oyewaledanieloyewola.chatgpt.site). The GitHub Pages version above adds the comparative study and live-pilot evidence.
+
+## Current evidence and paper
+
+- **Offline evaluation:** 24 synthetic installation seeds, 288 matched episodes,
+  3,456 paired predictions. Full-history/cross-component access resolved **233/240**
+  identifiable clean cases (97.1%; 95% cluster interval 95.4–98.8%). Comparisons are
+  shared-policy information ablations, not optimized competing products.
+- **Live development pilot:** 24 conversations completed, all intended tools selected.
+  **Strict JSON compliance: 0/24** because every reply used Markdown fences.
+  Exploratory fence removal recovered 24/24 receipt-consistent labels, with valid
+  measurement-name citations in 15/24. This is not end-to-end success or field accuracy.
+- **Paper:** [full manuscript](paper/FULL_PAPER.md), [abstract](paper/ABSTRACT_DRAFT.md),
+  [verified related work](paper/RELATED_WORK_VERIFICATION.md), and
+  [submission notes](paper/SUBMISSION_NOTES.md).
+- **Reproduce/publish:** [site and Word-document build guide](docs/PUBLICATION.md).
+  The public site serves archived results. Claude conversations run locally;
+  never put API credentials into GitHub Pages.
 
 A reproducible feasibility demo for a conversational intelligence layer over solar PV, inverter, battery, load, grid, and weather telemetry.
 

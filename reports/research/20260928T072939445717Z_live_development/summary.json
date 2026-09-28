@@ -1,0 +1,16 @@
+{
+  "attempted_conversations": 24,
+  "planned_conversations": 24,
+  "requests": 48,
+  "estimated_usage_usd": 0.213009,
+  "reserved_usd": 1.090599,
+  "completed": 24,
+  "tool_selection_correct": 24,
+  "counts": {
+    "valid_json": 0,
+    "label_fidelity": 0,
+    "oracle_correct": 0,
+    "citation_validity": 0,
+    "nonempty_explanation": 0
+  }
+}

@@ -1,6 +1,6 @@
 # Methods and results material for the NASEF paper
 
-**Working material for author review, not a finished submission.** These sections are
+**Earlier methods/results working material. See [the integrated full manuscript](FULL_PAPER.md) for the current submission text.** These sections are
 grounded in the archived evaluation. Related work, references, author details, venue
 formatting and domain review still need completion. Do not claim hardware deployment
 or validated live-model performance from these results.
@@ -154,9 +154,13 @@ Planned measures separate tool selection, valid output structure, label fidelity
 citation-name validity, oracle correctness, usage and latency. Independent prose review
 is still needed: a valid citation name does not prove every sentence is supported.
 
-The first execution was rejected by Anthropic because the configured API key requires
-a workspace ID. No successful live-model result is available from that run. The failed
-attempt remains archived and must not be presented as completed model evaluation.
+The first execution was rejected for workspace configuration. On 28 September a new
+pilot completed 24 conversations and 48 requests, with intended tool selection in
+24/24 but strict JSON acceptance in 0/24: all responses used Markdown fences.
+A separate post-hoc fence-removal analysis recovered 24/24 receipt-consistent labels,
+15/24 valid measurement-name citation sets and 16/24 oracle agreement including
+required abstentions. Primary scores remain unchanged. See the full manuscript and
+research run index for costs, latency, raw outputs and qualitative limitations.
 
 ## Discussion and limitations
 

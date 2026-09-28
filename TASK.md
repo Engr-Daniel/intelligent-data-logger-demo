@@ -60,3 +60,20 @@ vision. The current submission can only report the narrower synthetic study actu
 
 The manuscript's proposed comparisons and field claims have not yet been evaluated.
 See `RESULTS.md` for the evidence currently available.
+
+## Publication preparation — 28 September 2026
+
+- [x] Integrate the supplied explorer ZIP selectively and verify its six evidence records.
+- [x] Add a separate archive-derived benchmark explorer and scaled outage trace.
+- [x] Complete 24-conversation live pilot; preserve strict-format failures (0/24 JSON).
+- [x] Record separate post-hoc format sensitivity and citation failures without rescoring primary archive.
+- [x] Draft full manuscript and updated 228-word abstract with confirmed authors/affiliation.
+- [x] Verify six bounded related-work references against primary records.
+- [x] Generate Word submission documents with private correspondence details kept local.
+- [x] Run 115 regression tests and verify both offline archives.
+- [ ] Confirm final GitHub Pages deployment and public-browser checks.
+- [ ] Author review and self-submission; organizer template/recipient confirmation remains with authors.
+- [ ] Independent domain/prose assessment and external-data validation remain future work.
+
+Earlier unchecked planning items describe the broader programme; they do not imply
+that independent field or human validation was performed in this synthetic study.

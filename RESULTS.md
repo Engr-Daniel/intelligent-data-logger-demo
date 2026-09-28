@@ -23,8 +23,21 @@ they are not percentages derived from the original six demo scenario passes. Low
 recent-only scores include principled abstentions on historical questions. Comparisons
 are between a shared policy's information-access conditions, not optimized competitors.
 See [methods and results](paper/METHODS_AND_RESULTS.md) for coverage, false positives,
-task-level interpretation and failures. The first live pilot was blocked by a required
-Anthropic workspace header; no successful live result is claimed.
+task-level interpretation and failures. The original live attempt was blocked by a required
+Anthropic workspace header. A new pilot completed on 28 September; see below.
+
+## Live development pilot — 28 September 2026
+
+[Primary archive](reports/research/20260928T072939445717Z_live_development/REPORT.md):
+24/24 conversations completed; intended tool selection 24/24; strict JSON acceptance
+0/24. All final replies were fenced Markdown. Estimated token cost: USD 0.213009.
+The original structured downstream checks consequently received no credit.
+
+[Exploratory format sensitivity](reports/research/20260928_live_format_sensitivity/REPORT.md)
+removed one enclosing fence: JSON 24/24, receipt-label agreement 24/24, citation-name
+validity 15/24, oracle agreement 16/24 (includes required abstentions). One development
+seed and one model pass do not establish live generalization. Qualitative review
+flagged prose overreach; independent human and numerical-fidelity assessment remain open.
 
 ## Original feasibility demo — 21 September 2026
 
