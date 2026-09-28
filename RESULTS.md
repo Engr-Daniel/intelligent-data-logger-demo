@@ -109,7 +109,7 @@ superiority over single-component/no-history baselines. The scenarios were autho
 within the project and used during development; they are not a held-out benchmark.
 Calibration here is rubric consistency, not empirical probabilistic calibration.
 
-The manuscript's central hypothesis—incremental value from persistent history and
-cross-component reasoning—requires a separately specified comparison. Track that
-work in [TASK.md](TASK.md). Preserve this run as preliminary evidence rather than
-presenting six passes as a research accuracy percentage.
+The original demonstration alone cannot isolate the value of history or cross-component
+access. The later NASEF study above supplies a separately specified synthetic comparison,
+with a shared policy and explicit limitations. Preserve the original run as preliminary
+evidence rather than presenting six passes as a research accuracy percentage.

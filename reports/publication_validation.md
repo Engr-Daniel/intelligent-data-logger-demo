@@ -1,4 +1,4 @@
-﻿# Publication validation — 28 September 2026
+# Publication validation — 28 September 2026
 
 - `python -m pytest -q`: **115 passed in 113.95 seconds**. Includes archive-to-explorer
   equality, bounded static build, outage provenance and separation of primary/post-hoc
@@ -23,3 +23,16 @@ response or usage. Post-hoc parser normalization did not make additional API cal
 
 The checks establish software and provenance properties. They do not constitute
 external domain review, independent human annotation, venue acceptance or field validation.
+
+A fresh export of the committed checkout also passed the dependency-free static build
+and evaluation verifier, matching the GitHub Actions build environment's input boundary.
+Word ZIP/XML integrity, author/contact presence, 12 pt Times New Roman, double-spacing,
+three tables and three figures were verified programmatically. Optional Microsoft Word
+PDF rendering stalled and was stopped; no PDF or full visual pagination validation is
+claimed. The saved .docx files remain the deliverables for author inspection.
+
+GitHub Pages workflow [36395722747](https://github.com/Engr-Daniel/intelligent-data-logger-demo/actions/runs/36395722747)
+succeeded for release commit 01e9522. Public checks at
+https://engr-daniel.github.io/intelligent-data-logger-demo/ passed for all eight artifact
+hashes, outage deep link/trace, research navigation, stress selection, primary pilot
+failure disclosure and 320 px layout. .env and backend API paths returned HTTP 404.

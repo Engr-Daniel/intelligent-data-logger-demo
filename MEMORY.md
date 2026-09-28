@@ -137,3 +137,14 @@ includes separate original-demo and comparative-study views plus a telemetry-has
 verified outage trace. Regression suite: 115 passed in 113.95 seconds. Both offline
 archives verified. Browser checks cover all six scenarios, stress selections, primary/
 post-hoc distinction, the dashboard and 320–1440 px layouts with no JS/CSP errors.
+
+Publication completed: main and the research branch include the release and the newer
+remote README prototype link. GitHub Pages workflow run 36395722747 succeeded for
+commit 01e9522. Public URL: https://engr-daniel.github.io/intelligent-data-logger-demo/.
+All eight hosted assets matched publication.json hashes. Public browser checks passed
+for outage deep link/trace, research navigation, severe stress, strict pilot disclosure
+and 320 px layout; .env and backend routes returned 404. Repository website metadata
+points to the site. Submission remains the user's responsibility.
+Word package integrity/font/spacing/authorship checks passed. Optional Word PDF export
+stalled and its task-owned automation process was stopped; no PDF or complete visual
+pagination review is claimed. The saved .docx files are the requested deliverables.
