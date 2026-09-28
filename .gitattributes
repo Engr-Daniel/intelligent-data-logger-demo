@@ -4,4 +4,4 @@ reports/research/** -text whitespace=cr-at-eol
 # Matplotlib SVG path commands include generated trailing spaces.
 reports/research/**/*.svg -text whitespace=-blank-at-eol,cr-at-eol
 # Static dashboard exports are verified byte-for-byte by their manifest.
-src/interface/static/offline/data/** -text
+src/interface/static/offline/data/** -text whitespace=cr-at-eol
