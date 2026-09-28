@@ -164,3 +164,12 @@ questions, status, receipts, unsupported questions, export, reset, reload persis
 date gaps, refresh, snapshot modal, both explorer views and widths 320/390/850/1440.
 Local offline/Claude/offline switches were mocked UI checks, with no paid model calls.
 README includes an actual dashboard screenshot. Existing research archives are unchanged.
+
+Public deployment verified: GitHub Pages run 36451096702 succeeded for ecd8a45.
+The first build caught Git newline normalization; explicit byte-preserving attributes
+and re-staging fixed it. All 135 deployed assets match publication hashes. Public Edge
+checks passed for the dashboard controls, exported provenance, receipts, saved tab
+session, chart gaps, navigation and responsive layouts. A transient network timeout
+required retry; no application errors remained. Repository homepage now opens
+https://engr-daniel.github.io/intelligent-data-logger-demo/dashboard/.
+User ground_truth.json line-ending changes and .vscode settings remain uncommitted.

@@ -41,5 +41,5 @@ development pilot. It does not establish field accuracy or validated hardware.
 
 - [x] Build and browser-check a clearly labelled GitHub Pages offline dashboard.
 - [x] Fix reset and local answer-mode switching without page refresh.
-- [ ] Verify deployed /dashboard/ after publishing.
+- [x] Verify deployed /dashboard/ after publishing (135 asset hashes and public browser checks).
 - [ ] Later: host the Python backend for public Claude conversations with server-side secrets.
