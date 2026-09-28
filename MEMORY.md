@@ -148,3 +148,19 @@ points to the site. Submission remains the user's responsibility.
 Word package integrity/font/spacing/authorship checks passed. Optional Word PDF export
 stalled and its task-owned automation process was stopped; no PDF or complete visual
 pagination review is claimed. The saved .docx files are the requested deliverables.
+
+## Public offline dashboard upgrade (2026-09-28)
+
+User chose GitHub-only offline demonstration first; hosted Claude backend is deferred.
+The /dashboard/ static build reuses the original solar UI with 120 verified synthetic
+days and nine precomputed deterministic answers, explicitly labelled as replay.
+The public adapter has no keys/model calls; arbitrary follow-ups are unsupported.
+Session export carries replay provenance. Browser-tab storage persists through reload;
+New conversation resets without native dialogs. Local mode switching resets the
+conversation rather than permanently disabling the mode selector after the first turn.
+
+Validation: 11 publication/web-interface tests passed. Edge checked all eight suggested
+questions, status, receipts, unsupported questions, export, reset, reload persistence,
+date gaps, refresh, snapshot modal, both explorer views and widths 320/390/850/1440.
+Local offline/Claude/offline switches were mocked UI checks, with no paid model calls.
+README includes an actual dashboard screenshot. Existing research archives are unchanged.

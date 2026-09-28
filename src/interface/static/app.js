@@ -1,9 +1,11 @@
 'use strict';
 const $ = id => document.getElementById(id);
-let snapshot, running = false, refreshSequence = 0;
+let snapshot, running = false, refreshSequence = 0, activeMode = "offline";
+const welcomeTemplate = document.querySelector("#messages .welcome").cloneNode(true);
 const number = (n, digits=1) => n == null ? 'Unavailable' : Number(n).toLocaleString('en-US', {maximumFractionDigits: digits});
 const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 async function api(path, payload) {
+  if(window.demoApi)return window.demoApi(path,payload);
   const response = await fetch(path, payload ? {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)} : {});
   const data = await response.json();
   if (!response.ok) throw new Error(data.error || 'Request failed. Please retry.');
@@ -54,16 +56,17 @@ async function refresh(day) {
   } catch(e) {if(sequence===refreshSequence)notice(e.message);} finally {if(sequence===refreshSequence)$('refresh').disabled=false;}
 }
 function updateMode() {
+  if(snapshot?.public_offline){$("mode-note").textContent="Public offline demo: suggested questions replay precomputed evidence. Claude and open-ended follow-ups need a backend. Chats stay in this browser tab; export before closing.";return;}
   $('mode-note').textContent=$('mode').value==='live'
-    ? `Claude · ${snapshot?.model||'configured model'} · follow-up context retained · API charges apply.`
-    : 'Offline questions are independent. '+(snapshot?.live_configured?'Choose Claude for follow-up conversation.':'Configure .env and refresh to enable Claude.');
+    ? `Claude · ${snapshot?.model||'configured model'} · follow-up context retained · API charges apply. Switching mode starts a new conversation.`
+    : 'Offline questions are independent. Switching mode starts a new conversation. '+(snapshot?.live_configured?'Choose Claude for follow-up conversation.':'Configure .env and refresh to enable Claude.');
 }
 function renderTurn(turn) {
   const welcome=$('messages').querySelector('.welcome');if(welcome)welcome.remove();
   const article=document.createElement('article');article.className='turn';
   const q=document.createElement('div');q.className='question';q.textContent=turn.question;article.append(q);
   const answer=document.createElement('div');answer.className='answer';answer.textContent=turn.answer;article.append(answer);
-  const meta=document.createElement('div');meta.className='turn-meta';meta.textContent=`${turn.mode==='live'?'Claude':'Deterministic'} · ${turn.status} · ${number(turn.elapsed_seconds,2)}s`;article.append(meta);
+  const meta=document.createElement('div');meta.className='turn-meta';meta.textContent=`${turn.presentation==='precomputed_offline'?'Recorded offline':turn.mode==='live'?'Claude':'Deterministic'} · ${turn.status} · ${number(turn.elapsed_seconds,2)}s`;article.append(meta);
   turn.tools.forEach(tool=>{
     const details=document.createElement('details');details.className='receipt';
     const summary=document.createElement('summary');summary.textContent='Evidence · '+tool.name.replaceAll('_',' ');details.append(summary);
@@ -78,14 +81,29 @@ function renderTurn(turn) {
   });
   $('messages').append(article);$('messages').scrollTop=$('messages').scrollHeight;
 }
-function setBusy(value){running=value;$('send').disabled=value;$('reset').disabled=value;$('download').disabled=value;$('question').disabled=value;$('mode').disabled=value||$('messages').querySelector('.turn')!==null;$('suggestions').querySelectorAll('button').forEach(b=>b.disabled=value);$('busy').textContent=value?'Reading telemetry and preparing evidence…':'Answers grounded in analytical evidence';}
+function setBusy(value){running=value;$('send').disabled=value;$('reset').disabled=value;$('download').disabled=value;$('question').disabled=value;$('mode').disabled=value;$('suggestions').querySelectorAll('button').forEach(b=>b.disabled=value);$('busy').textContent=value?'Reading telemetry and preparing evidence…':'Answers grounded in analytical evidence';}
 $('ask-form').onsubmit=async e=>{e.preventDefault();if(running)return;const question=$('question').value.trim();if(!question)return;setBusy(true);notice();try{const turn=await api('/api/ask',{question,mode:$('mode').value});renderTurn(turn);$('question').value='';}catch(err){notice(err.message);}finally{setBusy(false);$('question').focus();}};
 $('question').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('ask-form').requestSubmit();}};
-$('mode').onchange=updateMode;
+async function newConversation(nextMode=activeMode) {
+  if(running)return;
+  const previousMode=activeMode;
+  setBusy(true);
+  try {
+    await api('/api/reset',{});
+    $('messages').replaceChildren(welcomeTemplate.cloneNode(true));
+    $('question').value='';
+    activeMode=nextMode;
+    $('mode').value=nextMode;
+    notice();
+    updateMode();
+  } catch(error) { $('mode').value=previousMode;notice(error.message); }
+  finally { setBusy(false);$('question').focus(); }
+}
+$('mode').onchange=()=>newConversation($('mode').value);
 $('day').onchange=()=>refresh($('day').value);
 $('refresh').onclick=()=>refresh($('day').value);
-$('reset').onclick=async()=>{if(!confirm('Start a new conversation? Export first if you want to keep this session.'))return;try{await api('/api/reset',{});$('messages').replaceChildren();$('mode').disabled=false;$('question').value='';notice();}catch(e){notice(e.message);}};
+$('reset').onclick=()=>newConversation();
 $('download').onclick=async()=>{try{const data=await api('/api/export');const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='intelligent-logger-session-'+new Date().toISOString().replaceAll(':','-')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){notice(e.message);}};
 $('snapshot-evidence').onclick=()=>$('evidence-dialog').showModal();$('close-dialog').onclick=()=>$('evidence-dialog').close();
-async function init(){await refresh();try{const session=await api('/api/session');session.turns.forEach(renderTurn);if(session.mode)$('mode').value=session.mode;setBusy(false);updateMode();}catch(e){notice(e.message);}}
+async function init(){setBusy(true);await refresh();try{const session=await api('/api/session');session.turns.forEach(renderTurn);if(session.mode)$('mode').value=session.mode;activeMode=$('mode').value;updateMode();}catch(e){notice(e.message);}finally{setBusy(false);}}
 init();

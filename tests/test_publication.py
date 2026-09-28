@@ -10,8 +10,18 @@ def test_demo_evidence_is_identical_to_archive():
 def test_static_build_contains_only_reviewed_files(tmp_path):
     site.build(tmp_path)
     files={p.relative_to(tmp_path).as_posix() for p in tmp_path.rglob('*') if p.is_file()}
-    assert files=={'index.html','research.html','app.js','research.js','styles.css','data/experiment.json','data/research.json','data/outage.json','.nojekyll','publication.json'}
     manifest=json.loads((tmp_path/'publication.json').read_text())
+    assert files==set(manifest['sha256'])|{'.nojekyll','publication.json'}
+    assert len(files)==137
+    assert not any(name.endswith(('.py','.env')) for name in files)
+    snapshot=json.loads((tmp_path/'dashboard/data/snapshot.json').read_text())
+    assert snapshot['public_offline'] and not snapshot['live_configured']
+    answers=json.loads((tmp_path/'dashboard/data/answers.json').read_text())
+    assert len(answers['answers'])==9
+    assert all(a['tools'] and a['presentation']=='precomputed_offline' for a in answers['answers'])
+    html=(tmp_path/'dashboard/index.html').read_text(encoding='utf-8')
+    assert html.index('./demo-api.js')<html.index('./app.js')
+    assert 'href="/app.css"' not in html
     for name,digest in manifest['sha256'].items():assert site.sha(tmp_path/name)==digest
     assert 'href="/"' not in (tmp_path/'index.html').read_text(encoding='utf-8')
 

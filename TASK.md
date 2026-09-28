@@ -36,3 +36,10 @@ historical decisions and failed runs remain in MEMORY.md and the archives.
 
 The current paper reports a controlled synthetic access study and a limited live
 development pilot. It does not establish field accuracy or validated hardware.
+
+## Public dashboard
+
+- [x] Build and browser-check a clearly labelled GitHub Pages offline dashboard.
+- [x] Fix reset and local answer-mode switching without page refresh.
+- [ ] Verify deployed /dashboard/ after publishing.
+- [ ] Later: host the Python backend for public Claude conversations with server-side secrets.

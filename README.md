@@ -1,11 +1,18 @@
 # Intelligent Data Logger — Research demonstrator
 
 
+**[Open the solar dashboard demo](https://engr-daniel.github.io/intelligent-data-logger-demo/dashboard/)**
+
 **[Open the public experiment explorer](https://Engr-Daniel.github.io/intelligent-data-logger-demo/)** · **[Explore the research results](https://Engr-Daniel.github.io/intelligent-data-logger-demo/research.html)**
 
 A controlled synthetic study of historical and cross-component evidence for solar
-diagnostics, with an interactive six-scenario explainer and a separate local
-conversational dashboard. No hardware or field installation was evaluated.
+diagnostics, with an interactive six-scenario explainer and a public offline dashboard. The local Python dashboard also supports Claude. No hardware or field installation was evaluated.
+
+![Public offline solar dashboard: system snapshot, daily chart and evidence questions](docs/images/offline-dashboard.png)
+
+The dashboard offers 120 days of synthetic charts, nine precomputed answers, evidence
+receipts, new conversations and session export. It makes no Claude API calls. Choose
+a suggested topic or type `status`; arbitrary follow-up questions need the Python backend.
 
 ![Public research explorer: access conditions, uncertainty and live-pilot evidence](docs/images/research-explorer.png)
 

@@ -57,3 +57,21 @@ Install `requirements-publication.txt` and a Playwright browser, then run
 `python scripts/check_publication_browser.py --base-url http://127.0.0.1:8503`.
 On Windows, `--browser` accepts the installed Edge executable path. The script
 checks both local views and regenerates the README screenshots. It uses no paid API.
+
+## Public offline dashboard
+
+Open https://engr-daniel.github.io/intelligent-data-logger-demo/dashboard/.
+This reuses the local dashboard interface with a browser-only adapter. It serves 120
+recorded days (34,560 synthetic observations) and nine precomputed deterministic
+answers. It does not execute Python, generate new diagnoses or call Claude. Unknown
+questions explain the limitation. Sessions stay in the current browser tab and can
+be exported; New conversation clears them immediately without a page reload.
+
+`python scripts/export_offline_dashboard.py` regenerates the committed export from
+local dependencies and SQLite, after comparing SQLite to the hash-verified original
+CSV. This is a presentation export, not a new scored research experiment. The Pages
+build needs only the standard library and checks every exported asset hash before
+copying a bounded list of 135 public assets. No API configuration is published.
+
+The local dashboard now also starts a fresh conversation when switching answer mode,
+without refreshing the browser. Public Claude hosting remains a separate next step.
