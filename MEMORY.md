@@ -173,3 +173,25 @@ session, chart gaps, navigation and responsive layouts. A transient network time
 required retry; no application errors remained. Repository homepage now opens
 https://engr-daniel.github.io/intelligent-data-logger-demo/dashboard/.
 User ground_truth.json line-ending changes and .vscode settings remain uncommitted.
+
+## Methodology manuscript revision (2026-09-30)
+
+User approved presenting the contribution as a reproducible methodology supported by
+implementation and a synthetic worked evaluation, including where/how real data would
+be acquired. Abstract and full paper now use that framing. Added a six-stage workflow,
+field-source mapping, proposed recruitment/collection/storage/quality procedures and
+independent fault-reference/field-evaluation requirements. Field acquisition remains
+proposed; no hardware, site partnership or field validation is claimed. Added bounded
+SunSpec and NREL acquisition references. Frozen v1 protocol, archived metrics and
+strict-versus-post-hoc Claude results are preserved. Revised abstract: 238 words;
+title: 15 words. Word package regenerated; earlier Word versions retained locally.
+
+Revision checks passed: matching abstract text in both Markdown sources and Word files;
+238-word abstract and 15-word title; result section unchanged except table numbering;
+sequential section/table numbers; Word ZIP integrity, corresponding-author presence,
+12-point Times New Roman, double-spaced body, four tables and three embedded figures.
+Full visual pagination was not checked; author review of Word layout remains required.
+No experiments or paid model calls were run for this editorial revision.
+
+Final abstract refinement (2026-09-30): user approved tightening their supplied version. Updated both manuscript abstracts to 263 words, five comma-separated keywords and the existing sentence-case title. Replaced potentially misleading independent-scoring wording with separate scoring against evaluation-only reference labels, including the conclusion. Retained all numerical outcomes and the shared simulator-policy/field-validation limitations.
+Validation passed: 263-word abstract matches both Markdown sources and both regenerated Word files; five keywords; unchanged results section; Word package, title, font and figure/table checks. Final visual pagination remains for author review.

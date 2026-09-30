@@ -62,7 +62,7 @@ def build(source,out,contact):
     footer.add_run('Page ');field=OxmlElement('w:fldSimple');field.set(qn('w:instr'),'PAGE');footer._p.append(field)
     doc.core_properties.title=lines[0].lstrip('# ')
     doc.core_properties.author='Oyewale, D.O.; Meyer-Petgrave, F.'
-    doc.core_properties.subject='NASEF 2026: controlled synthetic solar diagnostic study'
+    doc.core_properties.subject='NASEF 2026: reproducible solar diagnostic methodology and synthetic evaluation'
     doc.save(out)
     return {'file':out.name,'sha256':hashlib.sha256(out.read_bytes()).hexdigest(),'paragraphs':len(doc.paragraphs),'tables':len(doc.tables),'figures':len(doc.inline_shapes)}
 if __name__=='__main__':

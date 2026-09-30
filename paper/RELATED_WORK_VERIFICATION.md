@@ -18,3 +18,12 @@ The accessible abstracts/metadata support these bounded descriptions. No perform
 number from these works is used as a competing result for this study. A domain expert
 has not independently assessed the simulator or this manuscript. Do not describe
 assistant-assisted checking as peer review, blinded annotation or external validation.
+
+## Field-acquisition sources checked 30 September 2026
+
+- [7] [SunSpec Information Model Reference](https://sunspec.org/sunspec-information-model-reference-sunspec-alliance/), SunSpec Alliance, 15 February 2018. The primary page identifies information models for inverters, batteries and meters. Supports using a compatible documented interface as a proposed source; it does not establish compatibility with any selected device or implementation in this repository.
+- [8] [Sengupta et al., 2024, NREL/TP-5D00-88300](https://doi.org/10.2172/2448063), fourth-edition solar-resource handbook. Primary bibliographic record and indexed report passages confirm the title, editors, date and coverage of measurement practice and data quality. Cited as guidance for future sensor acquisition and quality assessment, not evidence that our simulator or prototype meets a monitoring standard.
+
+The one-minute polling proposal, 15-minute field aggregation procedure, site recruitment
+and field evaluation plan are author-proposed design choices. These references do not
+validate those choices or constitute a completed field trial.

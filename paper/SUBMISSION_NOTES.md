@@ -1,4 +1,4 @@
-﻿# Submission package — 28 September 2026
+﻿# Submission package — 30 September 2026
 
 The author will submit the documents personally. No submission, registration,
 email or payment has been sent by this project.
@@ -12,9 +12,9 @@ Ltd, Nigeria, and Daniel Oyewale's supplied correspondence details. The contact 
 and generated correspondence-bearing files are ignored by Git. Public manuscript
 sources contain names and affiliation but not the phone number.
 
-The title is 12 whitespace-delimited words; the abstract is 228. There are five
+The revised title is 15 whitespace-delimited words; the abstract is 263. There are five
 keywords. Word files use Times New Roman 12 pt and double-spaced body text. The full
-paper has three tables and three figures. No unverified funding, conflict-of-interest,
+paper has four tables and three figures. No unverified funding, conflict-of-interest,
 contribution or ethics declaration has been invented; authors should add any declarations
 required by the venue and verify their accuracy.
 
@@ -40,7 +40,7 @@ the organizer supplies a template. Do not claim venue-format approval.
 - A live pilot now completed 24 conversations and 48 requests. Strict JSON acceptance
   was 0/24; all responses were fenced Markdown. This failure is included in both abstract
   and manuscript. The post-hoc analysis is explicitly identified and separate.
-- Six bounded related-work descriptions were checked against primary records; see
+- Six bounded related-work descriptions and two field-acquisition references were checked against primary records; see
   [verification log](RELATED_WORK_VERIFICATION.md). This is not an exhaustive search.
 - No physical logger, field data, human usability trial, blinded prose rating or
   independent domain validation is claimed. Domain review remains desirable and has
@@ -50,3 +50,20 @@ the organizer supplies a template. Do not claim venue-format approval.
 
 Read both Word files before uploading. In particular, confirm the author ordering,
 affiliation, correspondence details, scientific interpretation and venue instructions.
+
+## Methodology revision — 30 September 2026
+
+The abstract and full manuscript now lead with the reproducible methodology, with
+existing experiments retained as the synthetic worked evaluation. Section 3.2 sets
+out the reusable workflow and implemented/proposed boundary. Section 3.3 identifies
+proposed field sites, equipment sources, channel mappings, collection and storage,
+quality controls, independent fault references and requirements for a new field study.
+No site agreement, device integration, real-data collection or field validation is claimed.
+The acquisition proposal was added after the experiments; frozen protocols and results
+are unchanged. The public offline dashboard link is included alongside both explorers.
+
+The Word files have been regenerated. Previous versions are retained locally in
+`paper/submission/previous_20260928/`. The provisional layout and requirement for
+final author review still apply; this revision does not assert venue acceptance.
+
+Final abstract refinement: adopted the author-supplied formulation, shortened to 263 whitespace-delimited words, with five comma-separated keywords and a sentence-case title. Scoring is described as separate from diagnosis, without implying independent external evaluation. Both Word documents use this same abstract.

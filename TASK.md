@@ -43,3 +43,10 @@ development pilot. It does not establish field accuracy or validated hardware.
 - [x] Fix reset and local answer-mode switching without page refresh.
 - [x] Verify deployed /dashboard/ after publishing (135 asset hashes and public browser checks).
 - [ ] Later: host the Python backend for public Claude conversations with server-side secrets.
+
+## Methodology manuscript revision
+
+- [x] Reframe abstract and manuscript around the implemented reproducible method.
+- [x] Document proposed field-data sources, acquisition, quality and independent labels.
+- [x] Preserve frozen experimental results and disclose that the field plan is prospective.
+- [x] Regenerate the abstract and complete-paper Word files for author review.
