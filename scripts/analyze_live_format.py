@@ -6,8 +6,8 @@ sys.path.insert(0,str(ROOT))
 local=ROOT/'.venv/Lib/site-packages'
 if local.exists():sys.path.insert(0,str(local))
 from src.research.live import score_final
-RUN=ROOT/'reports/research/20260928T072939445717Z_live_development'
-OUT=ROOT/'reports/research/20260928_live_format_sensitivity'
+RUN=ROOT/'reports/research/live-pilot'
+OUT=ROOT/'reports/research/live-pilot-format-sensitivity'
 def main():
  OUT.mkdir(exist_ok=True)
  records=[json.loads(line) for line in (RUN/'conversations.jsonl').read_text(encoding='utf-8').splitlines()]
