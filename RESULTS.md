@@ -113,3 +113,32 @@ The original demonstration alone cannot isolate the value of history or cross-co
 access. The later NASEF study above supplies a separately specified synthetic comparison,
 with a shared policy and explicit limitations. Preserve the original run as preliminary
 evidence rather than presenting six passes as a research accuracy percentage.
+
+## Exploratory detection timing ? 6 October 2026
+
+[Readable report and figure](reports/research/20261006T022136185304Z_detection_delay_interpretation/REPORT.md)
+| [Frozen evidence](reports/research/20261006T022136185304Z_detection_delay/REPORT.md)
+| [Protocol](docs/DETECTION_DELAY_PROTOCOL.md)
+
+Reused 24 evaluation installations and four trend episodes: 54,144 rolling
+predictions, four access conditions, three stress levels, four check periods and
+all schedule phases. This extension was specified after seeing unverified co-author
+claims; it is exploratory, not an independent validation or preregistered experiment.
+All 288 observed-input fingerprints and 1,152 day-60 labels match the original archive.
+
+With clean full-history cross-component data, daily checks detected 19/20 declines
+crossing the 5% daily-mean latent-loss reference, with 4.79 days mean conditional delay.
+Monthly checks averaged 14.23/20 detections across phases and 16.50 days conditional
+delay. Conditional means have different detected subsets. The paired finite-horizon
+waiting-score difference was 11.73 days (95% installation-bootstrap interval
+9.88?13.35), including misses by the prespecified scoring rule.
+
+Under severe corruption, requiring three consecutive daily positives reduced the
+any-control false-trend-alert count from 13/24 to 4/24, with post-reference detection
+falling from 19/20 to 18/20. Earlier alerts are reported separately, not treated as
+proof of advance warning before a fault exists. Clean inverter-only daily checks
+raised a false trend alert on at least one control in every installation.
+
+Daily one-positive checks include all periodic checks by construction; this measures
+schedule consequences and false-alarm tradeoffs, not superiority over technicians.
+No field data or paid API calls. Frozen benchmark and manuscript results unchanged.

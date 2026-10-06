@@ -1,0 +1,46 @@
+{
+  "paper_title": "A reproducible methodology for evidence-grounded conversational diagnostics of solar PV-battery systems: implementation and synthetic evaluation",
+  "status": "Prepared for author submission; abstract accepted for oral presentation",
+  "conference": "43rd National Solar Energy Forum/Conference (NASEF 2026)",
+  "main_paper_pages": 19,
+  "supplement_pages": 2,
+  "main_figures": 7,
+  "main_research_tables": 4,
+  "checks": {
+    "selected_manuscript_preserved_byte_for_byte": true,
+    "final_pdf_version_labels_absent": true,
+    "pdf_bounds": true,
+    "zip_integrity": true,
+    "latex_references_and_provenance": "passed"
+  },
+  "files": {
+    "NASEF2026_Full_Paper_Oyewale_Meyer-Petgrave.docx": {
+      "bytes": 1241267,
+      "sha256": "9341cedb58a74bf5e0306bed60d8a700325ccf0f6501648be899206c331bd9af"
+    },
+    "NASEF2026_Full_Paper_Oyewale_Meyer-Petgrave.pdf": {
+      "bytes": 1093494,
+      "sha256": "098c65987c41869b8281b65ccd97ca5343a52acd053e4cafe9ae7ce4713a7291"
+    },
+    "NASEF2026_Timing_Supplement.docx": {
+      "bytes": 188863,
+      "sha256": "6db1a3f2f547e0b2cbbaf5e839b59f86d0fc416cc86c8f7d469130cac6e21974"
+    },
+    "NASEF2026_Timing_Supplement.pdf": {
+      "bytes": 249854,
+      "sha256": "2deb54ad0e5a9d5f805226c13070b46c6883dd9895763030625d46cc8e33f0d7"
+    },
+    "NASEF2026_Timing_Reproducibility.zip": {
+      "bytes": 3064174,
+      "sha256": "c4807d0083fd863cab30f57fe45972c8faa83c17f6d135a5f821622c7ad71171"
+    },
+    "NASEF2026_Full_Paper_Overleaf.pdf": {
+      "bytes": 215491,
+      "sha256": "a99ca15a6b136315fdb9a628b2fc4f729ff5dbe60adee019f1d367f68eeecc96"
+    },
+    "NASEF2026_Overleaf.zip": {
+      "bytes": 1408203,
+      "sha256": "ac2ec014e9fa50f6f7baf6aebc15123a250ea9ba68dc2587f996adc26f4d196a"
+    }
+  }
+}

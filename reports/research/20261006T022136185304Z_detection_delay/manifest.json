@@ -1,0 +1,80 @@
+{
+  "status": "complete",
+  "started_utc": "2026-10-06T02:21:36.185304+00:00",
+  "exploratory": true,
+  "synthetic": true,
+  "python": "3.10.0",
+  "packages": {
+    "numpy": "2.2.6",
+    "pandas": "2.3.3"
+  },
+  "source_sha256": {
+    "scripts/analyze_detection_delay.py": "e9d4057235edf8ab9496de832f0b4ed60b0bc86e45c0792eb37ea0630c139756",
+    "config/research_protocol.json": "34a590c88dc00cf5a876aea9874eb2ec7c8592918afcc05e92a34d166bc46229",
+    "docs/DETECTION_DELAY_PROTOCOL.md": "f7fa394bd947563e80845c789f69bfd57ae89a690d5c6588282ba7945602c5ea",
+    "src/research/simulation.py": "c45e4b680c7ec848e82eee418fa551e2c8607ead4978b8e44fec72932db22dbe",
+    "src/research/policy.py": "d4165ee4c899eee2e71287981554b1a5e01aa24d9d27252d4123b12ad9c0cf61",
+    "tests/test_detection_delay.py": "02b65585f8237dbe69ba50825bbd58766be1f2064d4246e5ea0d81b7cfce3385"
+  },
+  "baseline": "reports\\research\\20260923T190318100907Z_evaluation",
+  "baseline_sha256": {
+    "predictions.csv": "dddca6f2b767abdd46350ceca0bc09b7c93d9ee639cc0b07532a74dd2dbeaebb",
+    "dataset_hashes.csv": "c15a182df152e656885c38280a73fbfde5ea0a1631107e434ccf4028c11497e6"
+  },
+  "seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010,
+    1011,
+    1012,
+    1013,
+    1014,
+    1015,
+    1016,
+    1017,
+    1018,
+    1019,
+    1020,
+    1021,
+    1022,
+    1023
+  ],
+  "periods": [
+    1,
+    7,
+    14,
+    30
+  ],
+  "persistence": [
+    1,
+    3
+  ],
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20261006,
+  "finished_utc": "2026-10-06T02:30:23.236949+00:00",
+  "daily_predictions": 54144,
+  "phase_outcomes": 119808,
+  "physical_trajectories": 96,
+  "verified_inputs": 288,
+  "verified_day60_labels": 1152,
+  "artifact_sha256": {
+    "daily_predictions.csv": "55cfee427f5d1a2c8eca02e0a0697fd53dbde8b75a9beddfd6d88a2c38e9812b",
+    "dataset_hashes.csv": "456c816c8b9bde93ed9aa1a9bdf8be4ffacfc53ec9b5c77c454a2f00c2ff3b31",
+    "day60_equivalence.csv": "810f0d2b6456048251c260eeea0b68fc8120f8ad939209a158c045da5a210ebc",
+    "paired_schedule_effects.csv": "67a704f4ca6e0a52517c4c9ef4fe5ec665c75428f055626c668ec44079eeddef",
+    "phase_outcomes.csv": "e66f373f6e3640de03700330ce00b44748f3699ebbe71663a247f0702394cc4b",
+    "physical_checks.csv": "2e47c66dfae3d7658e0bded87fde06f481463667259292732b5d0a18f534d440",
+    "receipts.jsonl.gz": "d9335d8ec92bf87a716460dffd58df56d8a9b40de2ee23027e7eeca2dd0d2ea0",
+    "references.csv": "32f6b48bf317cfae3a2d136297e8a7ececb260508a4012af31830cf361b0d0cf",
+    "REPORT.md": "018dcdfcd7745258cd9676b136b6ab816c765901c922ff74a499d8f5db4e168d",
+    "summary.csv": "e4aa0556433f066e6b7a3cf6f88d94e052edf07ead93a360e4acfe42134161e7"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "description": "New presentation figures; archived experiments unchanged. PDF vector masters and 300 dpi PNG previews.",
+  "inputs": {
+    "reports/research/20260923T190318100907Z_evaluation/metrics.csv": "2785ee35ec0b88a67c1117f77016586b5359bd37bd168349b419dbd2d77ff58b",
+    "reports/research/20260928T072939445717Z_live_development/summary.json": "e6a480e90105ac20a2f0fd5b86701521fea20a2f6c4b8b1c018858db6ac27037",
+    "reports/research/20260928_live_format_sensitivity/summary.json": "fb5c39c1cdaebf560bbf5a3774dc2d0087eec5641593028a5c803c67fa5a2ad4",
+    "reports/research/20261006T022136185304Z_detection_delay/summary.csv": "e4aa0556433f066e6b7a3cf6f88d94e052edf07ead93a360e4acfe42134161e7",
+    "reports/research/20261006T022136185304Z_detection_delay/manifest.json": "857edc7d9690fc3bbb5be882dd31c7f3993248c29b4c7129efc50890e17dfe2d"
+  },
+  "outputs": {
+    "00_care_loop.pdf": "4c12c1387826ac72e3d88c3b4460397d162908f94986dbbd591c463f54bf58fc",
+    "00_care_loop.png": "cf4e82b6b526995b7a29abeed85e6c725d2de26677e8ac2f0083a289c034a869",
+    "01_evidence_boundary.pdf": "c54a5717fabbf01b8d1423e1c923e7908c4b956a5797070b3550b193e9e985bb",
+    "01_evidence_boundary.png": "9da294320b878b4d7345711ed500cf321db61ab0198ee81b4d9f3cb7b1e54f19",
+    "02_benchmark_design.pdf": "6181e64983d7f825634d2ab17883265bc67efbd3f7450d5f8eb67604926a89ae",
+    "02_benchmark_design.png": "c4618e8f5364ac581d01ba97a713b7a9eb1d2e370a74dc32f2d6debf941293ca",
+    "03_correctness_coverage.pdf": "fdf1667b0892f5ffdf5270d43e8c5cb85fc97005c847f13c81efdfb0fd929ee9",
+    "03_correctness_coverage.png": "68c48fe83183e18e77a66332dcfa3e80fa1634d1e9b60f2b49250346ea712662",
+    "04_corruption_robustness.pdf": "7bfdec4b5ebc3a1faca57cb37f99c4ceb75b3c418dae6ba83a4ab9de04953f7b",
+    "04_corruption_robustness.png": "05c493d428b4ff68781f324313e8da371b1386401c2d5ca50b439ded0b1e53b5",
+    "05_reporting_failures.pdf": "93f9512443964dd72c47c55f822383f0921ba813b8de369e6f1d104c27a8cba8",
+    "05_reporting_failures.png": "23ba73e04351c344da73977f072d331f663fdd5ab1683246c698326e56a7f205",
+    "06_detection_delay.pdf": "b47d93ccc59131bc980dc1f91257186b8db8f15a95fbd56b55f36842b0e3eae5",
+    "06_detection_delay.png": "5a60b1a84cf3d60bcc74d335d0a74f626ea5f41f2f86ba04eb5c8bbe3821579d",
+    "07_conversation_flow.pdf": "11b9bbded4c779e8abde53bd682e59857a100971a45ea8f5bf7b88372f8d2f8c",
+    "07_conversation_flow.png": "ca79d6165334fb840bb632defdf22add216089104cf846a7f2b47afb721af3f9",
+    "07_conversation_flow.svg": "6fe1e9d50e532b744a9b6ae6b36597c9bfab1e029a6c95463b9462714c2e15fb"
+  }
+}

@@ -41,3 +41,16 @@ and one normal day left unresolved. Do not suppress them or tune v1 against thes
 
 The original M5/M6 evaluation remains under `reports/runs/`. Its pass/fail rubric and
 this benchmark's per-case diagnostic-label metrics answer different questions.
+
+## Exploratory detection timing ? 6 October 2026
+
+- [Summary, figure and interpretation](20261006T022136185304Z_detection_delay_interpretation/REPORT.md).
+- [Frozen run and complete table](20261006T022136185304Z_detection_delay/REPORT.md): 54,144 daily decisions;
+  all 288 input fingerprints and 1,152 day-60 labels match the original benchmark.
+- [Audit result](20261006T022136185304Z_detection_delay_interpretation/validation.json): 119,808 phase outcomes
+  independently checked; 24 relevant tests passed.
+- [Protocol](../../docs/DETECTION_DELAY_PROTOCOL.md) and
+  [commands/definitions](../../docs/DETECTION_DELAY_GUIDE.md).
+
+Exploratory reuse of synthetic evaluation installations, not field validation.
+No API calls; original archives remain unchanged.

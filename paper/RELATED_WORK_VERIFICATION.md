@@ -27,3 +27,19 @@ assistant-assisted checking as peer review, blinded annotation or external valid
 The one-minute polling proposal, 15-minute field aggregation procedure, site recruitment
 and field evaluation plan are author-proposed design choices. These references do not
 validate those choices or constitute a completed field trial.
+
+## Focused application additions ? 5 October 2026
+
+- Utama et al. (2023), *Solar Energy* 249, 139?151, DOI [10.1016/j.solener.2022.11.018](https://doi.org/10.1016/j.solener.2022.11.018): publisher-indexed abstract and institutional records identify an MLP PV fault detector with SHAP, Anchors and DiCE explanation comparisons. Used only to establish an application precedent, without importing its accuracy as a baseline. Direct publisher/full-PDF retrieval was restricted; bibliographic details and the bounded description were checked from indexed primary content.
+- Sairam et al. (2020), [arXiv:2011.09843](https://arxiv.org/abs/2011.09843): the author preprint describes a hybrid physical-model/XGBoost PV fault detector and LIME explanations. Explicitly cited as a preprint; no peer-review status is inferred.
+
+These additions address the closest application literature without asserting an exhaustive review, a first-of-kind claim or superior explanation quality.
+
+## Nigerian motivation sources - 6 October 2026
+
+- Global Solar Council, Africa records its fastest year of solar growth as installations rise 54% year-on-year (2026): https://new.globalsolarcouncil.org/news/global-solar-council-africa-records-its-fastest-year-of-solar-growth-as-installations-rise-54-year-on-year/ . Primary industry release reports 803 MW of additions in Nigeria in 2025. Used only for deployment context; not combined with another source's cumulative capacity estimate.
+- Bennett Oghifo, THISDAY, 1 September 2026: https://www.thisdaylive.com/2026/09/01/lagos-solar-boom-faces-skills-gap-as-only-58-technicians-trained/ . Secondary reporting on a Lagos labour-market assessment gives 58% of surveyed technicians receiving solar-related training. Explicitly attributed and geographically bounded; underlying survey sample/methods were not independently inspected.
+
+These sources motivate aftercare; neither supports claims of incident reduction,
+field accuracy, national monitoring coverage or improved trust caused by this system.
+Technical related-work claims continue to use the primary sources checked above.

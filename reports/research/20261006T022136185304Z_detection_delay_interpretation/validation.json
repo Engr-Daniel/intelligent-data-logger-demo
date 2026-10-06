@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "verified_utc": "2026-10-06T02:32:03.195237+00:00",
+  "checker": "scripts/verify_detection_delay.py",
+  "checker_sha256": "f9adef2e7cf0dc6da7ee11ecd7af92be0bcf955307986efc77bb1f5b7e9a9d9f",
+  "hashed_artifacts": 10,
+  "daily_decisions": 54144,
+  "audited_phase_outcomes": 119808,
+  "receipts": 54144,
+  "reference_crossing_installations": 20,
+  "regression_tests_passed": 24,
+  "verified_inputs": 288,
+  "verified_day60_labels": 1152,
+  "physical_trajectories": 96,
+  "figure_visually_inspected": true,
+  "original_benchmark_verification": "288 episodes, 3456 predictions, hashes and physical checks passed"
+}

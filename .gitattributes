@@ -5,3 +5,9 @@ reports/research/** -text whitespace=cr-at-eol
 reports/research/**/*.svg -text whitespace=-blank-at-eol,cr-at-eol
 # Static dashboard exports are verified byte-for-byte by their manifest.
 src/interface/static/offline/data/** -text whitespace=cr-at-eol
+
+# Publication figure hashes must survive platform line-ending conversion.
+paper/overleaf/figs/** -text whitespace=cr-at-eol
+paper/overleaf/figs/*.svg whitespace=-blank-at-eol,cr-at-eol
+docs/architecture/figs/** -text whitespace=cr-at-eol
+docs/architecture/figs/*.svg whitespace=-blank-at-eol,cr-at-eol

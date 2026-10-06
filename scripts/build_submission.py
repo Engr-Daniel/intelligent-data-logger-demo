@@ -69,6 +69,6 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--contact',type=Path,default=ROOT/'.venv/submission-authors.json');args=parser.parse_args()
     contact=json.loads(args.contact.read_text(encoding='utf-8-sig'))
     out=ROOT/'paper/submission';out.mkdir(exist_ok=True)
-    records=[build(ROOT/'paper'/source,out/name,contact) for source,name in [('ABSTRACT_DRAFT.md','NASEF2026_Abstract_Oyewale_Meyer-Petgrave.docx'),('FULL_PAPER.md','NASEF2026_Full_Paper_Oyewale_Meyer-Petgrave.docx')]]
+    records=[build(ROOT/'paper'/source,out/name,contact) for source,name in [('ABSTRACT_DRAFT.md','NASEF2026_Abstract_Oyewale_Meyer-Petgrave.docx'),('FULL_PAPER.md','NASEF2026_Full_Paper_Legacy.docx')]]
     (out/'build_manifest.json').write_text(json.dumps({'format':'A4; 12 pt Times New Roman; double-spaced body; compact tables; provisional full-paper layout','documents':records},indent=2))
     print(json.dumps(records,indent=2))

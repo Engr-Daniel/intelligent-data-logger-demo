@@ -22,6 +22,8 @@ Original hosted prototype: [Intelligent Data Logger Experiment Explorer](https:/
 
 ## Current evidence and paper
 
+**[NASEF 2026 submission documents](paper/README.md)** — final Word/PDF manuscript, Supplement S1, Overleaf source package and reproducibility files. The abstract was accepted for oral presentation; the full paper is prepared for author submission.
+
 - **Offline evaluation:** 24 synthetic installation seeds, 288 matched episodes,
   3,456 paired predictions. Full-history/cross-component access resolved **233/240**
   identifiable clean cases (97.1%; 95% cluster interval 95.4–98.8%). Comparisons are
@@ -30,6 +32,7 @@ Original hosted prototype: [Intelligent Data Logger Experiment Explorer](https:/
   **Strict JSON compliance: 0/24** because every reply used Markdown fences.
   Exploratory fence removal recovered 24/24 receipt-consistent labels, with valid
   measurement-name citations in 15/24. This is not end-to-end success or field accuracy.
+- **Overleaf full paper:** [LaTeX project and build instructions](paper/overleaf/README.md), [revision and validation record](paper/OVERLEAF_REVIEW.md).
 - **Paper:** [full manuscript](paper/FULL_PAPER.md), [abstract](paper/ABSTRACT_DRAFT.md),
   [verified related work](paper/RELATED_WORK_VERIFICATION.md), and
   [submission notes](paper/SUBMISSION_NOTES.md).

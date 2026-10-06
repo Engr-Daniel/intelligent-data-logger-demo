@@ -195,3 +195,105 @@ No experiments or paid model calls were run for this editorial revision.
 
 Final abstract refinement (2026-09-30): user approved tightening their supplied version. Updated both manuscript abstracts to 263 words, five comma-separated keywords and the existing sentence-case title. Replaced potentially misleading independent-scoring wording with separate scoring against evaluation-only reference labels, including the conclusion. Retained all numerical outcomes and the shared simulator-policy/field-validation limitations.
 Validation passed: 263-word abstract matches both Markdown sources and both regenerated Word files; five keywords; unchanged results section; Word package, title, font and figure/table checks. Final visual pagination remains for author review.
+
+## Overleaf full-paper preparation (5 October 2026)
+
+User reports oral-presentation acceptance. Acceptance email supplied no full-paper
+format or page limit. Prepared provisional A4/11-point Times-style manuscript under
+paper/overleaf with main.tex, references.bib and figs/. Preserved accepted abstract
+source; full-paper abstract only clarifies correctly diagnosed terminology. Reviewed
+all eight proposed PNGs and the DOCX headings. Redrew five vector figures; combined
+workflow/architecture and retained the field mapping table instead of duplicating it.
+Quantitative figures read archived metrics and strict/post-hoc summaries directly.
+Added focused PV-XAI references with bounded verified claims; clarified receipt fields,
+bundled access, factorial interpretation, bootstrap unit, sample-size documentation,
+RQ answers and prospective field acquisition. No experiment, threshold or archive edits.
+
+Full-paper Markdown and generated LaTeX are aligned. Direct Overleaf edits must be
+reconciled before rerunning the generator. Previous Word full paper is now historical;
+current full-paper deliverables are the PDF and Overleaf ZIP in paper/submission/.
+Portable Tectonic and PyMuPDF were installed only in ignored .venv for local review.
+
+Overleaf validation completed: 13 pages, five vector figures, four tables and ten
+references; every page visually inspected; figure-label and widow/orphan issues fixed.
+No unresolved references, missing glyphs or overflowing text boxes remain. Isolated ZIP
+compile produced identical extracted PDF text. All seven cited public resource links
+returned 200. Frozen evaluation verifier passed. PDF/ZIP and validation JSON are in
+ignored paper/submission/. No actual Overleaf upload or conference submission occurred.
+Accepted abstract and previous Word documents remain unchanged. Source edits are local.
+
+## Exploratory detection-delay extension (6 October 2026)
+
+User authorized implementing and running the timing experiment after the supplied
+Fitzroy v2 ZIP proved to contain manuscript/figure assets but no analysis script or
+raw timing outputs. Specified docs/DETECTION_DELAY_PROTOCOL.md before this run,
+explicitly after seeing proposed results; no claim of preregistration or independence.
+Implemented analyze_detection_delay.py, separate verify_detection_delay.py,
+summarize_detection_delay.py, five boundary tests and a usage guide.
+
+Archive: reports/research/20261006T022136185304Z_detection_delay; separate interpretation folder contains vector PDF,
+300-dpi PNG, readable report and validation.json. 54,144 daily decisions, 119,808
+phase/rule outcomes, 96 physical trajectories. All 288 fingerprints and 1,152 final
+labels match frozen benchmark. Original source/config unchanged. All receipts and
+phase outcomes independently audited; 24 relevant tests passed; figure inspected.
+
+20/24 declines crossed the chosen reference. Clean full-cross daily: 19/20 detected,
+4.79-day conditional mean; monthly: phase-average14.23/20, 16.50-day pooled conditional
+mean (not the draft's 15.9). Paired finite-horizon waiting difference11.73 days,
+95% cluster interval9.88?13.35. Severe daily three-positive rule reduces any-control
+false-alert installations13/24 to4/24, post-reference detections19/20 to18/20.
+Pre-reference alerts are separate; physical loss can exist before the5% reference.
+Daily includes periodic checks by construction, so results quantify schedule effects,
+not independent diagnostic superiority. Three monthly positives infeasible in window.
+No paid calls, original archive changes, paper/abstract edits, commits or push.
+
+## Full-paper v3 integration - 6 October 2026
+
+User requested paper revision preserving Fitzroy's clearer motivation and Nigerian
+story. Retained aftercare/trust motivation, owner's low-output question and proposed
+measure-record-diagnose-explain-act-verify loop with accurate implementation boundary.
+Verified GSC primary 803 MW addition figure; bounded the Lagos training statistic as
+secondary reporting. No unsupported fire trend or national monitoring estimate.
+Accepted methodology title and ABSTRACT_DRAFT.md remain unchanged. Revised full-paper
+abstract (268 words), timing methods/results/RQ4, discussion, field plan, disclosure
+and data availability. Seven vector figures, five tables, twelve citations, 16 pages.
+
+Versioned v3 PDF and Overleaf ZIP plus timing reproducibility supplement are in ignored
+paper/submission. Exact 18-file upload ZIP compiled independently, matching PDF text;
+no missing glyphs, overflow or unresolved references. All pages visually reviewed.
+The supplement has 32 source/evidence files plus README and hash manifest. Source
+updates remain local; no push, actual Overleaf upload, submission or paid model call.
+
+## Full-paper v4 and two-format submission (6 October 2026)
+
+User requested stronger use of Fitzroy's motivation, exact conference/Sub-theme V
+heading, contents, figure/table lists, abbreviations and an email draft. Revised
+full-paper opening with monitoring/trust hypotheses distinguished from measured
+findings. Added shared front_matter.json and front matter to Word and LaTeX.
+Generated new v4 Word and directly exported matching PDF using hidden Word automation;
+three contents/list fields updated, 20 pages, seven figures, five research tables,
+fourteen abbreviations. Tables kept together; every source paragraph verified in DOCX,
+PDF bounds checked and pages visually inspected. Accepted abstract unchanged.
+Email draft saved in ignored paper/submission; nothing sent. Earlier open unversioned
+Word file is historical. New builder reads private local contact config. Overleaf v4
+also updated, with separate layout/bibliography ordering; source changes remain local.
+
+Title-page correction: conference and Sub-theme V now follow the corresponding-author details, before the abstract. Regenerated v4 Word, matching PDF and Overleaf package; both PDFs remain 20 pages.
+
+## Architecture revision v5 - 6 October 2026
+
+Reviewed the original working draft and all six graphics embedded in the supplied Useful Figures.docx. Replaced simplistic opening schematics with original vector installation, layered architecture and experimental workflow diagrams; added an explicit question-to-receipt flowchart. Restored inverter-centred identity, persistent installation memory and status-first interaction in the methodology narrative. Physical gateways, authorized remote access and verified service feedback remain proposed. No new experimental result or field-validation claim was introduced.
+
+Generated v5 Word and matching PDF (21 pages), separate Overleaf PDF (22 pages), and self-contained 24-file Overleaf ZIP. Eight vector PDF figures, four editable SVGs, 300 dpi Word images, five research tables and fourteen abbreviations. Checked all source paragraphs in Word, title-page order, updated contents/lists, figure/input hashes, references, LaTeX diagnostics and PDF boundaries; visually reviewed every page of both layouts. Updated email attachment names. Accepted abstract and frozen experimental archives unchanged; nothing submitted, emailed or pushed.
+
+## Focused submission revision v6 - 6 October 2026
+
+Adopted user-approved editorial synthesis: restored v4 care loop, evidence boundary and compact access matrix; retained v5 question-to-evidence flowchart. Moved broader physical/product architecture into docs/architecture. Removed RQ4 framing and timing numbers from the main abstract/conclusion; retained concise secondary timing methods/results. Preserved the full timing methods, results, table and plot in paper/TIMING_SUPPLEMENT.md and a two-page Word/PDF supplement, with an expanded verified reproducibility ZIP. All primary experimental values and failed pilot results unchanged. No new experiments.
+
+V6 main Word/PDF and Overleaf PDF are 19 pages, seven figures, four research tables, twelve references and fourteen abbreviations. Exporter encoding issue fixed; clean exports rerun. Checked source paragraphs, title-page order, contents/list fields, references, figure hashes, PDF boundaries and all rendered pages. Overleaf ZIP contains 21 files. Email draft and submission links updated. Accepted abstract unchanged; no push or external submission.
+
+## Final submission packaging and publication - 6 October 2026
+
+User selected the focused paper and authorized repository organization and remote updates. Installed stable, unversioned submission filenames; the main Word/PDF are byte-identical to the selected manuscript. Removed the internal revision label from Supplement S1. Preserved old documents in the ignored local submission archive. Added paper/README.md, clean submission notes, an email draft and file-hash manifest; moved detailed editorial notes to SUBMISSION_HISTORY.md. Only approved final deliverables are allowlisted for Git. Credentials, contact configuration, editor settings, original supplied reference documents and prior drafts remain excluded.
+
+Verified 288 benchmark episodes / 3,456 predictions, 54,144 timing decisions / 119,808 schedule outcomes, all checked archive hashes, seven vector manuscript figures and twelve references. Static site builds 135 reviewed assets. Full pytest suite: 120 passed; added testpaths=tests to avoid collecting frozen snapshot copies. Checked final-file hashes, PDF bounds, archive integrity and credential exclusion. Email remains a draft for the author to send; no conference submission performed.

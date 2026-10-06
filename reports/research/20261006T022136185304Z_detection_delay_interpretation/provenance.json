@@ -1,0 +1,11 @@
+{
+  "source_archive": "20261006T022136185304Z_detection_delay",
+  "source_manifest_sha256": "857edc7d9690fc3bbb5be882dd31c7f3993248c29b4c7129efc50890e17dfe2d",
+  "builder_sha256": "3a5f8d8198adfe815c31c58373d1fd489b5655ccd7fde9613bb66487d696cfde",
+  "artifact_sha256": {
+    "REPORT.md": "153f96306543f0bff4ef4961d516922212e7f873c4d1166bc5d6f6d0b61143fb",
+    "detection_delay.pdf": "915c9afde0eb4cd15ae9b50c69b17b8d6f62c6b5392a1029271929a911414840",
+    "detection_delay.png": "80870f5129bc24d726a392918f635b292b54ea21dfc9a86feea5c89fe9824e04",
+    "validation.json": "86b796964e23c011a75a7d8df788f88c2f5e940fbf985842f0f576da76973fd3"
+  }
+}

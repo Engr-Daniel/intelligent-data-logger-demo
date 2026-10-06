@@ -13,4 +13,31 @@ data/processed/*.sqlite
 data/research/
 
 .site/
-paper/submission/
+paper/submission/*
+
+# Local LaTeX compilation products; editable sources and vector figures are tracked.
+paper/overleaf/*.aux
+paper/overleaf/*.bbl
+paper/overleaf/*.blg
+paper/overleaf/*.log
+paper/overleaf/*.out
+paper/overleaf/*.xdv
+paper/overleaf/main.pdf
+
+# Approved NASEF submission deliverables; local draft history stays private.
+!paper/submission/NASEF2026_Full_Paper_Oyewale_Meyer-Petgrave.docx
+!paper/submission/NASEF2026_Full_Paper_Oyewale_Meyer-Petgrave.pdf
+!paper/submission/NASEF2026_Timing_Supplement.docx
+!paper/submission/NASEF2026_Timing_Supplement.pdf
+!paper/submission/NASEF2026_Timing_Reproducibility.zip
+!paper/submission/NASEF2026_Full_Paper_Overleaf.pdf
+!paper/submission/NASEF2026_Overleaf.zip
+!paper/submission/SUBMISSION_MANIFEST.json
+
+# Per-user editor configuration.
+.vscode/
+
+# Generated LaTeX contents/list indexes.
+paper/overleaf/*.toc
+paper/overleaf/*.lof
+paper/overleaf/*.lot

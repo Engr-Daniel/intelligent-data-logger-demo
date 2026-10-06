@@ -1,0 +1,20 @@
+{
+  "conference": "43rd National Solar Energy Forum/Conference (NASEF 2026)",
+  "subtheme": "Sub-theme V: Innovation and Emerging Technologies for Accelerating Solar Energy Deployment",
+  "abbreviations": {
+    "AC": "Alternating current",
+    "AI": "Artificial intelligence",
+    "API": "Application programming interface",
+    "BMS": "Battery management system",
+    "DC": "Direct current",
+    "JSON": "JavaScript Object Notation",
+    "LIME": "Local interpretable model-agnostic explanations",
+    "MCAR": "Missing completely at random",
+    "NASEF": "National Solar Energy Forum",
+    "PV": "Photovoltaic",
+    "RQ": "Research question",
+    "SHAP": "SHapley Additive exPlanations",
+    "SOC": "State of charge",
+    "UTC": "Coordinated Universal Time"
+  }
+}

@@ -1,6 +1,6 @@
 # Research and publication tasks
 
-Updated 28 September 2026. Earlier planning lists are superseded by this status;
+Updated 6 October 2026. Earlier planning lists are superseded by this status;
 historical decisions and failed runs remain in MEMORY.md and the archives.
 
 ## Completed
@@ -50,3 +50,41 @@ development pilot. It does not establish field accuracy or validated hardware.
 - [x] Document proposed field-data sources, acquisition, quality and independent labels.
 - [x] Preserve frozen experimental results and disclose that the field plan is prospective.
 - [x] Regenerate the abstract and complete-paper Word files for author review.
+
+## Full paper and Overleaf (5 October 2026)
+
+- [x] Record author-reported oral-presentation acceptance; no full-paper template supplied.
+- [x] Review supplied report and proposed graphics against implementation and archives.
+- [x] Revise full manuscript; preserve the accepted abstract source and frozen experiments.
+- [x] Create main.tex, references.bib and five vector figures with reproducible generators.
+- [x] Compile, inspect all 13 PDF pages and package/independently compile the self-contained Overleaf ZIP.
+
+## Exploratory timing extension (6 October 2026)
+
+- [x] Specify exploratory protocol before running; disclose prior exposure to draft claims.
+- [x] Implement schedules, phase averaging, persistence and missed-detection handling.
+- [x] Run all 24 frozen installations; preserve 54,144 daily receipts and source snapshots.
+- [x] Verify input fingerprints, 1,152 final labels and 119,808 phase-level outcomes.
+- [x] Pass 24 relevant tests; generate and visually inspect vector/300-dpi figures.
+- [x] Incorporate audited exploratory results and corrected claims into the full paper.
+
+## Full-paper v3 - 6 October 2026
+
+- [x] Integrate Fitzroy's Nigerian aftercare motivation with verified, bounded sources.
+- [x] Incorporate audited exploratory timing methods, outcomes and limitations.
+- [x] Update seven vector figures and prepare the timing reproducibility supplement.
+- [x] Compile and visually review 16 pages; independently compile the exact upload ZIP.
+- [ ] Authors review the v3 full paper and confirm any organizer-specific submission format.
+
+## Full-paper v4 submission formats
+
+- [x] Restore Fitzroy's motivation with accurate hypothesis boundaries.
+- [x] Add NASEF/Sub-theme V heading, contents, figure/table lists and abbreviations.
+- [x] Build matching Word/PDF, populate page numbers and inspect layout.
+- [x] Draft submission email; user will send both formats personally.
+
+- [x] Rebuild full-paper v5 with original system architecture, physical installation and conversation workflow figures; export and review Word/PDF/Overleaf files.
+
+- [x] Prepare focused v6 submission: v4 methodology, explicit question-to-evidence flow, and separate exploratory timing supplement; review both manuscript formats.
+
+- [x] Select final manuscript, create unversioned submission files, archive drafts locally, update paper navigation and email draft, and verify 120 tests plus archive/site checks before publication.
