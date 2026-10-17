@@ -22,6 +22,9 @@ Original hosted prototype: [Intelligent Data Logger Experiment Explorer](https:/
 
 ## Current evidence and paper
 
+**[Research and product rationale](docs/RESEARCH_RATIONALE.md)**: the problem, the evidence that it matters,
+ROI and carbon-record capability, whether it could speed up solar adoption, and what remains unproven.
+
 **[NASEF 2026 submission documents](paper/README.md)** — final Word/PDF manuscript, Supplement S1, Overleaf source package and reproducibility files. The abstract was accepted for oral presentation; the full paper is prepared for author submission.
 
 - **Offline evaluation:** 24 synthetic installation seeds, 288 matched episodes,
